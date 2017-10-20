@@ -153,7 +153,7 @@
    defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
    defined but are out of scope for this document.  
    
-   The output lengths, in bits, of the SHAAKE hash functions is defined by the 
+   The output lengths, in bits, of the SHAKE hash functions is defined by the 
    parameter d. The corresponding collision and preimage resistance security levels 
    for SHAKE128 and SHAKE256 are respectively min(d/2,128) and min(d,128) and  
    min(d/2,128) and min(d,128). The OIDs (Object Identifiers) for these two
