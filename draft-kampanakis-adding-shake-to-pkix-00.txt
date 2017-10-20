@@ -1,0 +1,280 @@
+
+
+
+
+LAMPS WG                                                   P. Kampanakis
+Internet-Draft                                             Cisco Systems
+Intended status: Standards Track                                 Q. Dang
+Expires: April 23, 2018                                             NIST
+                                                               S. Turner
+                                                                   sn3rd
+                                                        October 20, 2017
+
+
+                   Put Your Internet Draft Title Here
+                draft-kampanakis-adding-shake-to-pkix-00
+
+Abstract
+
+   This document describes the conventions for using the SHAKE family of
+   hash functions in the Internet X.509 PKI as one-way hash functions
+   and with the DSA, ECDSA and EdDSA signature algorithm; the
+   conventions for the associated subject public keys are also
+   described.  Digital signatures are used to sign messages,
+   certificates and CRLs (Certificate Revocation Lists).
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on April 23, 2018.
+
+Copyright Notice
+
+   Copyright (c) 2017 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+
+
+
+Kampanakis, et al.       Expires April 23, 2018                 [Page 1]
+
+Internet-Draft              Abbreviated Title               October 2017
+
+
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Algorithm support . . . . . . . . . . . . . . . . . . . . . .   2
+     2.1.  SHAKE One-Way Hash Functions  . . . . . . . . . . . . . .   2
+     2.2.  Signature Algorithms  . . . . . . . . . . . . . . . . . .   3
+       2.2.1.  RSA with SHAKE  . . . . . . . . . . . . . . . . . . .   3
+       2.2.2.  DSA with SHAKE  . . . . . . . . . . . . . . . . . . .   3
+       2.2.3.  ECDSA with SHAKE  . . . . . . . . . . . . . . . . . .   3
+       2.2.4.  EdDSA with SHAKE  . . . . . . . . . . . . . . . . . .   3
+     2.3.  Public Keys . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   4
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   4
+     6.2.  Informative References  . . . . . . . . . . . . . . . . .   4
+   Appendix A.  ASN.1 module . . . . . . . . . . . . . . . . . . . .   5
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   5
+
+1.  Introduction
+
+   EDNOTE: More here.
+
+2.  Algorithm support
+
+   This section describes cryptographic algorithms which may be used
+   with the Internet X.509 Certificate and CRL profile [RFC5280].  This
+   section describes one-way hash functions and digital signature
+   algorithms which may be used to sign certificates and CRLs, and
+   identifies OIDs (Object Identifiers) for public keys contained in a
+   certificate.
+
+2.1.  SHAKE One-Way Hash Functions
+
+   The SHA-3 family of one-way hash functions is specified in [SHA3] In
+   the SHA-3 family, two extendable-output functions, called SHAKE128
+   and SHAKE256 are defined.  Four hash functions, SHA3-224, SHA3-256,
+   SHA3-384, and SHA3-512 are also defined but are out of scope for this
+   document.  The output lengths, in bits, of the SHAAKE hash functions
+   is defined by the parameter d.  The corresponding collision and
+   preimage resistance security levels for SHAKE128 and SHAKE256 are
+   respectively min(d/2,128) and min(d,128) and min(d/2,128) and
+
+
+
+Kampanakis, et al.       Expires April 23, 2018                 [Page 2]
+
+Internet-Draft              Abbreviated Title               October 2017
+
+
+   min(d,128).  The OIDs (Object Identifiers) for these two hash
+   functions are as follows:
+
+      id-shake128 OBJECT IDENTIFIER ::= { }
+
+      id-shake256 OBJECT IDENTIFIER ::= { }
+
+2.2.  Signature Algorithms
+
+2.2.1.  RSA with SHAKE
+
+   EDNOTE: More here.
+
+      shake128WithRSAEncryption OBJECT IDENTIFIER ::= { }
+
+      shake256withRSAEncryption OBJECT IDENTIFIER ::= { }
+
+2.2.2.  DSA with SHAKE
+
+   EDNOTE: More here.
+
+      id-dsa-with-shake128 OBJECT IDENTIFIER ::= { }
+
+      id-dsa-with-shake256 OBJECT IDENTIFIER ::= { }
+
+2.2.3.  ECDSA with SHAKE
+
+   EDNOTE: More here.
+
+      id-ecdsa-with-shake128 OBJECT IDENTIFIER ::= { }
+
+      id-ecdsa-with-shake256 OBJECT IDENTIFIER ::= { }
+
+2.2.4.  EdDSA with SHAKE
+
+   EDNOTE: More here.
+
+      id-eddsa-with-shake128 OBJECT IDENTIFIER ::= { }
+
+      id-eddsa-with-shake256 OBJECT IDENTIFIER ::= { }
+
+2.3.  Public Keys
+
+   The conventions for RSA, DSA, ECDSA and EdDSA public keys are as
+   specified in [RFC3279], [RFC5480] and [I-D.josefsson-pkix-eddsa].
+
+
+
+
+
+
+Kampanakis, et al.       Expires April 23, 2018                 [Page 3]
+
+Internet-Draft              Abbreviated Title               October 2017
+
+
+3.  Acknowledgements
+
+   EDNOTE: More here.
+
+4.  IANA Considerations
+
+   IANA is kindly requested to register two OIDs in the SMI Security for
+   PKIX Module Identifier registry for the ASN.1 modules found in
+   Appendix A.  The description is as follows:
+
+      EDNOTE: More here
+
+   where the four digits at the end represent the ASN.1's publication
+   date.
+
+5.  Security Considerations
+
+   EDNOTE: More here.
+
+6.  References
+
+6.1.  Normative References
+
+   [I-D.josefsson-pkix-eddsa]
+              Josefsson, S. and N. Mavrogiannopoulos, "Using EdDSA with
+              Ed25519/Ed448 in the Internet X.509 Public Key
+              Infrastructure", draft-josefsson-pkix-eddsa-04 (work in
+              progress), October 2015.
+
+   [RFC3279]  Bassham, L., Polk, W., and R. Housley, "Algorithms and
+              Identifiers for the Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 3279, DOI 10.17487/RFC3279, April
+              2002, <https://www.rfc-editor.org/info/rfc3279>.
+
+   [RFC5480]  Turner, S., Brown, D., Yiu, K., Housley, R., and T. Polk,
+              "Elliptic Curve Cryptography Subject Public Key
+              Information", RFC 5480, DOI 10.17487/RFC5480, March 2009,
+              <https://www.rfc-editor.org/info/rfc5480>.
+
+6.2.  Informative References
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/info/rfc5280>.
+
+
+
+
+Kampanakis, et al.       Expires April 23, 2018                 [Page 4]
+
+Internet-Draft              Abbreviated Title               October 2017
+
+
+   [SHA3]     National Institute of Standards and Technology, U.S.
+              Department of Commerce, FIPS PUB 202, "SHA-3 Standard -
+              Permutation-Based Hash and Extendable-Output Functions",
+              August 2015, <https://www.nist.gov/publications/sha-3-
+              standard-permutation-based-hash-and-extendable-output-
+              functions>.
+
+Appendix A.  ASN.1 module
+
+   EDNOTE: More here.
+
+Authors' Addresses
+
+   Panos Kampanakis
+   Cisco Systems
+
+   Email: pkampana@cisco.com
+
+
+   Quynh Dang
+   NIST
+   100 Bureau Drive, Stop 8930
+   Gaithersburg, MD  20899-8930
+   USA
+
+   Email: quynh.dang@nist.gov
+
+
+   Sean Turner
+   sn3rd
+
+   Email: sean@sn3rd.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kampanakis, et al.       Expires April 23, 2018                 [Page 5]

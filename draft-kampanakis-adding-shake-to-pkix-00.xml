@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- This template is for creating an Internet Draft using xml2rfc,
+     which is available here: http://xml.resource.org. -->
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- One method to get references from the online citation libraries.
+     There has to be one entity for each item to be referenced. 
+     An alternate method (rfc include) is described in the references. -->
+
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3279 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3279.xml">
+<!ENTITY RFC5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
+<!ENTITY RFC5480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5480.xml">
+<!ENTITY I-D.draft-josefsson-pkix-eddsa SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-josefsson-pkix-eddsa-04.xml">
+]> 
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs), 
+     please see http://xml.resource.org/authoring/README.html. -->
+<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
+     (Here they are set differently than their defaults in xml2rfc v1.32) -->
+<?rfc strict="yes" ?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="4"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space 
+     (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<rfc category="std" docName="draft-kampanakis-adding-shake-to-pkix-00" ipr="trust200902">
+  <!-- category values: std, bcp, info, exp, and historic
+     ipr="full3978" (probably old)
+     ipr values: full3667, noModification3667, noDerivatives3667
+     you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+     they will automatically be output with "(if approved)" -->
+
+  <!-- ***** FRONT MATTER ***** -->
+
+  <front>
+    <!-- The abbreviated title is used in the page header - it is only necessary if the 
+         full title is longer than 39 characters -->
+
+    <title abbrev="Abbreviated Title">Put Your Internet Draft Title
+    Here</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+    <author fullname="Panos Kampanakis" initials="P.K."
+            surname="Kampanakis">
+      <organization>Cisco Systems</organization>
+      <address>
+        <email>pkampana@cisco.com</email>
+      </address>
+    </author>
+    <author fullname="Quynh Dang" initials="Q.D."
+            surname="Dang">
+      <organization>NIST</organization>
+      <address>
+         <postal>
+          <street>100 Bureau Drive, Stop 8930</street>
+          <city>Gaithersburg</city>
+          <region>MD</region>
+          <code>20899-8930</code>
+          <country>USA</country>
+        </postal>
+        <!-- <phone>+44 7889 488 335</phone> -->
+        <email>quynh.dang@nist.gov</email>
+        <!-- uri and facsimile elements may also be added -->
+      </address>
+    </author>
+
+    <author fullname="Sean Turner" initials="S.T."
+            surname="Turner">
+      <organization>sn3rd</organization>
+      <address>
+        <!-- <postal>
+          <street></street>
+          <city>Soham</city>
+          <region></region>
+          <code></code>
+          <country>UK</country>
+        </postal>
+        <phone>+44 7889 488 335</phone> -->
+        <email>sean@sn3rd.com</email>
+        <!-- uri and facsimile elements may also be added -->
+      </address>
+    </author>
+
+    <date month="October" year="2017" />
+
+    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
+         in the current day for you. If only the current year is specified, xml2rfc will fill 
+	 in the current day and month for you. If the year is not the current one, it is 
+	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the 
+	 purpose of calculating the expiry date).  With drafts it is normally sufficient to 
+	 specify just the year. -->
+
+    <!-- Meta-data Declarations -->
+
+    <area>General</area>
+    <workgroup>LAMPS WG</workgroup>
+
+    <!-- WG name at the upperleft corner of the doc,
+         IETF is fine for individual submissions.  
+	 If this element is not present, the default is "Network Working Group",
+         which is used by the RFC Editor as a nod to the history of the IETF. -->
+
+    <!-- <keyword>template</keyword> -->
+
+    <!-- Keywords will be incorporated into HTML output
+         files in a meta tag but they have no effect on text or nroff
+         output. If you submit your draft to the RFC Editor, the
+         keywords will be used for the search engine. -->
+
+    <abstract>
+      <t>This document describes the conventions for using the SHAKE family of
+   hash functions in the Internet X.509 PKI as one-way hash functions
+   and with the DSA, ECDSA and EdDSA signature algorithm; the conventions for the
+   associated subject public keys are also described.  Digital
+   signatures are used to sign messages, certificates and CRLs (Certificate
+   Revocation Lists).</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>EDNOTE: More here.</t>
+    </section>
+
+    <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
+
+    <?rfc needLines="8" ?>
+
+    <section title="Algorithm support">
+	  <t>This section describes cryptographic algorithms which may be used
+   with the Internet X.509 Certificate and CRL profile <xref target="RFC5280"/>.  
+   This section describes one-way hash functions and digital signature
+   algorithms which may be used to sign certificates and CRLs, and
+   identifies OIDs (Object Identifiers) for public keys contained in a
+   certificate.</t>
+      <section title="SHAKE One-Way Hash Functions">
+        <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>
+   In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
+   defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
+   defined but are out of scope for this document.  
+   
+   The output lengths, in bits, of the SHAAKE hash functions is defined by the 
+   parameter d. The corresponding collision and preimage resistance security levels 
+   for SHAKE128 and SHAKE256 are respectively min(d/2,128) and min(d,128) and  
+   min(d/2,128) and min(d,128). The OIDs (Object Identifiers) for these two
+   hash functions are as follows: 
+   <list>
+    <t>id-shake128 OBJECT IDENTIFIER ::= { 
+											}</t>
+    <t>id-shake256 OBJECT IDENTIFIER ::= { 
+											}</t>
+    </list>
+   </t>
+      </section>
+
+      <section title="Signature Algorithms">
+        <section title="RSA with SHAKE">
+          <t>EDNOTE: More here.</t>
+		  <t>
+		     <list>
+			   <t>shake128WithRSAEncryption  OBJECT IDENTIFIER  ::=  { 
+																		}</t>
+			   <t>shake256withRSAEncryption OBJECT IDENTIFIER ::= { 
+																	}</t>
+			 </list></t>
+        </section>
+		
+        <section title="DSA with SHAKE">
+          <t>EDNOTE: More here.</t>
+		  <t>
+		     <list>
+			   <t>id-dsa-with-shake128 OBJECT IDENTIFIER ::= { 
+														}</t>
+			   <t>id-dsa-with-shake256 OBJECT IDENTIFIER ::= { 
+														}</t>
+			   </list></t>
+        </section>
+
+        <section title="ECDSA with SHAKE">
+          <t>EDNOTE: More here.</t>
+		  <t>
+		     <list>
+			   <t>id-ecdsa-with-shake128 OBJECT IDENTIFIER ::= { 
+														}</t>
+			   <t>id-ecdsa-with-shake256 OBJECT IDENTIFIER ::= { 
+														}</t>
+			   </list></t>
+        </section>
+			  
+        <section title="EdDSA with SHAKE">
+          <t>EDNOTE: More here.</t>
+		  <t>
+		     <list>
+			   <t>id-eddsa-with-shake128 OBJECT IDENTIFIER ::= { 
+														}</t>
+			   <t>id-eddsa-with-shake256 OBJECT IDENTIFIER ::= { 
+														}</t>
+			   </list></t>
+        </section>
+      </section>
+	  <section title="Public Keys">
+        <t>The conventions for RSA, DSA, ECDSA and EdDSA public keys are as specified in 
+		<xref target="RFC3279"/>, <xref target="RFC5480"/> and <xref target="I-D.josefsson-pkix-eddsa"/>.</t>
+      </section>
+    </section>
+	
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>EDNOTE: More here.</t>
+    </section>
+
+    <!-- Possibly a 'Contributors' section ... -->
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>IANA is kindly requested to register two OIDs in the SMI Security for
+      PKIX Module Identifier registry for the ASN.1 modules found in
+      <xref target="asn"/>.  The description is as follows:
+      <list style="bulleted">
+       <t>EDNOTE: More here </t>
+      </list>
+      where the four digits at the end represent the ASN.1's publication
+      date.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>EDNOTE: More here.</t>
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <!-- References split into informative and normative -->
+
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+
+     Both are cited textually in the same manner: by using xref elements.
+     If you use the PI option, xml2rfc will, by default, try to find included files in the same
+     directory as the including file. You can also define the XML_LIBRARY environment variable
+     with a value containing a set of directories to search.  These can be either in the local
+     filing system or remote ones accessed by http (http://domain/dir/... ).-->
+
+    <references title="Normative References">
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+      <!-- &RFC2119; -->
+	  &RFC3279;
+	  &RFC5480;
+	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-josefsson-pkix-eddsa-04.xml"?>
+
+	  <!-- the following is the minimum to make xml2rfc happy -->
+      <!-- <reference anchor="min_ref">
+        <front>
+          <title>Minimal Reference</title>
+          <author initials="authInitials" surname="authSurName">
+            <organization></organization>
+          </author>
+          <date year="2006" />
+        </front>
+      </reference> -->
+    </references>
+
+    <references title="Informative References">
+      <!-- Here we use entities that we defined at the beginning. -->
+      <!--&RFC2629; -->
+      &RFC5280;
+
+      <!-- A reference written by by an organization not a person. -->
+      <reference anchor="SHA3" target="https://www.nist.gov/publications/sha-3-standard-permutation-based-hash-and-extendable-output-functions">
+        <front>
+          <title>SHA-3 Standard - Permutation-Based Hash and Extendable-Output Functions</title>
+          <author>
+            <organization>National Institute of Standards and Technology, U.S. Department of Commerce, FIPS PUB 202</organization>
+          </author>
+          <date month="August" year="2015" />
+        </front>
+      </reference>
+    </references>
+
+    <section anchor="asn" title="ASN.1 module">
+	  <t>EDNOTE: More here.</t>
+    </section>
+
+    <!-- Change Log
+
+v00 2017-10-31  PK   Initial version
+
+v01 2006-04-03  ...   ...-->
+  </back>
+</rfc>
