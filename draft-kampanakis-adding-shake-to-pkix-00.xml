@@ -139,26 +139,6 @@
    CRLs, and identifies OIDs (Object Identifiers) for public keys contained in 
    certificates.</t>
       <section title="SHAKE One-Way Hash Functions">
-<<<<<<< Updated upstream
-        <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>
-   In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
-   defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
-   defined but are out of scope for this document.  
-   
-   The output lengths, in bits, of the SHAKE hash functions is defined by the 
-   parameter d. The corresponding collision and preimage resistance security levels 
-   for SHAKE128 and SHAKE256 are respectively min(d/2,128) and min(d,128) and  
-   min(d/2,128) and min(d,128). The OIDs (Object Identifiers) for these two
-   hash functions are as follows: 
-   <list>
-    <t>id-shake128 OBJECT IDENTIFIER ::= { 
-											}</t>
-    <t>id-shake256 OBJECT IDENTIFIER ::= { 
-											}</t>
-    </list>
-   </t>
-      </section>
-=======
         <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/> 
 		In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
 		defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
@@ -182,9 +162,8 @@ id-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
 		<t>The output length, d, is always 256 and 512 bits for SHAKE128 and 
 		SHAKE256 respectively in this specification.</t>
     </section>
->>>>>>> Stashed changes
-
-      <section title="Signature Algorithms">
+	
+    <section title="Signature Algorithms">
         <section title="RSA with SHAKE">
           <t>EDNOTE: To be discussed by the WG if RSA with SHAKE is something to be covered. </t>
 		  <t>

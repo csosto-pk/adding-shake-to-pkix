@@ -389,8 +389,4 @@ Authors' Addresses
 
 
 
-<<<<<<< Updated upstream
-Kampanakis, et al.       Expires April 23, 2018                 [Page 5]
-=======
 Kampanakis & Dang        Expires April 28, 2018                 [Page 7]
->>>>>>> Stashed changes
