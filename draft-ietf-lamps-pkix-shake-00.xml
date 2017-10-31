@@ -216,7 +216,7 @@ id-dsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2)
 		  
 		  <t>When the id-dsa-with-shake128 or id-dsa-with-shake256 algorithm 
 		  identifier appears in the algorithm field as an AlgorithmIdentifier, 
-		  the encoding SHALL omit the parameters field.  That is, the 
+		  the encoding SHALL <!--EDNOTE: SHALL or MUST? --> omit the parameters field.  That is, the 
 		  AlgorithmIdentifier SHALL be a SEQUENCE of one component, the OID 
 		  id-dsa-with-shake128 or id-dsa-with-shake256. </t>
 		  
