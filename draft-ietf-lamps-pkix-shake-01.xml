@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- This template is for creating an Internet Draft using xml2rfc,
+     which is available here: http://xml.resource.org. -->
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- One method to get references from the online citation libraries.
+     There has to be one entity for each item to be referenced. 
+     An alternate method (rfc include) is described in the references. -->
+
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3279 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3279.xml">
+<!ENTITY RFC5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
+<!ENTITY RFC5480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5480.xml">
+<!ENTITY I-D.draft-josefsson-pkix-eddsa SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-josefsson-pkix-eddsa-04.xml">
+]> 
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs), 
+     please see http://xml.resource.org/authoring/README.html. -->
+<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
+     (Here they are set differently than their defaults in xml2rfc v1.32) -->
+<?rfc strict="yes" ?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="4"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space 
+     (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<rfc category="std" docName="draft-ietf-lamps-pkix-shake-01" ipr="trust200902">
+  <!-- category values: std, bcp, info, exp, and historic
+     ipr="full3978" (probably old)
+     ipr values: full3667, noModification3667, noDerivatives3667
+     you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+     they will automatically be output with "(if approved)" -->
+
+  <!-- ***** FRONT MATTER ***** -->
+
+  <front>
+    <!-- The abbreviated title is used in the page header - it is only necessary if the 
+         full title is longer than 39 characters -->
+
+    <title abbrev="Abbreviated Title">RSA and ECDSA Signatures with SHAKEs</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+    <author fullname="Panos Kampanakis" initials="P.K."
+            surname="Kampanakis">
+      <organization>Cisco Systems</organization>
+      <address>
+        <email>pkampana@cisco.com</email>
+      </address>
+    </author>
+    <author fullname="Quynh Dang" initials="Q.D."
+            surname="Dang">
+      <organization>NIST</organization>
+      <address>
+         <postal>
+          <street>100 Bureau Drive, Stop 8930</street>
+          <city>Gaithersburg</city>
+          <region>MD</region>
+          <code>20899-8930</code>
+          <country>USA</country>
+        </postal>
+        <!-- <phone>+44 7889 488 335</phone> -->
+        <email>quynh.dang@nist.gov</email>
+        <!-- uri and facsimile elements may also be added -->
+      </address>
+    </author>
+
+    <!-- <author fullname="Sean Turner" initials="S.T."
+            surname="Turner">
+      <organization>sn3rd</organization>
+      <address>
+        <postal>
+          <street></street>
+          <city>Soham</city>
+          <region></region>
+          <code></code>
+          <country>UK</country>
+        </postal>
+        <phone>+44 7889 488 335</phone>
+        <email>sean@sn3rd.com</email> 
+      </address>
+    </author> -->
+
+    <date month="March" year="2018" />
+
+    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
+         in the current day for you. If only the current year is specified, xml2rfc will fill 
+	 in the current day and month for you. If the year is not the current one, it is 
+	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the 
+	 purpose of calculating the expiry date).  With drafts it is normally sufficient to 
+	 specify just the year. -->
+
+    <!-- Meta-data Declarations -->
+
+    <area>General</area>
+    <workgroup>LAMPS WG</workgroup>
+
+    <!-- WG name at the upperleft corner of the doc,
+         IETF is fine for individual submissions.  
+	 If this element is not present, the default is "Network Working Group",
+         which is used by the RFC Editor as a nod to the history of the IETF. -->
+
+    <!-- <keyword>template</keyword> -->
+
+    <!-- Keywords will be incorporated into HTML output
+         files in a meta tag but they have no effect on text or nroff
+         output. If you submit your draft to the RFC Editor, the
+         keywords will be used for the search engine. -->
+
+    <abstract>
+      <t>This document describes the conventions for using the SHAKE family of 
+	  hash functions in the Internet X.509 PKI as one-way hash functions 
+	  with the RSA and ECDSA signature algorithms; the 
+	  conventions for the associated subject public keys are also 
+	  described. Digital signatures are used to sign messages, 
+	  certificates and CRLs (Certificate Revocation Lists).</t>
+    </abstract>
+  </front>
+
+  <middle>
+  
+    <section title="Change Log">
+      <t><list style="symbols"> 
+	    <t>draft-kampanakis-adding-shake-to-pkix-01:
+		  <list> 
+	      <t>Initial version</t>
+	    </list></t>
+	  </list></t>
+    </section>
+
+    <section title="Introduction">
+      <t>EDNOTE: More here.</t>
+    </section>
+
+    <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
+
+    <?rfc needLines="8" ?>
+
+    <section title="Algorithm support">
+	  <t>This section describes several cryptographic algorithms which may be used 
+   with the Internet X.509 Certificate and CRL profile <xref target="RFC5280"/>.  This 
+   section describes two one-way hash functions and digital signature 
+   algorithms using these functions, which may be used to sign certificates and 
+   CRLs, and identifies OIDs (Object Identifiers) for public keys contained in 
+   certificates.</t>
+      <section title="One-way Extensible-Output-Function SHAKEs">
+        <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
+		In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
+		defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
+		defined but are out of scope for this document. The output lengths, in bits, of 
+		the SHAKE hash functions is defined by the parameter d. The corresponding 
+		collision and preimage resistance security levels for SHAKE128 and SHAKE256 
+		are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256). 
+		The OIDs (Object Identifiers) for these two hash functions are as follows: </t>
+		<t><list>
+			<t><figure><artwork><![CDATA[
+  id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
+		country(16) us(840) organization(1) gov(101) csor(3)
+		nistalgorithm(4) hashalgs(2) 17 } 
+				
+   ShakeOutputLen ::= INTEGER -- Output length in bits
+           
+   When using the id-shake128-len algorithm identifier, the parameters
+   MUST be present, and the parameter MUST contain an encoded
+   positive integer value at least 256 in this specification.
+				
+]]></artwork></figure></t>	
+			<t><figure><artwork><![CDATA[
+   id-shake256-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
+		country(16) us(840) organization(1) gov(101) csor(3)
+		nistalgorithm(4) hashalgs(2) 18 }   
+			
+   ShakeOutputLen ::= INTEGER -- Output length in bits
+         
+   When using the id-shake256-len algorithm identifier, the parameters
+   MUST be present, and the parameter MUST contain an encoded
+   positive integer value at least 512 in this specification.
+			   
+]]></artwork></figure></t>
+		</list></t> 
+		
+    </section>
+    <section title="Fixed-ouput-length Hash functions: SHAKE128 and SHAKE256">
+       <t>When SHAKE128 or SHAKE256 is used as a hash function to hash a message before it gets signed in this specification,
+       its output-length d must be either 256 or 512 respectively. In this case, the parameters
+   MUST be present, and the parameter MUST contain an encoded
+   positive integer value either 256 or 512 for id-shake128-len or  id-shake256-len algorithm identifier respectively in this specification. </t>
+       
+
+       
+       </section>
+    <section title="Mask Generation Functions with SHAKE128 and SHAKE256">
+    <t>The mask generation function is used with the RSASSA-PSS signature
+   algorithm is MGF1 [P1v2.1].
+   
+
+   MGF1 is identified by the following object identifier:
+
+      id-mgf1  OBJECT IDENTIFIER  ::=  { pkcs-1 8 }
+
+   The parameters field associated with id-mgf1 MUST have a
+   hashAlgorithm value which identifies the hash function being used
+   with MGF1.  This hash algorithm id MUST be id-shake128-len
+   or id-shake256-len as specified in Section 3.1 above. 
+   
+   When id-shake128-len or id-shake256-len algorithm identifier is used, the ShakeOutputLen paramater must be
+   (n -264) or (n - 520) respectively, where n is the RSA modulus. For example, when RSA modulus n is 2048 or 3072 bits,
+   ShakeOutputLen must be 1784 or 2552 respectively. </t>
+       
+       </section>
+	
+    <section title="Signature Algorithms with SHAKEs">
+       <t></t>
+        <section title="RSASSA-PSS Signature Algorithm with SHAKEs">
+           <t>RSASSA-PSS signature algorithm and its algorithm identifier are specifed in [RFC 4055], this section
+           addes 2 new hash algorithm choices and 2 new choices for mask generation functions as specified above.
+           
+           When SHAKE128 or SHAKE256 is used as the hash algorithm, it must also be used as the mask generation function.
+           
+           When SHAKE128 or SHAKE256 is used, the paramater saltLength must be 32 or 64 respectively. </t>
+        </section>
+		
+
+
+        <section title="ECDSA with SHAKEs">
+          <t>The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in 
+		  "Public Key Cryptography for the Financial Services Industry: The 
+		  Elliptic Curve Digital Signature Standard (ECDSA)" <xref target="X9.62"/>. 
+		  The ASN.1 OIDs of ECDSA signature algorithms using SHAKE128 and SHAKE256, 
+		  are below: </t> 
+
+    	  <t><list>
+		    <t><figure><artwork><![CDATA[
+id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
+			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
+			id-ecdsa-with-shake(3) x }
+]]></artwork></figure></t>
+			<t><figure><artwork><![CDATA[
+id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
+			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
+			id-ecdsa-with-shake(3) y }
+]]></artwork></figure></t>
+		  </list></t> 
+		  
+		  <t>EDNOTE: "x" and "y" will be specified by NIST later. </t>
+		  
+		  <t>When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256, 
+		  algorithm identifier appears in the algorithm field 
+		  as an AlgorithmIdentifier, the encoding MUST omit the parameters 
+		  field. That is, the AlgorithmIdentifier SHALL be a SEQUENCE of one 
+		  component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.</t>
+		  
+		  <t>Conforming CA implementations MUST specify the hash algorithm 
+		  explicitly using the OIDs specified in Section 3.2 above when encoding ECDSA/SHAKE 
+		  signatures in certificates and CRLs.</t>
+		  
+		  <t>Conforming client implementations that process ECDSA signatures with 
+		  any of the SHAKE hash algorithms when processing certificates and CRLs 
+		  MUST recognize the corresponding OIDs specified in Sections 3.1 and 3.2 above.</t>
+		  
+		  <t>Encoding rules for ECDSA signature values are specified in 
+		  <xref target="RFC3279"/>, Section 2.2.3, and <xref target="RFC5480"/>.</t> 
+		  
+		  <t>Conforming CA implementations that generate ECDSA signatures in 
+		  certificates or CRLs MUST generate such ECDSA signatures in 
+		  accordance with all the requirements specified in Sections 7.2 and 
+		  7.3 of <xref target="X9.62"/> or with all the requirements specified in Section 
+		  4.1.3 of <xref target="SEC1"/>. They MAY also generate such ECDSA 
+		  signatures in accordance with all the recommendations in <xref target="X9.62"/> or 
+		  <xref target="SEC1"/> if they have a stated policy that requires 
+		  conformance to these standards. These standards above may have not specified 
+		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
+		  SHAKE256 with output length being 256 and 512 bits respectively are 
+		  subtitutions for 256 and 512-bit output hash algorithms such as SHA256 
+		  and SHA512 used in the standards.</t>
+		  
+		  
+        </section>
+		
+        <!-- <section title="EdDSA with SHAKE">
+          <t>EDNOTE: For the group to decide: pre-hash version or non-prehash version EdDSAs. PureEdDSA, the pre-hashed version of EdDSA, as currently also proposed in draft-ietf-curdle-cms-eddsa-signatures mandates the hash function as SHA512 for Ed25519 and SHAKE256(x,64) for Ed448. The HashEdDSA version of EdDSA does not define the hash. It is up to the WG to go the Pre-hash route which would require an OID that contained the hash.</t>
+		  <t>
+		     <list>
+			   <t><figure><artwork><![CDATA[
+id-eddsa-with-shake128 OBJECT IDENTIFIER ::= { }
+]]></artwork></figure></t>
+			   <t><figure><artwork><![CDATA[
+id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
+]]></artwork></figure></t>
+			   </list></t>
+        </section> -->
+        
+	
+      </section>
+	  <section title="Public Keys">
+        <t>The conventions for RSA and ECDSA <!-- and EdDSA --> public keys are as specified in 
+		<xref target="RFC3279"/> and <xref target="RFC5480"/><!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->. </t>
+		<t>We include them here for convenience: </t>
+		<t>EDNOTE: Add the public key OIDs here.</t>
+		<t><list>
+		    <t><figure><artwork><![CDATA[
+...  OBJECT IDENTIFIER  ::=  { }
+]]></artwork></figure></t>
+			<t><figure><artwork><![CDATA[
+... OBJECT IDENTIFIER ::= { }
+]]></artwork></figure></t>
+		  </list></t>
+      </section>
+    </section> 
+	
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>We would like to thank Sean Turner for his valuable contributions to this document. </t>
+    </section>
+
+    <!-- Possibly a 'Contributors' section ... -->
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>IANA is kindly requested to register two OIDs in the SMI Security for
+      PKIX Module Identifier registry for the ASN.1 modules found in
+      <xref target="asn"/>.  The description is as follows:
+      <list style="symbols">
+       <t>EDNOTE: More here </t>
+      </list>
+      where the four digits at the end represent the ASN.1's publication
+      date.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+       
+       <t>SHAKE128 and SHAKE256 are one-way extensible-output functions. Their output length depends on
+       a required length of the consumming application. </t>
+       
+       <t>The SHAKEs are deterministic functions. Like any other deterministic functions, executing each function with the same input multiple times will produce the same output.
+       Therefore, users should not expect unrelated outputs (with the same or different output lengths) from excuting a SHAKE function with the same input multiple times. </t>
+      
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <!-- References split into informative and normative -->
+
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+
+     Both are cited textually in the same manner: by using xref elements.
+     If you use the PI option, xml2rfc will, by default, try to find included files in the same
+     directory as the including file. You can also define the XML_LIBRARY environment variable
+     with a value containing a set of directories to search.  These can be either in the local
+     filing system or remote ones accessed by http (http://domain/dir/... ).-->
+
+    <references title="Normative References">
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+      <!-- &RFC2119; -->
+	  &RFC3279;
+      &RFC5280;
+	  &RFC5480;
+	  <!-- <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-josefsson-pkix-eddsa-04.xml"?> -->
+      <reference anchor="SHA3" target="https://www.nist.gov/publications/sha-3-standard-permutation-based-hash-and-extendable-output-functions">
+        <front>
+          <title>SHA-3 Standard - Permutation-Based Hash and Extendable-Output Functions FIPS PUB 202</title>
+          <author>
+            <organization>National Institute of Standards and Technology</organization>
+          </author>
+          <date month="August" year="2015" />
+        </front>
+      </reference>
+
+	  <!-- the following is the minimum to make xml2rfc happy -->
+      <!-- <reference anchor="min_ref">
+        <front>
+          <title>Minimal Reference</title>
+          <author initials="authInitials" surname="authSurName">
+            <organization></organization>
+          </author>
+          <date year="2006" />
+        </front>
+      </reference> -->
+    </references>
+
+    <references title="Informative References">
+      <!-- Here we use entities that we defined at the beginning. -->
+      <!--&RFC2629; -->
+
+      <!-- References written by by an organization not a person. -->
+      <!-- <reference anchor="FIPS186-3" target="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">
+        <front>
+          <title>Digital Signature Standard (DSS) FIPS PUB 186-3</title>
+          <author>
+            <organization>National Institute of Standards and Technology</organization>
+          </author>
+          <date month="June" year="2009" />
+        </front>
+      </reference> -->
+      <reference anchor="FIPS186-4" target="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">
+        <front>
+          <title>Digital Signature Standard (DSS) FIPS PUB 186-4</title>
+          <author>
+            <organization>National Institute of Standards and Technology</organization>
+          </author>
+          <date month="July" year="2013" />
+        </front>
+      </reference>
+      <reference anchor="SEC1" target="http://www.secg.org/sec1-v2.pdf">
+        <front>
+          <title>SEC 1: Elliptic Curve Cryptography</title>
+          <author>
+            <organization>Standards for Efficient Cryptography Group</organization>
+          </author>
+          <date month="May" year="2009" />
+        </front>
+      </reference>
+      <reference anchor="X9.62">
+        <front>
+          <title>X9.62-2005 Public Key Cryptography for the Financial Services Industry: The Elliptic Curve Digital Signature Standard (ECDSA)</title>
+          <author>
+            <organization>American National Standard for Financial Services (ANSI)</organization>
+          </author>
+          <date month="November" year="2005" />
+        </front>
+      </reference>
+    </references>
+
+    <section anchor="asn" title="ASN.1 module">
+	  <t>EDNOTE: More here.</t>
+    </section>
+
+  </back>
+</rfc>
