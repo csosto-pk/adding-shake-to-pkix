@@ -119,11 +119,11 @@
     <!-- Keywords will be incorporated into HTML output
          files in a meta tag but they have no effect on text or nroff
          output. If you submit your draft to the RFC Editor, the
-         keywords will be used for the search engine. -->
+         keywords will be used for the searPKIch engine. -->
 
     <abstract>
       <t>This document describes the conventions for using the SHAKE family of 
-	  hash functions in the Internet X.509 PKI as one-way hash functions 
+	  hash functions in the Internet X.509 as one-way hash functions 
 	  with the RSA and ECDSA signature algorithms; the 
 	  conventions for the associated subject public keys are also 
 	  described. Digital signatures are used to sign messages, 
@@ -134,14 +134,15 @@
   <middle>
   
     <section title="Change Log">
-	  <t>[EDNOTE: Remove this section before publication. ]</t>
+	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
 	    <t>draft-ietf-lamps-pkix-shake-01:
 		  <list> 
 	      <t>Removed DSA after WG discussions.</t>
-		  <t>Updated shake OID names and parameter, added MGF1 section.</t>
+		  <t>Updated shake OID names and parameters, added MGF1 section.</t>
 		  <t>Updated RSASSA-PSS section.</t>
 		  <t>Added Public key algorithm OIDs.</t>
+		  <t>Populated Introduction and IANA sections.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-pkix-shake-00:
 		  <list> 
@@ -151,7 +152,10 @@
     </section>
 
     <section title="Introduction">
-      <t>EDNOTE: More here.</t>
+      <t>This document describes several cryptographic algorithms which may be used 
+	  with the Internet X.509 Certificate and CRL profile <xref target="RFC5280"/>. 
+	  It describes the OIDs for variable length SHAKE algorithms introduced in <xref target="SHA3"/> 
+	  and how they can be used in X.509 certificates. [ EDNOTE: Update here. ] </t>
     </section>
 
     <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
@@ -159,9 +163,7 @@
     <?rfc needLines="8" ?>
 
     <section title="Algorithm support">
-	  <t>This section describes several cryptographic algorithms which may be used 
-   with the Internet X.509 Certificate and CRL profile <xref target="RFC5280"/>.  This 
-   section describes two one-way hash functions and digital signature 
+	  <t>This section describes two one-way hash functions and digital signature 
    algorithms using these functions, which may be used to sign certificates and 
    CRLs, and identifies OIDs (Object Identifiers) for public keys contained in 
    certificates.</t>
@@ -169,32 +171,33 @@
         <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
 		In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
 		defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
-		defined but are out of scope for this document. The output lengths, in bits, of 
-		the SHAKE hash functions is defined by the parameter d. The corresponding 
-		collision and preimage resistance security levels for SHAKE128 and SHAKE256 
+		defined but are out of scope for this document. SHAKE is a variable length hash function. 
+		The output lengths, in bits, of the SHAKE hash functions is defined by the parameter d. 
+		The corresponding collision and preimage resistance security levels for SHAKE128 and SHAKE256 
 		are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256). 
-		The OIDs (Object Identifiers) for these two hash functions are as follows: </t>
+		The Object Identifiers (OIDs) for these two hash functions are as follows: </t>
+ 
 		<t><figure><artwork><![CDATA[
   id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
 		country(16) us(840) organization(1) gov(101) csor(3)
 		nistalgorithm(4) hashalgs(2) 17 } 
 				
-   ShakeOutputLen ::= INTEGER -- Output length in bits
+   ShakeOutputLen ::= INTEGER -- Output length in octets
 ]]></artwork></figure></t>
 		<t>When using the id-shake128-len algorithm identifier, the parameters 
 		MUST be present, and they MUST employ the ShakeOutputLen <!-- "MUST employ syntax borrowed from RFC4055 -->
-		syntax that contains an encoded positive integer value at least 256 
+		syntax that contains an encoded positive integer value at least 32  
 		in this specification.</t>
 		<t><figure><artwork><![CDATA[
    id-shake256-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
 		country(16) us(840) organization(1) gov(101) csor(3)
 		nistalgorithm(4) hashalgs(2) 18 }   
 			
-   ShakeOutputLen ::= INTEGER -- Output length in bits
+   ShakeOutputLen ::= INTEGER -- Output length in octets
 ]]></artwork></figure></t>
 		<t>When using the id-shake256-len algorithm identifier, the parameters 
 		MUST be present, and they MUST employ the ShakeOutputLen <!-- "MUST employ syntax borrowed from RFC4055 -->
-		syntax that contains an encoded positive integer value at least 512 
+		syntax that contains an encoded positive integer value at least 64 
 		in this specification.</t>	
 	  </section>
 	
@@ -213,7 +216,7 @@
 ]]></artwork></figure></t>
 
 	    <t>The parameters field associated with id-mgf1 MUST have a hashAlgorithm value that identifies 
-		the hash used with MGF1. To use SHAKE as this hash, the HashAlgorithm parameter MUST be 
+		the hash used with MGF1. To use SHAKE as this hash, this parameter MUST be 
 		id-shake128-len or id-shake256-len as specified in Section <xref target="xofs" /> above. </t>
       </section>
     </section> 
@@ -236,15 +239,15 @@
            
 		   <t>When SHAKE128 or SHAKE256 is used as the hashAlgorithm, it MUST also be used as the maskGenAlgorithm.</t>
 		   
-		   <t>When used as the hashAlgorithm, the SHAKE128 or SHAKE256 output-length must be either 256 
-		   or 512 respectively. In these cases, the parameters MUST be present, and they MUST employ 
+		   <t>When used as the hashAlgorithm, the SHAKE128 or SHAKE256 output-length must be either 32 
+		   or 64 respectively. In these cases, the parameters MUST be present, and they MUST employ 
 		   the ShakeOutputLen syntax that contains  <!-- "MUST employ syntax borrowed from RFC4055 --> 
-		   an encoded positive integer value of 256 or 512 for id-shake128-len or id-shake256-len algorithm 
+		   an encoded positive integer value of 32 or 64 for id-shake128-len or id-shake256-len algorithm 
 		   identifier respectively.</t>
 		   
-		   <t>When id-shake128-len or id-shake256-len algorithm identifier is used as the id-mfg1 HashAlgorithm 
-		   parameter, the ShakeOutputLen paramater must be (n - 264) or (n - 520) respectively for SHAKE128 and SHAKE256, 
-		   where n is the RSA modulus. For example, when RSA modulus n is 2048, ShakeOutputLen must be 1784 or 1528.  
+		   <t>When id-shake128-len or id-shake256-len algorithm identifier is used as the id-mfg1 maskGenAlgorithm 
+		   parameter, the ShakeOutputLen paramater must be (n - 264)/8 or (n - 520)/8 respectively for SHAKE128 and SHAKE256, 
+		   where n is the RSA modulus in bits. For example, when RSA modulus n is 2048, ShakeOutputLen must be 223 or 191   
 		   when id-shake128-len or id-shake256-lenis are used respectively.</t>
 		   
            <t>The paramater saltLength MUST be 32 or 64 respectively for the SHAKE128 and SHA256 OIDs.</t>
@@ -271,7 +274,7 @@
 ]]></artwork></figure></t>
 		  </list></t> 
 		  
-		  <t>EDNOTE: "x" and "y" will be specified by NIST later. </t>
+		  <t> [ EDNOTE: "x" and "y" will be specified by NIST later. ]</t>
 		  
 		  <t>When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256, 
 		  algorithm identifier appears in the algorithm field 
@@ -299,13 +302,13 @@
 		  <xref target="SEC1"/> if they have a stated policy that requires 
 		  conformance to these standards. These standards above may have not specified 
 		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
-		  SHAKE256 with output length being 256 and 512 bits respectively are 
+		  SHAKE256 with output length being 32 and 64 octets respectively are 
 		  subtitutions for 256 and 512-bit output hash algorithms such as SHA256 
 		  and SHA512 used in the standards.</t>		  
         </section>
 		
         <!-- <section title="EdDSA with SHAKE">
-          <t>EDNOTE: For the group to decide: pre-hash version or non-prehash version EdDSAs. PureEdDSA, the pre-hashed version of EdDSA, as currently also proposed in draft-ietf-curdle-cms-eddsa-signatures mandates the hash function as SHA512 for Ed25519 and SHAKE256(x,64) for Ed448. The HashEdDSA version of EdDSA does not define the hash. It is up to the WG to go the Pre-hash route which would require an OID that contained the hash.</t>
+          <t>[ EDNOTE: For the group to decide: pre-hash version or non-prehash version EdDSAs. PureEdDSA, the pre-hashed version of EdDSA, as currently also proposed in draft-ietf-curdle-cms-eddsa-signatures mandates the hash function as SHA512 for Ed25519 and SHAKE256(x,64) for Ed448. The HashEdDSA version of EdDSA does not define the hash. It is up to the WG to go the Pre-hash route which would require an OID that contained the hash. ] </t>
 		  <t>
 		     <list>
 			   <t><figure><artwork><![CDATA[
@@ -326,7 +329,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		<t><figure><artwork><![CDATA[
    rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
 ]]></artwork></figure></t>
-	    <t>Additionally, <xref target="RFC4055"/> add the corresponding RSASSA-PSS OID public key 
+	    <t>Additionally, <xref target="RFC4055"/> adds the corresponding RSASSA-PSS OID public key 
 		identifier and parameters (also shown in Section <xref target="rsassa-pss"/> of this document).</t>
 	    <t><figure><artwork><![CDATA[
    id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 10 }
@@ -356,14 +359,16 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     <!-- Possibly a 'Contributors' section ... -->
 
     <section anchor="IANA" title="IANA Considerations">
-      <t>IANA is kindly requested to register two OIDs in the SMI Security for
+      <!-- <t>IANA is kindly requested to register two OIDs in the SMI Security for
       PKIX Module Identifier registry for the ASN.1 modules found in
       <xref target="asn"/>.  The description is as follows:
       <list style="symbols">
-       <t>EDNOTE: More here </t>
+	    <t></t>
       </list>
       where the four digits at the end represent the ASN.1's publication
-      date.</t>
+      date.</t> -->
+	  <t>This document uses several registries that were originally created in <xref target="shake-nist-iods"/>. 
+	  No further registries are required. [ EDNOTE: Update here. ] </t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
@@ -423,7 +428,16 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           <date year="2006" />
         </front>
       </reference> -->
-    </references>
+       <reference anchor="shake-nist-iods" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
+        <front>
+          <title>Computer Security Objects Register</title>
+          <author>
+            <organization>National Institute of Standards and Technology</organization>
+          </author>
+          <date month="October" year="2017" />
+        </front>
+      </reference>
+	</references>
 
     <references title="Informative References">
       <!-- Here we use entities that we defined at the beginning. -->
@@ -437,15 +451,6 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
             <organization>National Institute of Standards and Technology</organization>
           </author>
           <date month="June" year="2009" />
-        </front>
-      </reference> -->
-      <!-- <reference anchor="FIPS186-4" target="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">
-        <front>
-          <title>Digital Signature Standard (DSS) FIPS PUB 186-4</title>
-          <author>
-            <organization>National Institute of Standards and Technology</organization>
-          </author>
-          <date month="July" year="2013" />
         </front>
       </reference> -->
       <reference anchor="SEC1" target="http://www.secg.org/sec1-v2.pdf">
@@ -469,7 +474,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     </references>
 
     <section anchor="asn" title="ASN.1 module">
-	  <t>EDNOTE: More here.</t>
+	  <t>[ EDNOTE: More here. ] </t>
     </section>
 
   </back>
