@@ -240,7 +240,7 @@
 		   <t>When SHAKE128 or SHAKE256 is used as the hashAlgorithm, it MUST also be used as the maskGenAlgorithm.</t>
 		   
 		   <t>When used as the hashAlgorithm, the SHAKE128 or SHAKE256 output-length must be either 32 
-		   or 64 respectively. In these cases, the parameters MUST be present, and they MUST employ 
+		   or 64 bytes respectively. In these cases, the parameters MUST be present, and they MUST employ 
 		   the ShakeOutputLen syntax that contains  <!-- "MUST employ syntax borrowed from RFC4055 --> 
 		   an encoded positive integer value of 32 or 64 for id-shake128-len or id-shake256-len algorithm 
 		   identifier respectively.</t>
@@ -248,9 +248,9 @@
 		   <t>When id-shake128-len or id-shake256-len algorithm identifier is used as the id-mfg1 maskGenAlgorithm 
 		   parameter, the ShakeOutputLen paramater must be (n - 264)/8 or (n - 520)/8 respectively for SHAKE128 and SHAKE256, 
 		   where n is the RSA modulus in bits. For example, when RSA modulus n is 2048, ShakeOutputLen must be 223 or 191   
-		   when id-shake128-len or id-shake256-lenis are used respectively.</t>
+		   when id-shake128-len or id-shake256-len is are used respectively.</t>
 		   
-           <t>The paramater saltLength MUST be 32 or 64 respectively for the SHAKE128 and SHA256 OIDs.</t>
+           <t>The paramater saltLength MUST be 32 or 64 bytes respectively for the SHAKE128 and SHA256 OIDs.</t>
            
         </section>
 		
