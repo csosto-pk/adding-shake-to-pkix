@@ -44,6 +44,22 @@
 	</front>
 
 	<middle>
+	
+    <section title="Change Log">
+	  <t>[ EDNOTE: Remove this section before publication. ]</t>
+      <t><list style="symbols"> 
+	    <t>draft-dang-lamps-cms-shakes-hash-01:
+		  <list> 
+		  <t>Various updates to title and section names.</t>
+		  <t>Content changes filling in text and references.</t>
+	    </list></t>
+	    <t>draft-dang-lamps-cms-shakes-hash-00:
+		  <list> 
+	      <t>Initial version</t>
+	    </list></t>
+	  </list></t>
+    </section>
+	
 	<section title="Introduction" anchor="section-1">
 	<t>The Cryptographic Message Syntax (CMS) <xref target="CMS"/> is used to digitally 
     sign, digest, authenticate, or encrypt arbitrary message contents. 
