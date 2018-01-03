@@ -328,145 +328,145 @@ Note: x and y will be specified by NIST.
 
 	<back>
 	<references title="Normative References">
-	&RFC3279;
-	&RFC4055;
-    &RFC5480;
-	&RFC8017;
-	<?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"?>
-	<?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml"?>
-	<reference anchor="ASN1-B"><front>
-	<title>Information technology -- Abstract Syntax Notation One (ASN.1): Specification of basic notation</title>
-	<author>
-	<organization>ITU-T</organization>
-	</author>
-
-	<date year="2015"/>
-	</front>
-
-	<seriesInfo name="ITU-T" value="Recommendation X.680"/>
-	</reference>
-	<reference anchor="ASN1-E"><front>
-	<title>Information technology -- ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)</title>
-	<author>
-	<organization>ITU-T</organization>
-	</author>
-
-	<date year="2015"/>
-	</front>
-
-	<seriesInfo name="ITU-T" value="Recommendation X.690"/>
-	</reference>
-	<reference anchor="CMS"><front>
-	<title>Cryptographic Message Syntax (CMS)</title>
-	<author fullname="R. Housley" initials="R." surname="Housley">
-	</author>
-
-	<date month="September" year="2009"/>
-	</front>
-
-	<seriesInfo name="STD" value="70"/>
-	<seriesInfo name="RFC" value="5652"/>
-	</reference>
-	<reference anchor="DSS"><front>
-	<title>Digital Signature Standard, version 4</title>
-	<author>
-	<organization>National Institute of Standards and Technology, U.S. Department of Commerce</organization>
-	</author>
-
-	<date year="2013"/>
-	</front>
-
-	<seriesInfo name="NIST" value="FIPS PUB 186-4"/>
-	</reference>
-	<!-- <reference anchor="HMAC"><front>
-	<title>HMAC: Keyed-Hashing for Message Authentication</title>
-	<author fullname="H. Krawczyk" initials="H." surname="Krawczyk">
-	</author>
-
-	<date month="February" year="1997"/>
-	</front>
-
-	<seriesInfo name="RFC" value="2104"/>
-	</reference> -->
-	<reference anchor="KEYWORDS"><front>
-	<title>Key words for use in RFCs to Indicate Requirement Levels</title>
-	<author fullname="S. Bradner" initials="S." surname="Bradner">
-	</author>
-
-	<date month="March" year="1997"/>
-	</front>
-
-	<seriesInfo name="BCP" value="14"/>
-	<seriesInfo name="RFC" value="2119"/>
-	</reference>
-<!--	<reference anchor="PKIXALG"><front>
-	<title>Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</title>
-	<author fullname="L. Bassham" initials="L." surname="Bassham">
-	</author>
-
-	<author fullname="W. Polk" initials="W." surname="Polk">
-	</author>
-
-	<author fullname="R. Housley" initials="R." surname="Housley">
-	</author>
-
-	<date month="April" year="2002"/>
-	</front>
-
-	<seriesInfo name="RFC" value="3279"/>
-	</reference> -->
-<!--	<reference anchor="PKIXECC"><front>
-	<title>Elliptic Curve Cryptography Subject Public Key Information</title>
-	<author fullname="S. Turner" initials="S." surname="Turner">
-	</author>
-
-	<author fullname="D. Brown" initials="D." surname="Brown">
-	</author>
-
-	<author fullname="K. Yiu" initials="K." surname="Yiu">
-	</author>
-
-	<author fullname="R. Housley" initials="R." surname="Housley">
-	</author>
-
-	<author fullname="T. Polk" initials="T." surname="Polk">
-	</author>
-
-	<date month="March" year="2009"/>
-	</front>
-
-	<seriesInfo name="RFC" value="5480"/>
-	</reference> -->
-	<reference anchor="SHA3"><front>
-	<title>SHA-3 Standard - Permutation-Based Hash and Extendable-Output Functions</title>
-	<author>
-	<organization>National Institute of Standards and Technology, U.S. Department of Commerce</organization>
-	</author>
-
-	<date month="August" year="2015"/>
-	</front>
-
-	<seriesInfo name="FIPS" value="PUB 202"/>
-	</reference>
+	  &RFC3279;
+	  &RFC4055;
+      &RFC5480;
+	  &RFC8017;
+	  <!-- <reference anchor="ASN1-B"><front>
+	  <title>Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation</title>
+	  <author>
+	  <organization>ITU-T</organization>
+	  </author>
+      
+	  <date year="2015"/>
+	  </front>
+      
+	  <seriesInfo name="ITU-T" value="Recommendation X.680"/>
+	  </reference> -->
+	  <!-- <reference anchor="ASN1-E"><front>
+	  <title>Information technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)</title>
+	  <author>
+	  <organization>ITU-T</organization>
+	  </author>
+      
+	  <date year="2015"/>
+	  </front>
+      
+	  <seriesInfo name="ITU-T" value="Recommendation X.690"/>
+	  </reference> -->
+	  <reference anchor="CMS"><front>
+	  <title>Cryptographic Message Syntax (CMS)</title>
+	  <author fullname="R. Housley" initials="R." surname="Housley">
+	  </author>
+      
+	  <date month="September" year="2009"/>
+	  </front>
+      
+	  <seriesInfo name="STD" value="70"/>
+	  <seriesInfo name="RFC" value="5652"/>
+	  </reference>
+	  <reference anchor="DSS"><front>
+	  <title>Digital Signature Standard, version 4</title>
+	  <author>
+	  <organization>National Institute of Standards and Technology, U.S. Department of Commerce</organization>
+	  </author>
+      
+	  <date year="2013"/>
+	  </front>
+      
+	  <seriesInfo name="NIST" value="FIPS PUB 186-4"/>
+	  </reference>
+	  <!-- <reference anchor="HMAC"><front>
+	  <title>HMAC: Keyed-Hashing for Message Authentication</title>
+	  <author fullname="H. Krawczyk" initials="H." surname="Krawczyk">
+	  </author>
+      
+	  <date month="February" year="1997"/>
+	  </front>
+      
+	  <seriesInfo name="RFC" value="2104"/>
+	  </reference> -->
+	  <!-- <reference anchor="KEYWORDS"><front>
+	  <title>Key words for use in RFCs to Indicate Requirement Levels</title>
+	  <author fullname="S. Bradner" initials="S." surname="Bradner">
+	  </author>
+      
+	  <date month="March" year="1997"/>
+	  </front>
+      
+	  <seriesInfo name="BCP" value="14"/>
+	  <seriesInfo name="RFC" value="2119"/>
+	  </reference> --> 
+      <!-- <reference anchor="PKIXALG"><front>
+	  <title>Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</title>
+	  <author fullname="L. Bassham" initials="L." surname="Bassham">
+	  </author>
+      
+	  <author fullname="W. Polk" initials="W." surname="Polk">
+	  </author>
+      
+	  <author fullname="R. Housley" initials="R." surname="Housley">
+	  </author>
+      
+	  <date month="April" year="2002"/>
+	  </front>
+      
+	  <seriesInfo name="RFC" value="3279"/>
+	  </reference> -->
+<!--  	<reference anchor="PKIXECC"><front>
+	  <title>Elliptic Curve Cryptography Subject Public Key Information</title>
+	  <author fullname="S. Turner" initials="S." surname="Turner">
+	  </author>
+      
+	  <author fullname="D. Brown" initials="D." surname="Brown">
+	  </author>
+      
+	  <author fullname="K. Yiu" initials="K." surname="Yiu">
+	  </author>
+      
+	  <author fullname="R. Housley" initials="R." surname="Housley">
+	  </author>
+      
+	  <author fullname="T. Polk" initials="T." surname="Polk">
+	  </author>
+      
+	  <date month="March" year="2009"/>
+	  </front>
+      
+	  <seriesInfo name="RFC" value="5480"/>
+	  </reference> -->
+	  <reference anchor="SHA3"><front>
+	  <title>SHA-3 Standard - Permutation-Based Hash and Extendable-Output Functions</title>
+	  <author>
+	  <organization>National Institute of Standards and Technology, U.S. Department of Commerce</organization>
+	  </author>
+      
+	  <date month="August" year="2015"/>
+	  </front>
+      
+	  <seriesInfo name="FIPS" value="PUB 202"/>
+	  </reference>
 	</references>
 	<references title="Informative References">
-	<reference anchor="RANDOM"><front>
-	<title>Randomness Requirements for Security</title>
-	<author fullname="D. Eastlake" initials="D." surname="Eastlake">
-	</author>
-
-	<author fullname="J. Schiller" initials="J." surname="Schiller">
-	</author>
-
-	<author fullname="S. Crocker" initials="S." surname="Crocker">
-	</author>
-
-	<date month="June" year="2005"/>
-	</front>
-
-	<seriesInfo name="BCP" value="106"/>
-	<seriesInfo name="RFC" value="4086"/>
-	</reference>
+	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"?>
+	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml"?>
+	  <reference anchor="RANDOM"><front>
+	  <title>Randomness Requirements for Security</title>
+	  <author fullname="D. Eastlake" initials="D." surname="Eastlake">
+	  </author>
+      
+	  <author fullname="J. Schiller" initials="J." surname="Schiller">
+	  </author>
+      
+	  <author fullname="S. Crocker" initials="S." surname="Crocker">
+	  </author>
+      
+	  <date month="June" year="2005"/>
+	  </front>
+      
+	  <seriesInfo name="BCP" value="106"/>
+	  <seriesInfo name="RFC" value="4086"/>
+	  </reference>
 	</references>
 	<section title="ASN.1 Module" anchor="section-a"><t>
     [EDNOTE: Update] </t>
