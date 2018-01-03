@@ -6,7 +6,7 @@
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
 
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!-- <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"> -->
 <!ENTITY RFC3279 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3279.xml">
 <!ENTITY RFC4055 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4055.xml">
 <!ENTITY RFC5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
@@ -52,7 +52,7 @@
     <!-- The abbreviated title is used in the page header - it is only necessary if the 
          full title is longer than 39 characters -->
 
-    <title abbrev="Abbreviated Title">RSA and ECDSA Signatures with SHAKEs</title>
+    <title abbrev="SHAKE identifiers in X.509">Internet X.509 Public Key Infrastructure: Additional SHAKE Algorithms and Identifiers for RSA and ECDSA</title>
 
     <!-- add 'role="editor"' below for the editors if appropriate -->
     <author fullname="Panos Kampanakis" initials="P.K."
@@ -138,6 +138,7 @@
       <t><list style="symbols"> 
 	    <t>draft-ietf-lamps-pkix-shake-01:
 		  <list> 
+		  <t>Changed titles and section names.</t>
 	      <t>Removed DSA after WG discussions.</t>
 		  <t>Updated shake OID names and parameters, added MGF1 section.</t>
 		  <t>Updated RSASSA-PSS section.</t>
@@ -162,7 +163,7 @@
 
     <?rfc needLines="8" ?>
 
-    <section title="Algorithm support">
+    <section title="Message Digest Algorithms">
 	  <t>This section describes two one-way hash functions and digital signature 
    algorithms using these functions, which may be used to sign certificates and 
    CRLs, and identifies OIDs (Object Identifiers) for public keys contained in 
@@ -209,19 +210,19 @@
       <section title="Mask Generation SHAKEs">
         <t>The RSASSA-PSS signature algorithm uses a mask generation function. A mask generation function 
 		takes an octet string of variable length and a desired output length as input, and outputs an 
-		octet string of the desired length. The mask generation function used in RSASSA-PSS is MGF1 
-		<xref target="RFC8017"/>. MGF1 is identified by object identifier: </t>
+		octet string of the desired length. The mask generation function used in RSASSA-PSS is defined in 
+		<xref target="RFC8017"/>, but we include it here as well for convenience:</t>
 	    <t><figure><artwork><![CDATA[
    id-mgf1  OBJECT IDENTIFIER  ::=  { pkcs-1 8 }
 ]]></artwork></figure></t>
 
 	    <t>The parameters field associated with id-mgf1 MUST have a hashAlgorithm value that identifies 
 		the hash used with MGF1. To use SHAKE as this hash, this parameter MUST be 
-		id-shake128-len or id-shake256-len as specified in Section <xref target="xofs" /> above. </t>
+		id-shake128-len or id-shake256-len as specified in <xref target="xofs" /> above. </t>
       </section>
     </section> 
 	
-    <section title="Signature Algorithms with SHAKEs" anchor="rsassa-pss">
+    <section title="Signature Algorithms" anchor="rsassa-pss">
         <section title="RSASSA-PSS with SHAKEs">
            <t>The RSASSA-PSS signature algorithm identifier and its parameters are specifed in <xref target="RFC4055"/>. </t>
 		    <t><figure><artwork><![CDATA[
@@ -235,7 +236,7 @@
 ]]></artwork></figure></t>
 
 		   <t>This document adds two new hash algorithm choices and two new choices for mask generation functions. 
-		   These are the SHAKE128 and SHAKE256 algorithm identifiers specified in Section <xref target="xofs" />.</t>
+		   These are the SHAKE128 and SHAKE256 algorithm identifiers specified in <xref target="xofs" />.</t>
            
 		   <t>When SHAKE128 or SHAKE256 is used as the hashAlgorithm, it MUST also be used as the maskGenAlgorithm.</t>
 		   
@@ -321,7 +322,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
         </section> -->
         
       </section>
-	  <section title="Public Keys">
+	  <section title="Public Key Algorithms">
         <t>The conventions for RSA and ECDSA <!-- and EdDSA --> public keys are as specified in 
 		<xref target="RFC3279"/>, <xref target="RFC4055"/> and <xref target="RFC5480"/><!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->.
 		We include them here for convenience. </t>
@@ -330,7 +331,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
    rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
 ]]></artwork></figure></t>
 	    <t>Additionally, <xref target="RFC4055"/> adds the corresponding RSASSA-PSS OID public key 
-		identifier and parameters (also shown in Section <xref target="rsassa-pss"/> of this document).</t>
+		identifier and parameters (also shown in <xref target="rsassa-pss"/> of this document).</t>
 	    <t><figure><artwork><![CDATA[
    id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 10 }
 ]]></artwork></figure></t>
@@ -351,12 +352,11 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
        -- specifiedCurve  SpecifiedECDomain }
 ]]></artwork></figure></t>
       </section>
-	
-    <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>We would like to thank Sean Turner for his valuable contributions to this document. </t>
-    </section>
 
     <!-- Possibly a 'Contributors' section ... -->
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>We would like to thank Sean Turner for his valuable contributions to this document.</t>
+    </section>
 
     <section anchor="IANA" title="IANA Considerations">
       <!-- <t>IANA is kindly requested to register two OIDs in the SMI Security for
