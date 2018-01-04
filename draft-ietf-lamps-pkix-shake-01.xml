@@ -9,6 +9,7 @@
 <!-- <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"> -->
 <!ENTITY RFC3279 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3279.xml">
 <!ENTITY RFC4055 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4055.xml">
+<!ENTITY RFC4086 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4086.xml">
 <!ENTITY RFC5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
 <!ENTITY RFC5480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5480.xml">
 <!ENTITY RFC8017 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8017.xml">
@@ -176,7 +177,8 @@
 		The output lengths, in bits, of the SHAKE hash functions is defined by the parameter d. 
 		The corresponding collision and preimage resistance security levels for SHAKE128 and SHAKE256 
 		are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256). 
-		The Object Identifiers (OIDs) for these two hash functions are as follows: </t>
+		The Object Identifiers (OIDs) for these two hash functions are defined in 
+		<xref target="shake-nist-oids"/> and are included here for convenience: </t>
  
 		<t><figure><artwork><![CDATA[
   id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
@@ -202,11 +204,6 @@
 		in this specification.</t>	
 	  </section>
 	
-	<!-- Panos: Moved paragraph in above section, as I think this explanation fits in the section above and does not need 
-	a section of its own --> 
-    <!-- <section title="Fixed-ouput-length SHAKEs">
-    </section> --> 
-	
       <section title="Mask Generation SHAKEs">
         <t>The RSASSA-PSS signature algorithm uses a mask generation function. A mask generation function 
 		takes an octet string of variable length and a desired output length as input, and outputs an 
@@ -224,7 +221,7 @@
 	
     <section title="Signature Algorithms" anchor="rsassa-pss">
         <section title="RSASSA-PSS with SHAKEs">
-           <t>The RSASSA-PSS signature algorithm identifier and its parameters are specifed in <xref target="RFC4055"/>. </t>
+           <t>The RSASSA-PSS signature algorithm identifier and its parameters are specifed in <xref target="RFC4055"/>: </t>
 		    <t><figure><artwork><![CDATA[
    id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 10 }
 
@@ -247,11 +244,11 @@
 		   identifier respectively.</t>
 		   
 		   <t>When id-shake128-len or id-shake256-len algorithm identifier is used as the id-mfg1 maskGenAlgorithm 
-		   parameter, the ShakeOutputLen paramater must be (n - 264)/8 or (n - 520)/8 respectively for SHAKE128 and SHAKE256, 
+		   parameter, the ShakeOutputLen parameter must be (n - 264)/8 or (n - 520)/8 respectively for SHAKE128 and SHAKE256, 
 		   where n is the RSA modulus in bits. For example, when RSA modulus n is 2048, ShakeOutputLen must be 223 or 191   
 		   when id-shake128-len or id-shake256-len is are used respectively.</t>
 		   
-           <t>The paramater saltLength MUST be 32 or 64 bytes respectively for the SHAKE128 and SHA256 OIDs.</t>
+           <t>The parameter saltLength MUST be 32 or 64 bytes respectively for the SHAKE128 and SHA256 OIDs.</t>
            
         </section>
 		
@@ -306,6 +303,17 @@
 		  SHAKE256 with output length being 32 and 64 octets respectively are 
 		  subtitutions for 256 and 512-bit output hash algorithms such as SHA256 
 		  and SHA512 used in the standards.</t>		  
+
+      	  <!-- Commenting this paragraph out, as it seems out of place to tell how to sign with ECDSA. -->
+		  <!-- <t>When signing, the ECDSA algorithm generates two values.  These values 
+		  are commonly referred to as r and s.  To easily transfer these two 
+		  values as one signature, they MUST be ASN.1 encoded using the ECDSA-Sig-Value 
+		  defined in <xref target="RFC3279"/> and repeated here for convenience:</t> 
+		  <figure><artwork><![CDATA[
+   ECDSA-Sig-Value ::= SEQUENCE {
+       r  INTEGER,
+       s  INTEGER }
+]]></artwork></figure> -->
         </section>
 		
         <!-- <section title="EdDSA with SHAKE">
@@ -326,21 +334,27 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
         <t>The conventions for RSA and ECDSA <!-- and EdDSA --> public keys are as specified in 
 		<xref target="RFC3279"/>, <xref target="RFC4055"/> and <xref target="RFC5480"/><!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->.
 		We include them here for convenience. </t>
+		
 		<t><xref target="RFC3279"/> defines the following OID for RSA with NULL parameters.</t>
 		<t><figure><artwork><![CDATA[
    rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
 ]]></artwork></figure></t>
-	    <t>Additionally, <xref target="RFC4055"/> adds the corresponding RSASSA-PSS OID public key 
-		identifier and parameters (also shown in <xref target="rsassa-pss"/> of this document).</t>
+	    
+		<t>Additionally, <xref target="RFC4055"/> adds the corresponding RSASSA-PSS OID public key 
+		identifier and parameters (also shown in <xref target="rsassa-pss"/> of this document). 
+		The parameters may be either absent or present when RSASSA-PSS OID is used as subject 
+		public key information.</t>
 	    <t><figure><artwork><![CDATA[
    id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 10 }
 ]]></artwork></figure></t>
+		
 		<t>If id-RSASSA-PSS is used in the public key identifier with parameters, Section 3.3 of 
 		<xref target="RFC4055"/> describes that the signature algorithm parameters MUST match the 
 		parameters in the key structure algorithm identifier except the saltLength field. The 
 		saltLength field in the signature parameters MUST be greater or equal to that in the key 
 		parameters field. If the id-RSASSA-PSS parameters are NULL no further parameter validation 
 		is necessary.</t>
+		
 		<t>For ECDSA, <xref target="RFC5480"/> defines the EC public key identifier and its parameters as </t>
 		<t><figure><artwork><![CDATA[
    id-ecPublicKey OBJECT IDENTIFIER ::= {
@@ -351,6 +365,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
        -- implicitCurve   NULL
        -- specifiedCurve  SpecifiedECDomain }
 ]]></artwork></figure></t>
+        <t>The ECParameters associated with the ECDSA public key in the signer's 
+		certificate SHALL apply to the verification of the signature.</t>
       </section>
 
     <!-- Possibly a 'Contributors' section ... -->
@@ -367,19 +383,44 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       </list>
       where the four digits at the end represent the ASN.1's publication
       date.</t> -->
-	  <t>This document uses several registries that were originally created in <xref target="shake-nist-iods"/>. 
+	  <t>This document uses several registries that were originally created in <xref target="shake-nist-oids"/>. 
 	  No further registries are required. [ EDNOTE: Update here. ] </t>
     </section>
 
-    <section anchor="Security" title="Security Considerations">
-       
-       <t>SHAKE128 and SHAKE256 are one-way extensible-output functions. Their output length depends on
-       a required length of the consumming application. </t>
-       
-       <t>The SHAKEs are deterministic functions. Like any other deterministic functions, executing each 
-	   function with the same input multiple times will produce the same output.
-       Therefore, users should not expect unrelated outputs (with the same or different output lengths) 
-	   from excuting a SHAKE function with the same input multiple times. </t>
+    <section anchor="Security" title="Security Considerations">  
+      <t>SHAKE128 and SHAKE256 are one-way extensible-output functions. Their output length depends on
+      a required length of the consumming application. </t>
+      
+      <t>The SHAKEs are deterministic functions. Like any other deterministic functions, executing each 
+	  function with the same input multiple times will produce the same output.
+      Therefore, users should not expect unrelated outputs (with the same or different output lengths) 
+	  from excuting a SHAKE function with the same input multiple times. </t>
+	  
+	  <t>Implementations must protect the signer's private key. Compromise of
+      the signer's private key permits masquerade.</t>
+      
+	  <t>When more than two parties share the same message-authentication key,
+      data origin authentication is not provided. Any party that knows the
+      message-authentication key can compute a valid MAC, therefore the
+      content could originate from any one of the parties.</t>
+      
+	  <t>Implementations must randomly generate message-authentication keys
+      and one-time values, such as the k value when generating a ECDSA
+      signature. In addition, the generation of public/private key pairs
+      relies on random numbers. The use of inadequate pseudo-random
+      number generators (PRNGs) to generate such cryptographic values can
+      result in little or no security. The generation of quality random
+      numbers is difficult. <xref target="RFC4086"/> offers important guidance 
+	  in this area, and <xref target="SP800-90A"/> series provide acceptable 
+      PRNGs.</t>
+      
+	  <t>Implementers should be aware that cryptographic algorithms may become
+      weaker with time. As new cryptanalysis techniques are developed and
+      computing performance improves, the work factor to break a particular
+      cryptographic algorithm will reduce. Therefore, cryptographic
+      algorithm implementations should be modular allowing new algorithms
+      to be readily inserted. That is, implementers should be prepared to
+      regularly update the set of algorithms in their implementations.</t>
     </section>
   </middle>
 
@@ -417,18 +458,13 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           <date month="August" year="2015" />
         </front>
       </reference>
+	</references>
 
-	  <!-- the following is the minimum to make xml2rfc happy -->
-      <!-- <reference anchor="min_ref">
-        <front>
-          <title>Minimal Reference</title>
-          <author initials="authInitials" surname="authSurName">
-            <organization></organization>
-          </author>
-          <date year="2006" />
-        </front>
-      </reference> -->
-       <reference anchor="shake-nist-iods" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
+    <references title="Informative References">
+      <!-- Here we use entities that we defined at the beginning. -->
+      <!--&RFC2629; -->
+	  &RFC4086;
+       <reference anchor="shake-nist-oids" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
         <front>
           <title>Computer Security Objects Register</title>
           <author>
@@ -437,22 +473,6 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           <date month="October" year="2017" />
         </front>
       </reference>
-	</references>
-
-    <references title="Informative References">
-      <!-- Here we use entities that we defined at the beginning. -->
-      <!--&RFC2629; -->
-
-      <!-- References written by by an organization not a person. -->
-      <!-- <reference anchor="FIPS186-3" target="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">
-        <front>
-          <title>Digital Signature Standard (DSS) FIPS PUB 186-3</title>
-          <author>
-            <organization>National Institute of Standards and Technology</organization>
-          </author>
-          <date month="June" year="2009" />
-        </front>
-      </reference> -->
       <reference anchor="SEC1" target="http://www.secg.org/sec1-v2.pdf">
         <front>
           <title>SEC 1: Elliptic Curve Cryptography</title>
@@ -469,6 +489,15 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
             <organization>American National Standard for Financial Services (ANSI)</organization>
           </author>
           <date month="November" year="2005" />
+        </front>
+      </reference>
+      <reference anchor="SP800-90A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
+        <front>
+          <title>Recommendation for Random Number Generation Using Deterministic Random Bit Generators. NIST SP 800-90A</title>
+          <author>
+            <organization>National Institute of Standards and Technology</organization>
+          </author>
+          <date month="June" year="2015" />
         </front>
       </reference>
     </references>

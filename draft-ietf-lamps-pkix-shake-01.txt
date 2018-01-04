@@ -9,7 +9,8 @@ Expires: September 2, 2018                                          NIST
                                                               March 2018
 
 
-                  RSA and ECDSA Signatures with SHAKEs
+ Internet X.509 Public Key Infrastructure: Additional SHAKE Algorithms
+                   and Identifiers for RSA and ECDSA
                      draft-ietf-lamps-pkix-shake-01
 
 Abstract
@@ -49,43 +50,45 @@ Copyright Notice
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
 
 
 
 Kampanakis & Dang       Expires September 2, 2018               [Page 1]
 
-Internet-Draft              Abbreviated Title                 March 2018
+Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
+   include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
 Table of Contents
 
    1.  Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   3.  Algorithm support . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Message Digest Algorithms . . . . . . . . . . . . . . . . . .   3
      3.1.  One-way Extensible-Output-Function SHAKEs . . . . . . . .   3
      3.2.  Mask Generation SHAKEs  . . . . . . . . . . . . . . . . .   4
-   4.  Signature Algorithms with SHAKEs  . . . . . . . . . . . . . .   4
+   4.  Signature Algorithms  . . . . . . . . . . . . . . . . . . . .   4
      4.1.  RSASSA-PSS with SHAKEs  . . . . . . . . . . . . . . . . .   4
      4.2.  ECDSA with SHAKEs . . . . . . . . . . . . . . . . . . . .   5
-   5.  Public Keys . . . . . . . . . . . . . . . . . . . . . . . . .   6
+   5.  Public Key Algorithms . . . . . . . . . . . . . . . . . . . .   6
    6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .   8
-   Appendix A.  ASN.1 module . . . . . . . . . . . . . . . . . . . .   8
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+   Appendix A.  ASN.1 module . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Change Log
 
    [ EDNOTE: Remove this section before publication. ]
 
    o  draft-ietf-lamps-pkix-shake-01:
+
+      *  Changed titles and section names.
 
       *  Removed DSA after WG discussions.
 
@@ -101,23 +104,25 @@ Table of Contents
 
       *  Initial version
 
-2.  Introduction
 
-   This document describes several cryptographic algorithms which may be
-   used with the Internet X.509 Certificate and CRL profile [RFC5280].
-   It describes the OIDs for variable length SHAKE algorithms introduced
+
 
 
 
 Kampanakis & Dang       Expires September 2, 2018               [Page 2]
 
-Internet-Draft              Abbreviated Title                 March 2018
+Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
+2.  Introduction
+
+   This document describes several cryptographic algorithms which may be
+   used with the Internet X.509 Certificate and CRL profile [RFC5280].
+   It describes the OIDs for variable length SHAKE algorithms introduced
    in [SHA3] and how they can be used in X.509 certificates. [ EDNOTE:
    Update here. ]
 
-3.  Algorithm support
+3.  Message Digest Algorithms
 
    This section describes two one-way hash functions and digital
    signature algorithms using these functions, which may be used to sign
@@ -135,8 +140,8 @@ Internet-Draft              Abbreviated Title                 March 2018
    parameter d.  The corresponding collision and preimage resistance
    security levels for SHAKE128 and SHAKE256 are respectively
    min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256).  The
-   Object Identifiers (OIDs) for these two hash functions are as
-   follows:
+   Object Identifiers (OIDs) for these two hash functions are defined in
+   [shake-nist-oids] and are included here for convenience:
 
      id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
                    country(16) us(840) organization(1) gov(101) csor(3)
@@ -157,18 +162,16 @@ Internet-Draft              Abbreviated Title                 March 2018
 
    When using the id-shake256-len algorithm identifier, the parameters
    MUST be present, and they MUST employ the ShakeOutputLen syntax that
-   contains an encoded positive integer value at least 64 in this
-   specification.
-
-
-
 
 
 
 Kampanakis & Dang       Expires September 2, 2018               [Page 3]
 
-Internet-Draft              Abbreviated Title                 March 2018
+Internet-Draft         SHAKE identifiers in X.509             March 2018
 
+
+   contains an encoded positive integer value at least 64 in this
+   specification.
 
 3.2.  Mask Generation SHAKEs
 
@@ -176,21 +179,22 @@ Internet-Draft              Abbreviated Title                 March 2018
    A mask generation function takes an octet string of variable length
    and a desired output length as input, and outputs an octet string of
    the desired length.  The mask generation function used in RSASSA-PSS
-   is MGF1 [RFC8017].  MGF1 is identified by object identifier:
+   is defined in [RFC8017], but we include it here as well for
+   convenience:
 
       id-mgf1  OBJECT IDENTIFIER  ::=  { pkcs-1 8 }
 
    The parameters field associated with id-mgf1 MUST have a
    hashAlgorithm value that identifies the hash used with MGF1.  To use
    SHAKE as this hash, this parameter MUST be id-shake128-len or id-
-   shake256-len as specified in Section Section 3.1 above.
+   shake256-len as specified in Section 3.1 above.
 
-4.  Signature Algorithms with SHAKEs
+4.  Signature Algorithms
 
 4.1.  RSASSA-PSS with SHAKEs
 
    The RSASSA-PSS signature algorithm identifier and its parameters are
-   specifed in [RFC4055].
+   specifed in [RFC4055]:
 
       id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 10 }
 
@@ -202,34 +206,34 @@ Internet-Draft              Abbreviated Title                 March 2018
 
    This document adds two new hash algorithm choices and two new choices
    for mask generation functions.  These are the SHAKE128 and SHAKE256
-   algorithm identifiers specified in Section Section 3.1.
+   algorithm identifiers specified in Section 3.1.
 
    When SHAKE128 or SHAKE256 is used as the hashAlgorithm, it MUST also
    be used as the maskGenAlgorithm.
 
    When used as the hashAlgorithm, the SHAKE128 or SHAKE256 output-
-   length must be either 32 or 64 respectively.  In these cases, the
-   parameters MUST be present, and they MUST employ the ShakeOutputLen
-   syntax that contains an encoded positive integer value of 32 or 64
-   for id-shake128-len or id-shake256-len algorithm identifier
-   respectively.
+   length must be either 32 or 64 bytes respectively.  In these cases,
+   the parameters MUST be present, and they MUST employ the
+   ShakeOutputLen syntax that contains an encoded positive integer value
+   of 32 or 64 for id-shake128-len or id-shake256-len algorithm
+   identifier respectively.
 
-   When id-shake128-len or id-shake256-len algorithm identifier is used
-   as the id-mfg1 maskGenAlgorithm parameter, the ShakeOutputLen
-   paramater must be (n - 264)/8 or (n - 520)/8 respectively for
-   SHAKE128 and SHAKE256, where n is the RSA modulus in bits.  For
 
 
 
 Kampanakis & Dang       Expires September 2, 2018               [Page 4]
 
-Internet-Draft              Abbreviated Title                 March 2018
+Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
+   When id-shake128-len or id-shake256-len algorithm identifier is used
+   as the id-mfg1 maskGenAlgorithm parameter, the ShakeOutputLen
+   parameter must be (n - 264)/8 or (n - 520)/8 respectively for
+   SHAKE128 and SHAKE256, where n is the RSA modulus in bits.  For
    example, when RSA modulus n is 2048, ShakeOutputLen must be 223 or
-   191 when id-shake128-len or id-shake256-lenis are used respectively.
+   191 when id-shake128-len or id-shake256-len is are used respectively.
 
-   The paramater saltLength MUST be 32 or 64 respectively for the
+   The parameter saltLength MUST be 32 or 64 bytes respectively for the
    SHAKE128 and SHA256 OIDs.
 
 4.2.  ECDSA with SHAKEs
@@ -269,19 +273,20 @@ Internet-Draft              Abbreviated Title                 March 2018
    CRLs MUST recognize the corresponding OIDs specified in Sections 3.1
    and 3.2 above.
 
-   Encoding rules for ECDSA signature values are specified in [RFC4055],
-   Section 2.2.3, and [RFC5480].
 
-   Conforming CA implementations that generate ECDSA signatures in
-   certificates or CRLs MUST generate such ECDSA signatures in
 
 
 
 Kampanakis & Dang       Expires September 2, 2018               [Page 5]
 
-Internet-Draft              Abbreviated Title                 March 2018
+Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
+   Encoding rules for ECDSA signature values are specified in [RFC4055],
+   Section 2.2.3, and [RFC5480].
+
+   Conforming CA implementations that generate ECDSA signatures in
+   certificates or CRLs MUST generate such ECDSA signatures in
    accordance with all the requirements specified in Sections 7.2 and
    7.3 of [X9.62] or with all the requirements specified in
    Section 4.1.3 of [SEC1].  They MAY also generate such ECDSA
@@ -293,7 +298,7 @@ Internet-Draft              Abbreviated Title                 March 2018
    are subtitutions for 256 and 512-bit output hash algorithms such as
    SHA256 and SHA512 used in the standards.
 
-5.  Public Keys
+5.  Public Key Algorithms
 
    The conventions for RSA and ECDSA public keys are as specified in
    [RFC3279], [RFC4055] and [RFC5480].  We include them here for
@@ -304,8 +309,9 @@ Internet-Draft              Abbreviated Title                 March 2018
       rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
 
    Additionally, [RFC4055] adds the corresponding RSASSA-PSS OID public
-   key identifier and parameters (also shown in Section Section 4 of
-   this document).
+   key identifier and parameters (also shown in Section 4 of this
+   document).  The parameters may be either absent or present when
+   RSASSA-PSS OID is used as subject public key information.
 
       id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 10 }
 
@@ -320,13 +326,7 @@ Internet-Draft              Abbreviated Title                 March 2018
    For ECDSA, [RFC5480] defines the EC public key identifier and its
    parameters as
 
-      id-ecPublicKey OBJECT IDENTIFIER ::= {
-          iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
 
-      ECParameters ::= CHOICE {
-          namedCurve         OBJECT IDENTIFIER
-          -- implicitCurve   NULL
-          -- specifiedCurve  SpecifiedECDomain }
 
 
 
@@ -335,8 +335,19 @@ Internet-Draft              Abbreviated Title                 March 2018
 
 Kampanakis & Dang       Expires September 2, 2018               [Page 6]
 
-Internet-Draft              Abbreviated Title                 March 2018
+Internet-Draft         SHAKE identifiers in X.509             March 2018
 
+
+      id-ecPublicKey OBJECT IDENTIFIER ::= {
+          iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
+
+      ECParameters ::= CHOICE {
+          namedCurve         OBJECT IDENTIFIER
+          -- implicitCurve   NULL
+          -- specifiedCurve  SpecifiedECDomain }
+
+   The ECParameters associated with the ECDSA public key in the signer's
+   certificate SHALL apply to the verification of the signature.
 
 6.  Acknowledgements
 
@@ -346,7 +357,7 @@ Internet-Draft              Abbreviated Title                 March 2018
 7.  IANA Considerations
 
    This document uses several registries that were originally created in
-   [shake-nist-iods].  No further registries are required. [ EDNOTE:
+   [shake-nist-oids].  No further registries are required. [ EDNOTE:
    Update here. ]
 
 8.  Security Considerations
@@ -360,6 +371,39 @@ Internet-Draft              Abbreviated Title                 March 2018
    will produce the same output.  Therefore, users should not expect
    unrelated outputs (with the same or different output lengths) from
    excuting a SHAKE function with the same input multiple times.
+
+   Implementations must protect the signer's private key.  Compromise of
+   the signer's private key permits masquerade.
+
+   When more than two parties share the same message-authentication key,
+   data origin authentication is not provided.  Any party that knows the
+   message-authentication key can compute a valid MAC, therefore the
+   content could originate from any one of the parties.
+
+   Implementations must randomly generate message-authentication keys
+   and one-time values, such as the k value when generating a ECDSA
+   signature.  In addition, the generation of public/private key pairs
+   relies on random numbers.  The use of inadequate pseudo-random number
+   generators (PRNGs) to generate such cryptographic values can result
+   in little or no security.  The generation of quality random numbers
+
+
+
+Kampanakis & Dang       Expires September 2, 2018               [Page 7]
+
+Internet-Draft         SHAKE identifiers in X.509             March 2018
+
+
+   is difficult.  [RFC4086] offers important guidance in this area, and
+   [SP800-90A] series provide acceptable PRNGs.
+
+   Implementers should be aware that cryptographic algorithms may become
+   weaker with time.  As new cryptanalysis techniques are developed and
+   computing performance improves, the work factor to break a particular
+   cryptographic algorithm will reduce.  Therefore, cryptographic
+   algorithm implementations should be modular allowing new algorithms
+   to be readily inserted.  That is, implementers should be prepared to
+   regularly update the set of algorithms in their implementations.
 
 9.  References
 
@@ -384,16 +428,6 @@ Internet-Draft              Abbreviated Title                 March 2018
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
 
-
-
-
-
-
-Kampanakis & Dang       Expires September 2, 2018               [Page 7]
-
-Internet-Draft              Abbreviated Title                 March 2018
-
-
    [RFC5480]  Turner, S., Brown, D., Yiu, K., Housley, R., and T. Polk,
               "Elliptic Curve Cryptography Subject Public Key
               Information", RFC 5480, DOI 10.17487/RFC5480, March 2009,
@@ -404,23 +438,48 @@ Internet-Draft              Abbreviated Title                 March 2018
               RFC 8017, DOI 10.17487/RFC8017, November 2016,
               <https://www.rfc-editor.org/info/rfc8017>.
 
+
+
+
+
+
+
+
+Kampanakis & Dang       Expires September 2, 2018               [Page 8]
+
+Internet-Draft         SHAKE identifiers in X.509             March 2018
+
+
    [SHA3]     National Institute of Standards and Technology, "SHA-3
               Standard - Permutation-Based Hash and Extendable-Output
               Functions FIPS PUB 202", August 2015,
               <https://www.nist.gov/publications/sha-3-standard-
               permutation-based-hash-and-extendable-output-functions>.
 
-   [shake-nist-iods]
+9.2.  Informative References
+
+   [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
+              "Randomness Requirements for Security", BCP 106, RFC 4086,
+              DOI 10.17487/RFC4086, June 2005,
+              <https://www.rfc-editor.org/info/rfc4086>.
+
+   [SEC1]     Standards for Efficient Cryptography Group, "SEC 1:
+              Elliptic Curve Cryptography", May 2009,
+              <http://www.secg.org/sec1-v2.pdf>.
+
+   [shake-nist-oids]
               National Institute of Standards and Technology, "Computer
               Security Objects Register", October 2017,
               <https://csrc.nist.gov/Projects/Computer-Security-Objects-
               Register/Algorithm-Registration>.
 
-9.2.  Informative References
-
-   [SEC1]     Standards for Efficient Cryptography Group, "SEC 1:
-              Elliptic Curve Cryptography", May 2009,
-              <http://www.secg.org/sec1-v2.pdf>.
+   [SP800-90A]
+              National Institute of Standards and Technology,
+              "Recommendation for Random Number Generation Using
+              Deterministic Random Bit Generators. NIST SP 800-90A",
+              June 2015,
+              <http://nvlpubs.nist.gov/nistpubs/SpecialPublications/
+              NIST.SP.800-90Ar1.pdf>.
 
    [X9.62]    American National Standard for Financial Services (ANSI),
               "X9.62-2005 Public Key Cryptography for the Financial
@@ -442,12 +501,9 @@ Authors' Addresses
 
 
 
-
-
-
-Kampanakis & Dang       Expires September 2, 2018               [Page 8]
+Kampanakis & Dang       Expires September 2, 2018               [Page 9]
 
-Internet-Draft              Abbreviated Title                 March 2018
+Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
    Quynh Dang
@@ -501,4 +557,4 @@ Internet-Draft              Abbreviated Title                 March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 9]
+Kampanakis & Dang       Expires September 2, 2018              [Page 10]
