@@ -5,13 +5,13 @@
 LAMPS WG                                                         Q. Dang
 Internet-Draft                                                      NIST
 Intended status: Standards Track                           P. Kampanakis
-Expires: July 8, 2018                                      Cisco Systems
-                                                         January 4, 2018
+Expires: July 9, 2018                                      Cisco Systems
+                                                         January 5, 2018
 
 
   Use of the SHAKE One-way Hash Functions in the Cryptographic Message
                               Syntax (CMS)
-                  draft-dang-lamps-cms-shakes-hash-01
+                     draft-ietf-lamps-cms-shakes-00
 
 Abstract
 
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 8, 2018.
+   This Internet-Draft will expire on July 9, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 1]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 1]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -82,7 +82,7 @@ Table of Contents
 
    [ EDNOTE: Remove this section before publication. ]
 
-   o  draft-dang-lamps-cms-shakes-hash-01:
+   o  draft-ietf-lamps-cms-shake-00:
 
       *  Various updates to title and section names.
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 2]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 2]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -165,7 +165,7 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 3]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 3]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 4]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 4]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 5]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 5]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -324,16 +324,16 @@ Internet-Draft                SHAKEs in CMS                 January 2018
    identifier is used, the parameters field MUST be absent; not NULL but
    absent.
 
-   The variables N and S in this specification for KMAC are emply
-   strings.  [EDNOTE: Should N still be "KMAC" as in the spec?]  L, an
-   integer representing the requested output length in bits, is 256 or
-   512 for KmacWithSHAKE128 or KmacWithSHAKE256 respectively in this
-   specification.
+   When calculating the KMAC output, the variable N is 0xD2B282C2, S is
+   an emply strings, and L, the integer representing the requested
+   output length in bits, is 256 or 512 for KmacWithSHAKE128 or
+   KmacWithSHAKE256 respectively in this specification.
 
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 6]
+
+Dang & Kampanakis         Expires July 9, 2018                  [Page 6]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -389,7 +389,7 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 7]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 7]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -445,7 +445,7 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 8]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 8]
 
 Internet-Draft                SHAKEs in CMS                 January 2018
 
@@ -501,4 +501,4 @@ Authors' Addresses
 
 
 
-Dang & Kampanakis         Expires July 8, 2018                  [Page 9]
+Dang & Kampanakis         Expires July 9, 2018                  [Page 9]

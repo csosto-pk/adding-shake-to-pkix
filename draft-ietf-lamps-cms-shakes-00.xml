@@ -38,7 +38,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-dang-lamps-cms-shakes-hash-01" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-lamps-cms-shakes-00" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -77,7 +77,7 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
-	    <t>draft-dang-lamps-cms-shakes-hash-01:
+	    <t>draft-ietf-lamps-cms-shake-00:
 		  <list> 
 		  <t>Various updates to title and section names.</t>
 		  <t>Content changes filling in text and references.</t>
@@ -330,11 +330,10 @@ Note: x and y will be specified by NIST.
 	  <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm identifier 
 	  is used, the parameters field MUST be absent; not NULL but absent.</t>
 	  
-	  <t>The variables N and S in this specification for KMAC are emply strings. 
-	  [EDNOTE: Should N still be "KMAC" as in the spec?]
-	  L, an integer representing the requested output length in bits, is 
-	  256 or 512 for KmacWithSHAKE128 or KmacWithSHAKE256 respectively 
-	  in this specification.</t>
+	  <t>When calculating the KMAC output, the variable N is 0xD2B282C2, S 
+	  is an emply strings, and L, the integer representing the requested output 
+	  length in bits, is 256 or 512 for KmacWithSHAKE128 or KmacWithSHAKE256 
+	  respectively in this specification.</t>
 	</section>
 	
 	<section title="Acknowledgement" anchor="ack">
