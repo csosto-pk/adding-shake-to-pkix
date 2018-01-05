@@ -325,7 +325,7 @@ Internet-Draft                SHAKEs in CMS                 January 2018
    absent.
 
    When calculating the KMAC output, the variable N is 0xD2B282C2, S is
-   an emply strings, and L, the integer representing the requested
+   an empty string, and L, the integer representing the requested
    output length in bits, is 256 or 512 for KmacWithSHAKE128 or
    KmacWithSHAKE256 respectively in this specification.
 
