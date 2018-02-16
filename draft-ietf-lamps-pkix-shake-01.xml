@@ -363,7 +363,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
    ECParameters ::= CHOICE {
        namedCurve         OBJECT IDENTIFIER
        -- implicitCurve   NULL
-       -- specifiedCurve  SpecifiedECDomain }
+       -- specifiedCurve  SpecifiedECDomain 
+   }
 ]]></artwork></figure></t>
         <t>The ECParameters associated with the ECDSA public key in the signer's 
 		certificate SHALL apply to the verification of the signature.</t>
