@@ -5,8 +5,8 @@
 LAMPS WG                                                         Q. Dang
 Internet-Draft                                                      NIST
 Intended status: Standards Track                           P. Kampanakis
-Expires: July 9, 2018                                      Cisco Systems
-                                                         January 5, 2018
+Expires: August 20, 2018                                   Cisco Systems
+                                                       February 16, 2018
 
 
   Use of the SHAKE One-way Hash Functions in the Cryptographic Message
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 9, 2018.
+   This Internet-Draft will expire on August 20, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 1]
+Dang & Kampanakis        Expires August 20, 2018                [Page 1]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
 Table of Contents
@@ -97,7 +97,7 @@ Table of Contents
    The Cryptographic Message Syntax (CMS) [RFC5652] is used to digitally
    sign, digest, authenticate, or encrypt arbitrary message contents.
    This specification describes the use of the SHAKE128 and SHAKE256
-   specified in [SHA3] as new hash function in CMS.  In addition, this
+   specified in [SHA3] as new hash functions in CMS.  In addition, this
    specification describes the use of these one-way hash functions with
    the RSASSA-PSS signature algorithm [RFC8017] and the Elliptic Curve
    Digital Signature Algorithm (ECDSA) [X9.62] with the CMS signed-data
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 2]
+Dang & Kampanakis        Expires August 20, 2018                [Page 2]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
 3.  Message Digest Algorithms
@@ -165,9 +165,9 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 3]
+Dang & Kampanakis        Expires August 20, 2018                [Page 3]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
    is defined in [RFC8017], but we include it here as well for
@@ -221,9 +221,9 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 4]
+Dang & Kampanakis        Expires August 20, 2018                [Page 4]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
    of 32 or 64 for id-shake128-len or id-shake256-len algorithm
@@ -234,7 +234,7 @@ Internet-Draft                SHAKEs in CMS                 January 2018
    parameter must be (n - 264)/8 or (n - 520)/8 respectively for
    SHAKE128 and SHAKE256, where n is the RSA modulus in bits.  For
    example, when RSA modulus n is 2048, ShakeOutputLen must be 223 or
-   191 when id-shake128-len or id-shake256-len is are used respectively.
+   191 when id-shake128-len or id-shake256-len is used respectively.
 
    The parameter saltLength MUST be 32 or 64 bytes respectively for the
    SHAKE128 and SHAKE256 OIDs.
@@ -277,9 +277,9 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 5]
+Dang & Kampanakis        Expires August 20, 2018                [Page 5]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
    For simplicity and compliance with the ECDSA standard specification,
@@ -325,17 +325,17 @@ Internet-Draft                SHAKEs in CMS                 January 2018
    absent.
 
    When calculating the KMAC output, the variable N is 0xD2B282C2, S is
-   an empty string, and L, the integer representing the requested
-   output length in bits, is 256 or 512 for KmacWithSHAKE128 or
+   an empty string, and L, the integer representing the requested output
+   length in bits, is 256 or 512 for KmacWithSHAKE128 or
    KmacWithSHAKE256 respectively in this specification.
 
 
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 6]
+Dang & Kampanakis        Expires August 20, 2018                [Page 6]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
 6.  Acknowledgement
@@ -389,9 +389,9 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 7]
+Dang & Kampanakis        Expires August 20, 2018                [Page 7]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
 9.  References
@@ -445,9 +445,9 @@ Internet-Draft                SHAKEs in CMS                 January 2018
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 8]
+Dang & Kampanakis        Expires August 20, 2018                [Page 8]
 
-Internet-Draft                SHAKEs in CMS                 January 2018
+Internet-Draft                SHAKEs in CMS                February 2018
 
 
    [I-D.housley-lamps-cms-sha3-hash]
@@ -501,4 +501,4 @@ Authors' Addresses
 
 
 
-Dang & Kampanakis         Expires July 9, 2018                  [Page 9]
+Dang & Kampanakis        Expires August 20, 2018                [Page 9]

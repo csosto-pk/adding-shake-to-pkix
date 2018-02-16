@@ -62,7 +62,7 @@
 	    <address><email>pkampana@cisco.com</email></address>
 	  </author>
       
-	  <date month="January" year="2018"/>
+	  <date month="February" year="2018"/>
       <area>General</area>
       <workgroup>LAMPS WG</workgroup>
 	  
@@ -93,7 +93,7 @@
 	<t>The Cryptographic Message Syntax (CMS) <xref target="RFC5652"/> is used to digitally 
     sign, digest, authenticate, or encrypt arbitrary message contents. 
     This specification describes the use of the SHAKE128 and SHAKE256 
-    specified in <xref target="SHA3"/> as new hash function in CMS. In addition, 
+    specified in <xref target="SHA3"/> as new hash functions in CMS. In addition, 
     this specification describes the use of these one-way hash functions 
     with the RSASSA-PSS signature algorithm <xref target="RFC8017"/> and the
     Elliptic Curve Digital Signature Algorithm (ECDSA) <xref target="X9.62"/> with the CMS
@@ -216,7 +216,7 @@
         parameter must be (n - 264)/8 or (n - 520)/8 respectively for
         SHAKE128 and SHAKE256, where n is the RSA modulus in bits. For example, 
 		when RSA modulus n is 2048, ShakeOutputLen must be 223 or 
-        191 when id-shake128-len or id-shake256-len is are used respectively.</t>
+        191 when id-shake128-len or id-shake256-len is used respectively.</t>
         
         <t>The parameter saltLength MUST be 32 or 64 bytes respectively for the
         SHAKE128 and SHAKE256 OIDs.</t>

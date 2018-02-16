@@ -5,8 +5,8 @@
 LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Intended status: Standards Track                                 Q. Dang
-Expires: September 2, 2018                                          NIST
-                                                              March 2018
+Expires: August 20, 2018                                            NIST
+                                                       February 16, 2018
 
 
  Internet X.509 Public Key Infrastructure: Additional SHAKE Algorithms
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 2, 2018.
+   This Internet-Draft will expire on August 20, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 1]
+Kampanakis & Dang        Expires August 20, 2018                [Page 1]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 2]
+Kampanakis & Dang        Expires August 20, 2018                [Page 2]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
 2.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 3]
+Kampanakis & Dang        Expires August 20, 2018                [Page 3]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
    contains an encoded positive integer value at least 64 in this
@@ -221,9 +221,9 @@ Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 4]
+Kampanakis & Dang        Expires August 20, 2018                [Page 4]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
    When id-shake128-len or id-shake256-len algorithm identifier is used
@@ -277,9 +277,9 @@ Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 5]
+Kampanakis & Dang        Expires August 20, 2018                [Page 5]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
    Encoding rules for ECDSA signature values are specified in [RFC4055],
@@ -333,9 +333,9 @@ Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 6]
+Kampanakis & Dang        Expires August 20, 2018                [Page 6]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
       id-ecPublicKey OBJECT IDENTIFIER ::= {
@@ -389,9 +389,9 @@ Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 7]
+Kampanakis & Dang        Expires August 20, 2018                [Page 7]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
    is difficult.  [RFC4086] offers important guidance in this area, and
@@ -445,9 +445,9 @@ Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 8]
+Kampanakis & Dang        Expires August 20, 2018                [Page 8]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
    [SHA3]     National Institute of Standards and Technology, "SHA-3
@@ -501,9 +501,9 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang       Expires September 2, 2018               [Page 9]
+Kampanakis & Dang        Expires August 20, 2018                [Page 9]
 
-Internet-Draft         SHAKE identifiers in X.509             March 2018
+Internet-Draft         SHAKE identifiers in X.509          February 2018
 
 
    Quynh Dang
@@ -557,4 +557,4 @@ Internet-Draft         SHAKE identifiers in X.509             March 2018
 
 
 
-Kampanakis & Dang       Expires September 2, 2018              [Page 10]
+Kampanakis & Dang        Expires August 20, 2018               [Page 10]
