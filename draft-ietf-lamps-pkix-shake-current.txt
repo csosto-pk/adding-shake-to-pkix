@@ -170,9 +170,9 @@ Kampanakis & Dang       Expires November 4, 2018                [Page 3]
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
-   Conforming client implementations that process ECDSA with SHAKE
-   signatures when processing certificates and CRLs MUST recognize the
-   corresponding OIDs specified below.
+   Conforming client implementations that process RSASSA-PSS and ECDSA
+   with SHAKE signatures when processing certificates and CRLs MUST
+   recognize the corresponding OIDs specified below.
 
    Encoding rules for RSASSA-PSS and ECDSA with SHAKE signature values
    are specified in [RFC4055] and [RFC5480] respectively.

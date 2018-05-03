@@ -232,8 +232,8 @@
 		explicitly by using the OIDs specified below when encoding RSASSA-PSS or 
 		ECDSA with SHAKE signatures in certificates and CRLs.</t>
 		
-		<t>Conforming client implementations that process ECDSA with SHAKE 
-		signatures when processing certificates and CRLs 
+		<t>Conforming client implementations that process RSASSA-PSS and ECDSA 
+		with SHAKE signatures when processing certificates and CRLs 
 		MUST recognize the corresponding OIDs specified below.</t>
 		
 		<t>Encoding rules for RSASSA-PSS and ECDSA with SHAKE signature values 
