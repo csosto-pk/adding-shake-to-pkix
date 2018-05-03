@@ -5,8 +5,8 @@
 LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Intended status: Standards Track                                 Q. Dang
-Expires: November 3, 2018                                           NIST
-                                                             May 2, 2018
+Expires: November 4, 2018                                           NIST
+                                                             May 3, 2018
 
 
  Internet X.509 Public Key Infrastructure: Additional SHAKE Algorithms
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 3, 2018.
+   This Internet-Draft will expire on November 4, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 1]
+Kampanakis & Dang       Expires November 4, 2018                [Page 1]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 2]
+Kampanakis & Dang       Expires November 4, 2018                [Page 2]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -137,8 +137,8 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    In the SHA-3 family, two extendable-output functions, called SHAKE128
    and SHAKE256 are defined.  Four hash functions, SHA3-224, SHA3-256,
    SHA3-384, and SHA3-512 are also defined but are out of scope for this
-   document.  SHAKE is a variable length hash function.  The output
-   lengths, in bits, of the SHAKE hash functions is defined by the
+   document.  A SHAKE is a variable length hash function.  The output
+   lengths, in bits, of the SHAKE hash functions are defined by the
    parameter d.  The corresponding collision and preimage resistance
    security levels for SHAKE128 and SHAKE256 are respectively
    min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256).
@@ -148,7 +148,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    uses a mask generation function.  A mask generation function takes an
    octet string of variable length and a desired output length as input,
    and outputs an octet string of the desired length.  To use a SHAKE as
-   the mask generation function in RSASSA-PSS this documents defines it
+   the mask generation function in RSASSA-PSS, this document defines it
    as part of the RSASSA-PSS identifier (Section 4.1).
 
 4.  Signatures
@@ -158,36 +158,37 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
    Conforming CA implementations MUST specify the hash algorithm
    explicitly by using the OIDs specified below when encoding RSASSA-PSS
-   or ECDSA SHAKE signatures in certificates and CRLs.
+   or ECDSA with SHAKE signatures in certificates and CRLs.
 
 
 
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 3]
+Kampanakis & Dang       Expires November 4, 2018                [Page 3]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
-   Conforming client implementations that process these signatures with
-   any of the SHAKE hash algorithms when processing certificates and
-   CRLs MUST recognize the corresponding OIDs specified below.
+   Conforming client implementations that process ECDSA with SHAKE
+   signatures when processing certificates and CRLs MUST recognize the
+   corresponding OIDs specified below.
 
-   Encoding rules for signature values are specified in [RFC4055],
-   Section 2.2.3, and [RFC5480].
+   Encoding rules for RSASSA-PSS and ECDSA with SHAKE signature values
+   are specified in [RFC4055] and [RFC5480] respectively.
 
-   Conforming CA implementations that generate signatures in
-   certificates or CRLs MUST generate such signatures in accordance with
-   all the requirements specified in Sections 7.2 and 7.3 of [X9.62] or
-   with all the requirements specified in Section 4.1.3 of [SEC1].  They
-   MAY also generate such signatures in accordance with all the
-   recommendations in [X9.62] or [SEC1] if they have a stated policy
-   that requires conformance to these standards.  These standards may
-   have not specified SHAKE128 and SHAKE256 as hash algorithm options.
-   However, SHAKE128 and SHAKE256 with output length being 32 and 64
-   octets respectively are subtitutions for 256 and 512-bit output hash
-   algorithms such as SHA256 and SHA512 used in the standards.
+   Conforming CA implementations that generate ECDSA with SHAKE
+   signatures in certificates or CRLs MUST generate such signatures in
+   accordance with all the requirements specified in Sections 7.2 and
+   7.3 of [X9.62] or with all the requirements specified in
+   Section 4.1.3 of [SEC1].  They MAY also generate such signatures in
+   accordance with all the recommendations in [X9.62] or [SEC1] if they
+   have a stated policy that requires conformance to these standards.
+   These standards may have not specified SHAKE128 and SHAKE256 as hash
+   algorithm options.  However, SHAKE128 and SHAKE256 with output length
+   being 32 and 64 octets respectively are subtitutions for 256 and
+   512-bit output hash algorithms such as SHA256 and SHA512 used in the
+   standards.
 
 4.1.  RSASSA-PSS with SHAKEs
 
@@ -220,8 +221,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-
-Kampanakis & Dang       Expires November 3, 2018                [Page 4]
+Kampanakis & Dang       Expires November 4, 2018                [Page 4]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -277,7 +277,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 5]
+Kampanakis & Dang       Expires November 4, 2018                [Page 5]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -333,7 +333,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 6]
+Kampanakis & Dang       Expires November 4, 2018                [Page 6]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -389,7 +389,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 7]
+Kampanakis & Dang       Expires November 4, 2018                [Page 7]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -445,7 +445,7 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 8]
+Kampanakis & Dang       Expires November 4, 2018                [Page 8]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -501,4 +501,4 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 3, 2018                [Page 9]
+Kampanakis & Dang       Expires November 4, 2018                [Page 9]

@@ -176,8 +176,8 @@
       <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
 	  In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
 	  defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
-	  defined but are out of scope for this document. SHAKE is a variable length hash function. 
-	  The output lengths, in bits, of the SHAKE hash functions is defined by the parameter d. 
+	  defined but are out of scope for this document. A SHAKE is a variable length hash function. 
+	  The output lengths, in bits, of the SHAKE hash functions are defined by the parameter d. 
 	  The corresponding collision and preimage resistance security levels for SHAKE128 and SHAKE256 
 	  are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256). </t>
 	  
@@ -212,8 +212,8 @@
       <t>The SHAKEs can be used as the hash algorithm in the RSASSA-PSS or ECDSA signature schemes. 
 	  The RSASSA-PSS signature algorithm also uses a mask generation function. A mask generation function 
 	  takes an octet string of variable length and a desired output length as input, and outputs an 
-	  octet string of the desired length. To use a SHAKE as the mask generation function in RSASSA-PSS 
-	  this documents defines it as part of the RSASSA-PSS identifier (<xref target="rsassa-pss"/>).
+	  octet string of the desired length. To use a SHAKE as the mask generation function in RSASSA-PSS,  
+	  this document defines it as part of the RSASSA-PSS identifier (<xref target="rsassa-pss"/>).
 	  <!-- <xref target="RFC8017"/>, but we include it here as well for convenience:</t>
 	  <t><figure><artwork><![CDATA[
    id-mgf1  OBJECT IDENTIFIER  ::=  { pkcs-1 8 }
@@ -230,17 +230,18 @@
 		
 		<t>Conforming CA implementations MUST specify the hash algorithm 
 		explicitly by using the OIDs specified below when encoding RSASSA-PSS or 
-		ECDSA SHAKE signatures in certificates and CRLs.</t>
+		ECDSA with SHAKE signatures in certificates and CRLs.</t>
 		
-		<t>Conforming client implementations that process these signatures with 
-		any of the SHAKE hash algorithms when processing certificates and CRLs 
+		<t>Conforming client implementations that process ECDSA with SHAKE 
+		signatures when processing certificates and CRLs 
 		MUST recognize the corresponding OIDs specified below.</t>
 		
-		<t>Encoding rules for signature values are specified in <xref target="RFC4055"/>, 
-		Section 2.2.3, and <xref target="RFC5480"/>.</t> 
+		<t>Encoding rules for RSASSA-PSS and ECDSA with SHAKE signature values 
+		are specified in <xref target="RFC4055"/> and <xref target="RFC5480"/> 
+		respectively.</t> 
 		
-		<t>Conforming CA implementations that generate signatures in 
-		certificates or CRLs MUST generate such signatures in accordance 
+		<t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
+		in certificates or CRLs MUST generate such signatures in accordance 
 		with all the requirements specified in Sections 7.2 and 7.3 of 
 		<xref target="X9.62"/> or with all the requirements specified in Section 
 		4.1.3 of <xref target="SEC1"/>. They MAY also generate such signatures 
