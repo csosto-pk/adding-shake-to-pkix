@@ -314,6 +314,11 @@
 		  as an AlgorithmIdentifier, the encoding MUST omit the parameters 
 		  field. That is, the AlgorithmIdentifier SHALL be a SEQUENCE of one 
 		  component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.</t>
+		  
+          <t>For simplicity and compliance with the ECDSA standard specification, 
+	      the output size of the hash function must be explicitly determined. The 
+	      ShakeOutputLen parameter of SHAKE128 or SHAKE256 MUST be 32 or 64 bytes 
+	      respectively when it is used in ECDSA.</t>
         </section>
 		
         <!-- <section title="EdDSA with SHAKE">
@@ -398,7 +403,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       where the four digits at the end represent the ASN.1's publication
       date.</t> -->
 	  <t><!-- This document uses several registries that were originally created in <xref target="shake-nist-oids"/>. -->
-	  This document uses several new registries [ EDNOTE: Update here. ] </t>
+	  This document uses several new registries [ EDNOTE: Update here. ]</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">  

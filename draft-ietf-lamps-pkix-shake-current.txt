@@ -5,8 +5,8 @@
 LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Intended status: Standards Track                                 Q. Dang
-Expires: November 4, 2018                                           NIST
-                                                             May 3, 2018
+Expires: November 5, 2018                                           NIST
+                                                             May 4, 2018
 
 
  Internet X.509 Public Key Infrastructure: Additional SHAKE Algorithms
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 4, 2018.
+   This Internet-Draft will expire on November 5, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kampanakis & Dang       Expires November 4, 2018                [Page 1]
+Kampanakis & Dang       Expires November 5, 2018                [Page 1]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kampanakis & Dang       Expires November 4, 2018                [Page 2]
+Kampanakis & Dang       Expires November 5, 2018                [Page 2]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -165,7 +165,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 4, 2018                [Page 3]
+Kampanakis & Dang       Expires November 5, 2018                [Page 3]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -221,7 +221,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 4, 2018                [Page 4]
+Kampanakis & Dang       Expires November 5, 2018                [Page 4]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -252,6 +252,11 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    AlgorithmIdentifier SHALL be a SEQUENCE of one component, the OID
    ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.
 
+   For simplicity and compliance with the ECDSA standard specification,
+   the output size of the hash function must be explicitly determined.
+   The ShakeOutputLen parameter of SHAKE128 or SHAKE256 MUST be 32 or 64
+   bytes respectively when it is used in ECDSA.
+
 5.  Public Keys
 
    The conventions for RSASSA-PSS and ECDSA public keys are as specified
@@ -269,18 +274,18 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.  The details of the
    algorithms, salt length and trailer are defined in Section 4.1.
 
+
+
+
+Kampanakis & Dang       Expires November 5, 2018                [Page 5]
+
+Internet-Draft         SHAKE identifiers in X.509               May 2018
+
+
    Regardless of what RSA algorithm identifier is used, the RSA public
    key, which is composed of a modulus and a public exponent, MUST be
    encoded using the RSAPublicKey type [RFC4055].  The output of this
    encoding is carried in the certificate subjectPublicKey.
-
-
-
-
-Kampanakis & Dang       Expires November 4, 2018                [Page 5]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
 
      RSAPublicKey ::= SEQUENCE {
            modulus INTEGER, -- n
@@ -326,17 +331,15 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    unrelated outputs (with the same or different output lengths) from
    excuting a SHAKE function with the same input multiple times.
 
-   Implementations must protect the signer's private key.  Compromise of
-   the signer's private key permits masquerade.
 
 
-
-
-
-Kampanakis & Dang       Expires November 4, 2018                [Page 6]
+Kampanakis & Dang       Expires November 5, 2018                [Page 6]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
+
+   Implementations must protect the signer's private key.  Compromise of
+   the signer's private key permits masquerade.
 
    When more than two parties share the same message-authentication key,
    data origin authentication is not provided.  Any party that knows the
@@ -386,10 +389,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-
-
-
-Kampanakis & Dang       Expires November 4, 2018                [Page 7]
+Kampanakis & Dang       Expires November 5, 2018                [Page 7]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -445,7 +445,7 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang       Expires November 4, 2018                [Page 8]
+Kampanakis & Dang       Expires November 5, 2018                [Page 8]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -501,4 +501,4 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 4, 2018                [Page 9]
+Kampanakis & Dang       Expires November 5, 2018                [Page 9]
