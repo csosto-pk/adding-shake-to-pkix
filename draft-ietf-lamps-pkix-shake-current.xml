@@ -8,6 +8,7 @@
 
 <!-- <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"> -->
 <!ENTITY RFC3279 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3279.xml">
+<!ENTITY RFC3280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3280.xml">
 <!ENTITY RFC4055 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4055.xml">
 <!ENTITY RFC4086 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4086.xml">
 <!ENTITY RFC5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
@@ -226,7 +227,10 @@
 	
     <section title="Signatures" anchor="sig-oids">
 	    <t>The OIDs (Object Identifiers) for signatures contained in certificates 
-		based on SHAKEs are defined in this section.</t>
+		based on SHAKEs are defined in this section. These identifiers are used 
+		as the AlgorithmIdentifier in the signatureAlgorithm field in the sequence 
+		Certificate and the signature field in the sequence tbsCertificate 
+		<xref target="RFC3280"/>.</t>
 		
 		<t>Conforming CA implementations MUST specify the hash algorithm 
 		explicitly by using the OIDs specified below when encoding RSASSA-PSS or 
@@ -353,6 +357,9 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. The details of the algorithms, 
 		salt length and trailer are defined in <xref target="rsassa-pss"/>.</t>
 		
+		<t>These AlgorithmIdentifier are used as the algorithm field in the SubjectPublicKeyInfo 
+		sequence <xref target="RFC3280"/></t>
+		
 		<t>Regardless of what RSA algorithm identifier is used, the RSA public key, which 
 		is composed of a modulus and a public exponent, MUST be encoded using the 
 		RSAPublicKey type <xref target="RFC4055"/>. The output of this encoding is carried 
@@ -464,6 +471,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
       <!-- &RFC2119; -->
 	  &RFC3279;
+	  &RFC3280;
 	  &RFC4055;
       &RFC5280;
 	  &RFC5480;
