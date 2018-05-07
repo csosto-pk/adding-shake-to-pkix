@@ -118,7 +118,7 @@
 	  </section> -->
 	</section>
 
-	<section title="Message Digest Algorithms" anchor="xofs">
+	<section title="Message Digest and Mask Generation Algorithms" anchor="mdmgf">
       <t>The SHA-3 family of one-way hash functions is specified in 
 	  <xref target="SHA3"/>, which defines two extendable-output functions, 
 	  SHAKE128 and SHAKE256. Four other hash functions, SHA3-224, SHA3-256,
@@ -150,16 +150,16 @@
 	 syntax that contains an encoded positive integer value at least 32 or 
 	 64 respectively.</t> -->
 
-	 <t>In CMS, digest algorithm identifiers are located in the SignedData 
-	 digestAlgorithm field, the SignerInfo digestAlgorithm field, the 
-	 DigestedData digestAlgorithm field, and the AuthenticatedData 
-	 digestAlgorithm field.</t>
-	  
-	 <t>Digest values are located in the DigestedData field and the 
-	 Message Digest authenticated attribute.  In addition, digest values 
-     are input to signature algorithms.</t>
+	 <t>This document defines algorithm identifiers for SHAKE functions. The 
+	 SHAKEs can be used in CMS as the message digest algorithm. In CMS, 
+	 the digest algorithm identifiers are located in the SignedData, SignerInfo, 
+	 DigestedData, and the AuthenticatedData digestAlgorithm fields. 	  
+	 Digest values are located in the DigestedData field and the Message 
+	 Digest authenticated attribute included in the signedAttributes of the 
+	 SignedData signerInfo. In addition, digest values are input to 
+	 signature algorithms.</t>
 
-  	 <t>The SHAKEs can also be used as the mask generation function of the 
+  	 <t>The SHAKEs can also be used in CMS as the mask generation function of the 
 	 RSASSA-PSS signature algorithm. The mask generation function takes an 
 	 octet string of variable length and a desired output length as input, 
 	 and outputs an octet string of the desired length. To use a SHAKE as 
@@ -175,7 +175,7 @@
      <t>The parameters field associated with id-mgf1 MUST have a
      hashAlgorithm value that identifies the hash used with MGF1. To use
      SHAKE as this hash, this parameter MUST be id-shake128-len or id-
-     shake256-len as specified in <xref target="xofs" /> above. </t>    -->
+     shake256-len as specified in <xref target="mdmgf" /> above. </t>    -->
     </section>
 	  
 	<section title="Signature Algorithms and Public Keys" anchor="section-3">
@@ -184,12 +184,15 @@
       with the RSASSA-PSS signature algorithm <xref target="RFC8017"/> and
       the Elliptic Curve Digital Signature Algorithm (ECDSA) <xref target="X9.62"/> 
 	  in the CMS signed-data content type.</t>
-      
+     	  
       <t>In CMS, signature algorithm identifiers are located in the SignerInfo
-      signatureAlgorithm field of SignedData and countersignature attributes.
+      signatureAlgorithm field of SignedData content type and countersignature attribute.
       Signature values are located in the SignerInfo signature field of SignedData and 
-      countersignature attributes.</t>
+      countersignature.</t>
 
+	  <t>In CMS, the signer's public key algorithm identifiers are located in the 
+	  OriginatorPublicKey's algorithm attribute.</t>
+	  
 	  <section title="RSASSA-PSS with SHAKEs" anchor="section-3.1"> 
         <t>The RSASSA-PSS signature algorithm identifier and its parameters are 
 		specifed in <xref target="RFC4055"/>. This document adds two new algorithm 
@@ -213,7 +216,7 @@
   [ EDNOTE: "w" and "z" will be specified by NIST later. ]
 ]]></artwork></figure></t>
 		   
-		<t>The parameters for these identifiers MUST be absent. That is, the AlgorithmIdentifier 
+		<t>The parameters for these identifiers MUST be absent. That is, the identifier 
 		SHALL be a SEQUENCE of one component, the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.</t>
         
 		<t>In the identifiers above, SHAKE128 and SHAKE256 are respectively used as the hashAlgorithm 
@@ -232,8 +235,8 @@
    rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
 ]]></artwork></figure></t>
 
-		<t>This document adds the corresponding RSASSA-PSS identifiers defined above. 
-		When used as the public key identifier, the parameters MUST be absent. That is, 
+		<t>The RSASSA-PSS SHAKE identifiers defined above can also be used as the signer public key 
+		identifiers. When used as such, the parameters MUST be absent. That is, 
 		the public key identifier SHALL be a SEQUENCE of one component, the OID 
 		id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. The details of the algorithms, 
 		salt length and trailer are defined above.</t>
@@ -248,16 +251,6 @@
         publicExponent INTEGER  -- e
   }
 ]]></artwork></figure></t>
-
-		<t>Additionally, <xref target="RFC4055"/> adds the RSASSA-PSS OID and 
-		parameters shown above as a public key identifier. The parameters may be either 
-		absent or present when RSASSA-PSS OID is used as subject public key information. 	
-		If id-RSASSA-PSS is used in the public key identifier with parameters, Section 3.3 of 
-		<xref target="RFC4055"/> describes that the signature algorithm parameters MUST match the 
-		parameters in the key structure algorithm identifier except the saltLength field. The 
-		saltLength field in the signature parameters MUST be greater or equal to that in the key 
-		parameters field. If the id-RSASSA-PSS parameters are NULL no further parameter validation 
-		is necessary.</t>
    	  </section>
 
       <section title="ECDSA with SHAKEs" anchor="section-3.2">
@@ -285,9 +278,9 @@
 Note: x and y will be specified by NIST.
 ]]></artwork> </figure> -->
 		<t>When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256, 
-		algorithm identifier appears in the algorithm field, the encoding 
-		MUST omit the parameters field. That is, the identifier SHALL 
-		be a SEQUENCE of one component, the OID ecdsa-with-SHAKE128 
+		algorithm identifier is used, the encoding MUST omit the 
+		parameters field. That is, the identifier SHALL be a SEQUENCE 
+		of one component, the OID ecdsa-with-SHAKE128 
 		or ecdsa-with-SHAKE256.</t>
         
 	    <t>For simplicity and compliance with the ECDSA standard specification, 
@@ -325,7 +318,7 @@ Note: x and y will be specified by NIST.
 	  <t> In CMS, KMAC algorithm identifiers are located in the AuthenticatedData 
 	  macAlgorithm field. MAC values are located in the AuthenticatedData mac field.</t>
 
-	  <t>The object identifiers for KMACs with SHAKE128 and SHAKE256 are:</t>
+	  <t>The object identifiers for KMACs with SHAKE128 and SHAKE256 are defined as </t>
 	  
 	  <figure><artwork><![CDATA[
    id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
@@ -348,7 +341,7 @@ Note: x and y will be specified by NIST.
 ]]></artwork></figure> --> 
 
 	  <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm identifier 
-	  is used, the parameters field MUST be absent; not NULL but absent.</t>
+	  is used, the parameters field MUST be absent.</t>
 	  
 	  <t>When calculating the KMAC output, the variable N is 0xD2B282C2, S 
 	  is an empty string, and L, the integer representing the requested output 

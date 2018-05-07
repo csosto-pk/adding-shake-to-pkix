@@ -173,7 +173,7 @@
 
     <?rfc needLines="8" ?>
 
-    <section title="Message Digest Algorithms">
+    <section title="Hash and Mask Generating Functions">
       <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
 	  In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
 	  defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
@@ -210,11 +210,14 @@
 	  <!-- "MUST employ syntax borrowed from RFC4055 -->
 	  <!-- syntax that contains an encoded positive integer value at least 64 
 	  in this specification.</t>	-->
-      <t>The SHAKEs can be used as the hash algorithm in the RSASSA-PSS or ECDSA signature schemes. 
-	  The RSASSA-PSS signature algorithm also uses a mask generation function. A mask generation function 
-	  takes an octet string of variable length and a desired output length as input, and outputs an 
-	  octet string of the desired length. To use a SHAKE as the mask generation function in RSASSA-PSS,  
-	  this document defines it as part of the RSASSA-PSS identifier (<xref target="rsassa-pss"/>).
+      <t>The SHAKEs can be used as the message digest or hash algorithm in the 
+	  RSASSA-PSS or ECDSA signature schemes as defined in <xref target="sig-oids"/>. </t> 
+	  
+	  <t>The RSASSA-PSS signature algorithm also uses a mask generation function. 
+	  A mask generation function takes an octet string of variable length and a desired output length 
+	  as input, and outputs an octet string of the desired length. To use a SHAKE as the mask 
+	  generation function in RSASSA-PSS, this document defines it as part of the RSASSA-PSS 
+	  identifier (<xref target="rsassa-pss"/>).
 	  <!-- <xref target="RFC8017"/>, but we include it here as well for convenience:</t>
 	  <t><figure><artwork><![CDATA[
    id-mgf1  OBJECT IDENTIFIER  ::=  { pkcs-1 8 }
@@ -357,13 +360,11 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. The details of the algorithms, 
 		salt length and trailer are defined in <xref target="rsassa-pss"/>.</t>
 		
-		<t>These AlgorithmIdentifier are used as the algorithm field in the SubjectPublicKeyInfo 
-		sequence <xref target="RFC3280"/></t>
-		
-		<t>Regardless of what RSA algorithm identifier is used, the RSA public key, which 
-		is composed of a modulus and a public exponent, MUST be encoded using the 
-		RSAPublicKey type <xref target="RFC4055"/>. The output of this encoding is carried 
-		in the certificate subjectPublicKey. </t>
+		<t>The AlgorithmIdentifiers for RSA public keys are used as the algorithm field 
+		in the SubjectPublicKeyInfo sequence <xref target="RFC3280"/>. Regardless of what 
+		identifier is used, the RSA public key, which is composed of a modulus and a public 
+		exponent, MUST be encoded using the RSAPublicKey type <xref target="RFC4055"/>. 
+		The output of this encoding is carried in the certificate subjectPublicKey. </t>
         <t><figure><artwork><![CDATA[
   RSAPublicKey ::= SEQUENCE {
         modulus INTEGER, -- n
@@ -371,8 +372,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
   }
 ]]></artwork></figure></t>
 				
-		<t>When id-ecdsa-with-shake128 or id-ecdsa-with-shake256 (<xref target="ecdsa"/>) are 
-		used as the AlgorithmIdentifier in the SubjectPublicKeyInfo, the parameters MUST 
+		<t>For ECDSA, when id-ecdsa-with-shake128 or id-ecdsa-with-shake256 (<xref target="ecdsa"/>) 
+		are used as the AlgorithmIdentifier in the SubjectPublicKeyInfo, the parameters MUST 
 		be omitted. That is, the AlgorithmIdentifier SHALL be a SEQUENCE of one 
 		component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.
 		Additionally, for ECDSA, <xref target="RFC5480"/> defines the mandatory EC 
