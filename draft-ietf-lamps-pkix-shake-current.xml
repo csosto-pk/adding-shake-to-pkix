@@ -140,6 +140,7 @@
       <t><list style="symbols"> 
 	    <t>draft-ietf-lamps-pkix-shake-02:
 		  <list> 
+		  <t>Significant reorganization of the section to simplify the introduction, the new OIDs and their use in PKIX.</t>
 		  <t>Added new OID for RSASSA-PSS that hardcodes hash, salt and MFG, according the WG consensus.</t>
 		  <t>Updated Public Key section to use the new RSASSA-PSS OIDs and clarify the algorithm identifier usage.</t>
 		  <t>Removed the no longer used SHAKE OIDs from section 3.1.</t>
@@ -167,13 +168,7 @@
 	  for variable length SHAKE algorithms introduced in <xref target="SHA3"/> 
 	  which may be used with the Internet X.509 Certificate and CRL profile 
 	  <xref target="RFC5280"/>. </t>
-    </section>
-
-    <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
-
-    <?rfc needLines="8" ?>
-
-    <section title="Hash and Mask Generating Functions">
+	  
       <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
 	  In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
 	  defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
@@ -182,6 +177,15 @@
 	  The corresponding collision and preimage resistance security levels for SHAKE128 and SHAKE256 
 	  are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256). </t>
 	  
+	  <t>SHAKEs can be used as the hash, mask generating function and public key algorithms in 
+	  RSASSA-PSS and ECDSA signatures, which is described in this document.</t>
+    </section>
+
+    <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
+
+    <?rfc needLines="8" ?>
+
+    <section title="Identifiers">
 	  <!-- Commention out the below OIDs as they are no longer pertinent for the below public keys and sigs -->
 	  <!-- The Object Identifiers (OIDs) for these two hash functions are defined in 
 	  <xref target="shake-nist-oids"/> and are included here for convenience: </t>
@@ -210,27 +214,52 @@
 	  <!-- "MUST employ syntax borrowed from RFC4055 -->
 	  <!-- syntax that contains an encoded positive integer value at least 64 
 	  in this specification.</t>	-->
-      <t>The SHAKEs can be used as the message digest or hash algorithm in the 
-	  RSASSA-PSS or ECDSA signature schemes as defined in <xref target="sig-oids"/>. </t> 
+
+	  <t>The OIDs (Object Identifiers) for signatures contained in certificates 
+	  based on SHAKEs are defined in this section. </t>
 	  
-	  <t>The RSASSA-PSS signature algorithm also uses a mask generation function. 
-	  A mask generation function takes an octet string of variable length and a desired output length 
-	  as input, and outputs an octet string of the desired length. To use a SHAKE as the mask 
-	  generation function in RSASSA-PSS, this document defines it as part of the RSASSA-PSS 
-	  identifier (<xref target="rsassa-pss"/>).
+	  <t><figure><artwork><![CDATA[
+  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { pkcs-1 w }
+]]></artwork></figure></t>
+
+	        <t><figure><artwork><![CDATA[
+  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { pkcs-1 z }
+   
+  [ EDNOTE: "w" and "z" will be specified by NIST later. ]
+]]></artwork></figure></t>
+		   
+	  <t>The parameters for these identifiers MUST be absent. That is, the identifier  
+	  SHALL be a SEQUENCE of one component, the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.</t>
+         
+ 	  <t>The algorithm identifiers of ECDSA signatures using SHAKE128 and SHAKE256, are </t> 
+      <t><list>
+	    <t><figure><artwork><![CDATA[
+  id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
+			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
+			id-ecdsa-with-shake(3) x }
+]]></artwork></figure></t>
+		<t><figure><artwork><![CDATA[
+  id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
+			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
+			id-ecdsa-with-shake(3) y }
+			
+  [ EDNOTE: "x" and "y" will be specified by NIST later. ]
+]]></artwork></figure></t>
+	  </list></t> 
+	  
 	  <!-- <xref target="RFC8017"/>, but we include it here as well for convenience:</t>
 	  <t><figure><artwork><![CDATA[
    id-mgf1  OBJECT IDENTIFIER  ::=  { pkcs-1 8 }
 ]]></artwork></figure>--> 
-      </t>
 	  <!-- <t>The parameters field associated with id-mgf1 MUST have a hashAlgorithm value that identifies 
 	  the hash used with MGF1. To use SHAKE as this hash, this parameter MUST be 
 	  id-shake128-len or id-shake256-len as specified in <xref target="xofs" /> above. </t>--> 
     </section> 
 	
-    <section title="Signatures" anchor="sig-oids">
-	    <t>The OIDs (Object Identifiers) for signatures contained in certificates 
-		based on SHAKEs are defined in this section. These identifiers are used 
+	<section title="Use in PKIX">
+
+	  <section title="Signatures" anchor="sig-oids">
+	    <t>These identifiers are used 
 		as the AlgorithmIdentifier in the signatureAlgorithm field in the sequence 
 		Certificate and the signature field in the sequence tbsCertificate 
 		<xref target="RFC3280"/>.</t>
@@ -247,25 +276,26 @@
 		are specified in <xref target="RFC4055"/> and <xref target="RFC5480"/> 
 		respectively.</t> 
 		
-		<t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
-		in certificates or CRLs MUST generate such signatures in accordance 
-		with all the requirements specified in Sections 7.2 and 7.3 of 
-		<xref target="X9.62"/> or with all the requirements specified in Section 
-		4.1.3 of <xref target="SEC1"/>. They MAY also generate such signatures 
-		in accordance with all the recommendations in <xref target="X9.62"/> or 
-		<xref target="SEC1"/> if they have a stated policy that requires 
-		conformance to these standards. These standards may have not specified 
-		SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
-		SHAKE256 with output length being 32 and 64 octets respectively are 
-		subtitutions for 256 and 512-bit output hash algorithms such as SHA256 
-		and SHA512 used in the standards.</t>
-		
-        <section title="RSASSA-PSS with SHAKEs" anchor="rsassa-pss">
-		   <t>RSASSA-PSS algorithm identifiers and their parameters are specifed in 
-		   <xref target="RFC4055"/>. This document adds two new algorithm choices. 
-		   <!-- These are the SHAKE128 and SHAKE256 algorithm identifiers specified in <xref target="xofs" />. -->
-           The new signature algorithm identifiers are </t><!-- </t>
-		    <t><figure><artwork><![CDATA[
+		<section title="RSASSA-PSS Signatures">
+		  <t>RSASSA-PSS algorithm identifiers and their parameters are specifed in 
+		  <xref target="RFC4055"/>.  
+		  <!-- These are the SHAKE128 and SHAKE256 algorithm identifiers specified in <xref target="xofs" />. -->
+          The new signature algorithm identifiers are </t>
+		  
+	      <t>The RSASSA-PSS signature algorithm also uses a mask generation function. 
+	      A mask generation function takes an octet string of variable length and a desired output length 
+	      as input, and outputs an octet string of the desired length. To use a SHAKE as the mask 
+	      generation function in RSASSA-PSS, this document defines it as part of the RSASSA-PSS 
+	      identifier.</t>
+		  
+		  <t>id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256 are respectively used as the hashAlgorithm 
+	      and the maskGenAlgorithm. The output-lengths of the hashAlgorithm are 32 and 64 bytes respectively. 	   
+	      The respective output length for the mask generation algorithm is (n - 264)/8 or (n - 520)/8 
+	      respectively, where n is the RSA modulus in bits. For example, when 
+	      RSA modulus n is 2048, the mask generation algorithm length will be 223 or 191. The saltLength is 
+	      32 or 64 bytes respectively for the SHAKE128 and SHA256 OIDs. Finally, the trailerField SHALL 
+	      be 1, which represents the trailer field with hexadecimal value 0xBC <xref target="RFC4055"/>.</t>
+		<!-- <t><figure><artwork><![CDATA[
    id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 k }
 
    RSASSA-PSS-params  ::=  SEQUENCE  {
@@ -275,59 +305,6 @@
          trailerField       INTEGER }
 ]]></artwork></figure></t> -->
 
-	        <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { pkcs-1 w }
-]]></artwork></figure></t>
-
-	        <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { pkcs-1 z }
-   
-  [ EDNOTE: "w" and "z" will be specified by NIST later. ]
-]]></artwork></figure></t>
-		   
-		   <t>The parameters for these identifiers MUST be absent. That is, the AlgorithmIdentifier 
-		   SHALL be a SEQUENCE of one component, the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.</t>
-           
-		   <t>In the identifiers above, SHAKE128 and SHAKE256 are respectively used as the hashAlgorithm 
-		   and the maskGenAlgorithm. The output-lengths of the hashAlgorithm are 32 and 64 bytes respectively. 	   
-		   The respective output length for the mask generation algorithm is (n - 264)/8 or (n - 520)/8 
-		   respectively, where n is the RSA modulus in bits. For example, when 
-		   RSA modulus n is 2048, the mask generation algorithm length will be 223 or 191. The saltLength is 
-		   32 or 64 bytes respectively for the SHAKE128 and SHA256 OIDs. Finally, the trailerField SHALL 
-		   be 1, which represents the trailer field with hexadecimal value 0xBC <xref target="RFC4055"/>.</t>
-        </section>
-		
-        <section title="ECDSA with SHAKEs" anchor="ecdsa">
-          <t>The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in 
-		  <xref target="X9.62"/>.  The algorithm identifiers of ECDSA signature algorithms 
-		  using SHAKE128 and SHAKE256, are </t> 
-    	  <t><list>
-		    <t><figure><artwork><![CDATA[
-  id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
-			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
-			id-ecdsa-with-shake(3) x }
-]]></artwork></figure></t>
-			<t><figure><artwork><![CDATA[
-  id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
-			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
-			id-ecdsa-with-shake(3) y }
-			
-  [ EDNOTE: "x" and "y" will be specified by NIST later. ]
-]]></artwork></figure></t>
-		  </list></t> 
-		  
-		  <t>When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256, 
-		  algorithm identifier appears in the algorithm field 
-		  as an AlgorithmIdentifier, the encoding MUST omit the parameters 
-		  field. That is, the AlgorithmIdentifier SHALL be a SEQUENCE of one 
-		  component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.</t>
-		  
-          <t>For simplicity and compliance with the ECDSA standard specification, 
-	      the output size of the hash function must be explicitly determined. The 
-	      ShakeOutputLen parameter of SHAKE128 or SHAKE256 MUST be 32 or 64 bytes 
-	      respectively when it is used in ECDSA.</t>
-        </section>
-		
         <!-- <section title="EdDSA with SHAKE">
           <t>[ EDNOTE: For the group to decide: pre-hash version or non-prehash version EdDSAs. PureEdDSA, the pre-hashed version of EdDSA, as currently also proposed in draft-ietf-curdle-cms-eddsa-signatures mandates the hash function as SHA512 for Ed25519 and SHAKE256(x,64) for Ed448. The HashEdDSA version of EdDSA does not define the hash. It is up to the WG to go the Pre-hash route which would require an OID that contained the hash. ] </t>
 		  <t>
@@ -340,61 +317,96 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 ]]></artwork></figure></t>
 			   </list></t>
         </section> -->	  
-        
-      </section>
-	  <section title="Public Keys">
-        <t>The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
-		are as specified in <xref target="RFC3279"/>, <xref target="RFC4055"/> and 
-		<xref target="RFC5480"/><!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->.</t>
+		</section>
 		
-		<t><xref target="RFC3279"/> defines the following OID for RSA AlgorithmIdentifier 
-		in the SubjectPublicKeyInfo with NULL parameters.</t>
-		<t><figure><artwork><![CDATA[
+		<section title="ECDSA Signatures">
+	      <t>The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in 
+	      <xref target="X9.62"/>. When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256, 
+	      algorithm identifier appears in the algorithm field 
+	      as an AlgorithmIdentifier, the encoding MUST omit the parameters 
+	      field. That is, the AlgorithmIdentifier SHALL be a SEQUENCE of one 
+	      component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.</t>
+	      
+          <t>For simplicity and compliance with the ECDSA standard specification, 
+	      the output size of the hash function must be explicitly determined. The 
+	      ShakeOutputLen parameter of SHAKE128 or SHAKE256 MUST be 32 or 64 bytes 
+	      respectively when it is used in ECDSA.</t>
+	      
+          <t>The SHAKEs can be used as the message digest or hash algorithm in the 
+	      RSASSA-PSS or ECDSA signature schemes as defined in </t> 
+	  	  	
+		  <t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
+		  in certificates or CRLs MUST generate such signatures in accordance 
+		  with all the requirements specified in Sections 7.2 and 7.3 of 
+		  <xref target="X9.62"/> or with all the requirements specified in Section 
+		  4.1.3 of <xref target="SEC1"/>. They MAY also generate such signatures 
+		  in accordance with all the recommendations in <xref target="X9.62"/> or 
+		  <xref target="SEC1"/> if they have a stated policy that requires 
+		  conformance to these standards. These standards may have not specified 
+		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
+		  SHAKE256 with output length being 32 and 64 octets respectively are 
+		  subtitutions for 256 and 512-bit output hash algorithms such as SHA256 
+		  and SHA512 used in the standards.</t>
+          </section>
+	    </section>
+
+	  <section title="Public Keys">
+        <section title="RSASSA-PSS Public Keys">
+		  <t>The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
+		  are as specified in <xref target="RFC3279"/>, <xref target="RFC4055"/> and 
+		  <xref target="RFC5480"/><!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->.</t>
+		  
+		  <t><xref target="RFC3279"/> defines the following OID for RSA AlgorithmIdentifier 
+		  in the SubjectPublicKeyInfo with NULL parameters.</t>
+		  <t><figure><artwork><![CDATA[
   rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
 ]]></artwork></figure></t>
 	    
-		<t><!--Additionally, <xref target="RFC4055"/>-->This document adds the corresponding 
-		RSASSA-PSS identifiers (defined in <xref target="rsassa-pss"/>). When used as 
-		the public key AlgorithmIdentifier in the SubjectPublicKeyInfo, the parameters 
-		MUST be absent. That is, public key identifier SHALL be a SEQUENCE of one component, 
-		the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. The details of the algorithms, 
-		salt length and trailer are defined in <xref target="rsassa-pss"/>.</t>
-		
-		<t>The AlgorithmIdentifiers for RSA public keys are used as the algorithm field 
-		in the SubjectPublicKeyInfo sequence <xref target="RFC3280"/>. Regardless of what 
-		identifier is used, the RSA public key, which is composed of a modulus and a public 
-		exponent, MUST be encoded using the RSAPublicKey type <xref target="RFC4055"/>. 
-		The output of this encoding is carried in the certificate subjectPublicKey. </t>
-        <t><figure><artwork><![CDATA[
+		  <t>This document adds the corresponding RSASSA-PSS identifiers. When used as 
+		  the public key AlgorithmIdentifier in the SubjectPublicKeyInfo, the parameters 
+		  MUST be absent. That is, public key identifier SHALL be a SEQUENCE of one component, 
+		  the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. The details of the algorithms, 
+		  salt length and trailer are defined in .</t>
+		  
+		  <t>The AlgorithmIdentifiers for RSA public keys are used as the algorithm field 
+		  in the SubjectPublicKeyInfo sequence <xref target="RFC3280"/>. Regardless of what 
+		  identifier is used, the RSA public key, which is composed of a modulus and a public 
+		  exponent, MUST be encoded using the RSAPublicKey type <xref target="RFC4055"/>. 
+		  The output of this encoding is carried in the certificate subjectPublicKey. </t>
+          <t><figure><artwork><![CDATA[
   RSAPublicKey ::= SEQUENCE {
         modulus INTEGER, -- n
         publicExponent INTEGER  -- e
   }
 ]]></artwork></figure></t>
-				
-		<t>For ECDSA, when id-ecdsa-with-shake128 or id-ecdsa-with-shake256 (<xref target="ecdsa"/>) 
-		are used as the AlgorithmIdentifier in the SubjectPublicKeyInfo, the parameters MUST 
-		be omitted. That is, the AlgorithmIdentifier SHALL be a SEQUENCE of one 
-		component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.
-		Additionally, for ECDSA, <xref target="RFC5480"/> defines the mandatory EC 
-		public key SubjectPublicKey in Section 2.1.1 and its syntax in Section 2.2. 
-		We include it here for convenience: </t>
-		<t><figure><artwork><![CDATA[
+		</section>
+		
+        <section title="ECDSA Public Keys">
+		  <t>For ECDSA, when id-ecdsa-with-shake128 or id-ecdsa-with-shake256 
+		  are used as the AlgorithmIdentifier in the SubjectPublicKeyInfo, the parameters 
+		  are explained in section 
+		  Additionally, for ECDSA, <xref target="RFC5480"/> defines the mandatory EC 
+		  public key SubjectPublicKey in Section 2.1.1 and its syntax in Section 2.2. 
+		  We include it here for convenience: </t>
+		  <t><figure><artwork><![CDATA[
   id-ecPublicKey OBJECT IDENTIFIER ::= {
        iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
 ]]></artwork></figure></t>
 
-       <t>The id-ecPublicKey parameters MUST be present and are defined as </t>	   
-	   <t><figure><artwork><![CDATA[
+          <t>The id-ecPublicKey parameters MUST be present and are defined as </t>	   
+	      <t><figure><artwork><![CDATA[
   ECParameters ::= CHOICE {
       namedCurve         OBJECT IDENTIFIER
       -- implicitCurve   NULL
       -- specifiedCurve  SpecifiedECDomain 
    }
 ]]></artwork></figure></t>
-        <t>The ECParameters associated with the ECDSA public key in the signer's 
-	    certificate SHALL apply to the verification of the signature.</t>
-      </section>
+          <t>The ECParameters associated with the ECDSA public key in the signer's 
+	      certificate SHALL apply to the verification of the signature.</t>
+        </section>
+	  </section>
+	  
+	</section>
 
     <!-- Possibly a 'Contributors' section ... -->
     <section anchor="Acknowledgements" title="Acknowledgements">
