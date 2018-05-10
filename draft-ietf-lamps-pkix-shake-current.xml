@@ -526,7 +526,6 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     <references title="Normative References">
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
       <!-- &RFC2119; -->
-	  &RFC3279;
 	  &RFC3280;
 	  &RFC4055;
       &RFC5280;
@@ -547,6 +546,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     <references title="Informative References">
       <!-- Here we use entities that we defined at the beginning. -->
       <!--&RFC2629; -->
+	  &RFC3279;
 	  &RFC4086;
       <!--<reference anchor="shake-nist-oids" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
         <front>
