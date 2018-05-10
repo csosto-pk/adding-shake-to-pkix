@@ -252,7 +252,7 @@ Note: x and y will be specified by NIST.
 	 signature algorithms.</t>
 	</section> 
 	  
-	<section title="Signature Algorithms" anchor="sigs">
+	<section title="Signature" anchor="sigs">
 	  <t>This section specifies the conventions employed by CMS
       implementations that support the SHAKE one-way hash functions
       with the RSASSA-PSS signature algorithm <xref target="RFC8017"/> and
@@ -428,11 +428,10 @@ Note: x and y will be specified by NIST.
 
 	<back>
 	<references title="Normative References">
-	  &RFC3279;
-	  &RFC4055;
-      &RFC5480;
 	  &RFC5652;
 	  &RFC8017;
+	  &RFC4055;
+      &RFC5480;
 	  <reference anchor="SHA3">
 	    <front>
 	      <title>SHA-3 Standard - Permutation-Based Hash and Extendable-Output Functions</title>
@@ -482,6 +481,7 @@ Note: x and y will be specified by NIST.
 	</references>
 
 	<references title="Informative References">
+	  &RFC3279;
 	  &RFC4086;
 	  <!-- <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"?> -->
 	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml"?>
