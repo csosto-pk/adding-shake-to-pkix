@@ -178,10 +178,10 @@
 	  The corresponding collision and preimage resistance security levels for SHAKE128 and SHAKE256 
 	  are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256) bits. </t>
 	  
-	  <t>SHAKEs can be used as the hash, mask generating function and public key algorithm 
-      identifiers in RSASSA-PSS and ECDSA. In this document we define four new OIDs for 
-	  SHAKE128 and SHAKE256 used with RSASSA-PSS and ECDSA. The same algorithm 
-	  identifiers are used for identifying a public key, and identifying a signature. </t>
+	  <t>SHAKEs can be used as the hash and mask generating functions in RSASSA-PSS 
+	  and ECDSA. In this document we define four new OIDs for SHAKE128 and SHAKE256 
+	  used with RSASSA-PSS and ECDSA. The same algorithm identifiers are used for 
+	  identifying a public key, and identifying a signature. </t>
     </section>
 
     <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
@@ -218,20 +218,19 @@
 	  <!-- syntax that contains an encoded positive integer value at least 64 
 	  in this specification.</t>	-->
 
-	  <t>The new OIDs (Object Identifiers) defined for SHAKEs in digital certificates are 
-	  defined in this section. The new identifiers for RSASSA-PSS signatures are </t>
+	  <t>The new identifiers for RSASSA-PSS signatures are below.</t>
 	  
 	  <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { pkcs-1 TBD }
+  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
 ]]></artwork></figure></t>
 
 	        <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { pkcs-1 TBD }
+  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
    
   [ EDNOTE: "TBD" will be specified by NIST later. ]
 ]]></artwork></figure></t>
 		           
- 	  <t>The new algorithm identifiers of ECDSA signatures using SHAKEs are </t> 
+ 	  <t>The new algorithm identifiers of ECDSA signatures using SHAKEs are below.</t> 
       <t><list>
 	    <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
@@ -255,8 +254,8 @@
 	  the hash used with MGF1. To use SHAKE as this hash, this parameter MUST be 
 	  id-shake128-len or id-shake256-len as specified in <xref target="xofs" /> above. </t>--> 
     
-	  <t>The parameters for these identifiers MUST be absent. That is, the identifier SHALL be a SEQUENCE 
-	  of one component, the OID.</t>
+	  <t>The parameters for these four identifiers above MUST be absent. That is, 
+	  the identifier SHALL be a SEQUENCE of one component, the OID.</t>
 	
 	</section> 
 	
@@ -294,7 +293,7 @@
 		<section title="RSASSA-PSS Signatures" anchor="rsa-sigs">		  
 		  <t>The RSASSA-PSS algorithm is defined in <xref target="RFC8017"/>. 
 		  When id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 specified in <xref target="oids"/> 
-		  are respectively used, the encoding MUST omit the parameters field. That is, 
+		  is used, the encoding MUST omit the parameters field. That is, 
 		  the AlgorithmIdentifier SHALL be a SEQUENCE of one component,  
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. </t>
 		  
@@ -306,8 +305,8 @@
 		  variable length and a desired output length as input, and outputs an octet 
 		  string of the desired length. For example, when RSA modulus n is 2048, the mask 
 		  generation algorithm length will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
-		  id-RSASSA-PSS-SHAKE256 is used respectively. The RSASSA-PSS saltLength SHALL be 32 
-		  or 64 bytes respectively. Finally, the trailerField SHALL be 1, which represents 
+		  id-RSASSA-PSS-SHAKE256 is used respectively. The RSASSA-PSS saltLength MUST be 32 
+		  or 64 bytes respectively. Finally, the trailerField MUST be 1, which represents 
 		  the trailer field with hexadecimal value 0xBC <xref target="RFC4055"/>.</t>
 		<!-- <t><figure><artwork><![CDATA[
    id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 k }
@@ -344,8 +343,9 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	      
           <t>For simplicity and compliance with the ECDSA standard specification, 
 	      the output size of the hash function must be explicitly determined. The 
-	      output size SHALL be 32 or 64 bytes respectively. The ECDSA message 
-		  hash function is SHAKE128 or SHAKE256 respectively.</t>
+	      output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 32 or 64 
+		  bytes respectively. The ECDSA message hash function is SHAKE128 or 
+		  SHAKE256 respectively.</t>
 	  	  	
 		  <t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
 		  in certificates or CRLs MUST generate such signatures in accordance 
@@ -423,7 +423,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		
         <section title="ECDSA Public Keys">
 		  <t>For ECDSA, when id-ecdsa-with-shake128 or id-ecdsa-with-shake256 
-		  are used as the AlgorithmIdentifier in the algorithm field of SubjectPublicKeyInfo, 
+		  is used as the AlgorithmIdentifier in the algorithm field of SubjectPublicKeyInfo, 
 		  the parameters, as explained in section <xref target="oids"/>, MUST be absent. The hash 
 		  function and its output-length are the same as in <xref target="ecdsa-sigs"/>. </t>
 		  
@@ -481,12 +481,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	  
 	  <t>Implementations must protect the signer's private key. Compromise of
       the signer's private key permits masquerade.</t>
-      
-	  <t>When more than two parties share the same message-authentication 
-	  key, data origin authentication is not provided. Any party that knows 
-	  the message-authentication key can compute a valid MAC, therefore the
-      content could originate from any one of the parties.</t>
-      
+
 	  <t>Implementations must randomly generate message-authentication keys
       and one-time values, such as the k value when generating a ECDSA
       signature. In addition, the generation of public/private key pairs
@@ -499,8 +494,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       
 	  <t>Implementers should be aware that cryptographic algorithms may 
 	  become weaker with time. As new cryptanalysis techniques are developed 
-	  and computing performance improves, the work factor to break a 
-	  particular cryptographic algorithm will decrease. Therefore, cryptographic
+	  and computing power increases, the work factor to break a 
+	  particular cryptographic algorithm may decrease. Therefore, cryptographic
       algorithm implementations should be modular allowing new algorithms
       to be readily inserted. That is, implementers should be prepared to
       regularly update the set of algorithms in their implementations.</t>
