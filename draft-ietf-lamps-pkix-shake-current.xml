@@ -279,12 +279,12 @@
 		Certificate and the signature field in the sequence tbsCertificate in X.509 
 		<xref target="RFC3280"/>.</t>
 		
-		<t>Conforming CA implementations MUST specify the hash algorithm 
+		<t>Conforming CA implementations MUST specify the algorithms  
 		explicitly by using the OIDs specified in <xref target="oids"/> when 
-		encoding RSASSA-PSS or ECDSA with SHAKE signatures in certificates and 
-		CRLs. Encoding rules for RSASSA-PSS and ECDSA signature values are 
-		specified in <xref target="RFC4055"/> and <xref target="RFC5480"/> 
-		respectively.</t>
+		encoding RSASSA-PSS or ECDSA with SHAKE signatures, and public keys 
+		in certificates and CRLs. Encoding rules for RSASSA-PSS and ECDSA 
+		signature values are specified in <xref target="RFC4055"/> and 
+		<xref target="RFC5480"/> respectively.</t>
 		
 		<t>Conforming client implementations that process RSASSA-PSS and ECDSA 
 		with SHAKE signatures when processing certificates and CRLs 
@@ -297,12 +297,14 @@
 		  the AlgorithmIdentifier SHALL be a SEQUENCE of one component,  
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. </t>
 		  
-		  <t>The hash algorithm to hash a message being signed and the hash algorithm in the maskGenAlgorithm used in RSASSA-PSS MUST be the same, 
-		  SHAKE128 or SHAKE256 respectively. The output-length of the hash Algorithm which hashes signing messages SHALL be 
-			  32 or 64 bytes respectively. </t> 
+		  <t>The hash algorithm to hash a message being signed and the hash algorithm in the 
+		  maskGenAlgorithm used in RSASSA-PSS MUST be the same, SHAKE128 or SHAKE256 respectively. 
+		  The output-length of the hash algorithm which hashes the message SHALL be 
+		  32 or 64 bytes respectively. </t> 
 			
-	          <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of RFC 8017. The output length for SHAKE128 or SHAKE256 
-			  being used as the hash function in MGF1 is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
+	      <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of <xref target="RFC8017"/>. 
+		  The output length for SHAKE128 or SHAKE256 being used as the hash function in MGF1 
+		  is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
 		  in bits. A mask generation function in RSASSA-PSS takes an octet string of 
 		  variable length and a desired output length as input, and outputs an octet 
 		  string of the desired length. For example, when RSA modulus n is 2048, the mask 
