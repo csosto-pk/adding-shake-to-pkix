@@ -297,17 +297,19 @@
 		  the AlgorithmIdentifier SHALL be a SEQUENCE of one component,  
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. </t>
 		  
-		  <t>The hashAlgorithm and the maskGenAlgorithm used in RSASSA-PSS MUST be the same, 
-		  SHAKE128 or SHAKE256 respectively. The output-length of the hashAlgorithm SHALL be 
-		  32 or 64 bytes respectively. The respective output length for the mask 
-		  generation algorithm is (n - 264)/8 or (n - 520)/8 bytes, where n is the RSA modulus 
+		  <t>The hash algorithm to hash a message being signed and the hash algorithm in the maskGenAlgorithm used in RSASSA-PSS MUST be the same, 
+		  SHAKE128 or SHAKE256 respectively. The output-length of the hash Algorithm which hashes signing messages SHALL be 
+			  32 or 64 bytes respectively. </t> 
+			
+	          <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of RFC 8017. The output length for SHAKE128 or SHAKE256 
+			  being used as the hash function in MGF1 is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
 		  in bits. A mask generation function in RSASSA-PSS takes an octet string of 
 		  variable length and a desired output length as input, and outputs an octet 
 		  string of the desired length. For example, when RSA modulus n is 2048, the mask 
-		  generation algorithm length will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
+		  generation algorithm's output length will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
 		  id-RSASSA-PSS-SHAKE256 is used respectively. The RSASSA-PSS saltLength MUST be 32 
 		  or 64 bytes respectively. Finally, the trailerField MUST be 1, which represents 
-		  the trailer field with hexadecimal value 0xBC <xref target="RFC4055"/>.</t>
+		  the trailer field with hexadecimal value 0xBC <xref target="RFC8017"/>.</t>
 		<!-- <t><figure><artwork><![CDATA[
    id-RSASSA-PSS  OBJECT IDENTIFIER  ::=  { pkcs-1 k }
 
@@ -494,7 +496,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       
 	  <t>Implementers should be aware that cryptographic algorithms may 
 	  become weaker with time. As new cryptanalysis techniques are developed 
-	  and computing power increases, the work factor to break a 
+	  and computing power increases, the work factor or time required to break a 
 	  particular cryptographic algorithm may decrease. Therefore, cryptographic
       algorithm implementations should be modular allowing new algorithms
       to be readily inserted. That is, implementers should be prepared to
