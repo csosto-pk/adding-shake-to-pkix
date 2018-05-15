@@ -386,9 +386,9 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
         <list style="symbols"> 
           <t>algorithm is the algorithm identifier and parameters for the
            public key.</t>
-          <t>subjectPublicKey contains the byte stream of the public key.  The
-           algorithms defined in this document always encode the public key
-           as an exact multiple of 8-bits.</t>
+          <t>subjectPublicKey contains the byte stream of the public key. The
+          algorithms defined in this document always encode the public key
+          as an exact multiple of 8-bits.</t>
         </list></t>
    	  
 		<t>The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 

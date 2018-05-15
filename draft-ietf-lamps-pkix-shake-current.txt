@@ -5,8 +5,8 @@
 LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Intended status: Standards Track                                 Q. Dang
-Expires: November 15, 2018                                          NIST
-                                                            May 14, 2018
+Expires: November 16, 2018                                          NIST
+                                                            May 15, 2018
 
 
  Internet X.509 Public Key Infrastructure: Additional SHAKE Algorithms
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 15, 2018.
+   This Internet-Draft will expire on November 16, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kampanakis & Dang       Expires November 15, 2018               [Page 1]
+Kampanakis & Dang       Expires November 16, 2018               [Page 1]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -74,9 +74,9 @@ Table of Contents
      4.2.  Public Keys . . . . . . . . . . . . . . . . . . . . . . .   6
        4.2.1.  RSASSA-PSS Public Keys  . . . . . . . . . . . . . . .   6
        4.2.2.  ECDSA Public Keys . . . . . . . . . . . . . . . . . .   7
-   5.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
      8.2.  Informative References  . . . . . . . . . . . . . . . . .   9
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kampanakis & Dang       Expires November 15, 2018               [Page 2]
+Kampanakis & Dang       Expires November 16, 2018               [Page 2]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -165,7 +165,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 15, 2018               [Page 3]
+Kampanakis & Dang       Expires November 16, 2018               [Page 3]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -221,7 +221,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 15, 2018               [Page 4]
+Kampanakis & Dang       Expires November 16, 2018               [Page 4]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -277,7 +277,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 15, 2018               [Page 5]
+Kampanakis & Dang       Expires November 16, 2018               [Page 5]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -333,7 +333,7 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 15, 2018               [Page 6]
+Kampanakis & Dang       Expires November 16, 2018               [Page 6]
 
 Internet-Draft         SHAKE identifiers in X.509               May 2018
 
@@ -377,32 +377,23 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    The ECParameters associated with the ECDSA public key in the signer's
    certificate SHALL apply to the verification of the signature.
 
-5.  Acknowledgements
-
-   We would like to thank Sean Turner for his valuable contributions to
-   this document.
-
-
-
-
-
-
-
-
-Kampanakis & Dang       Expires November 15, 2018               [Page 7]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
-
-6.  IANA Considerations
+5.  IANA Considerations
 
    This document uses several new registries [ EDNOTE: Update here. ]
 
-7.  Security Considerations
+6.  Security Considerations
 
    The SHAKEs are deterministic functions.  Like any other deterministic
    functions, executing each function with the same input multiple times
    will produce the same output.  Therefore, users should not expect
+
+
+
+Kampanakis & Dang       Expires November 16, 2018               [Page 7]
+
+Internet-Draft         SHAKE identifiers in X.509               May 2018
+
+
    unrelated outputs (with the same or different output lengths) from
    excuting a SHAKE function with the same input multiple times.
 
@@ -427,6 +418,11 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    be prepared to regularly update the set of algorithms in their
    implementations.
 
+7.  Acknowledgements
+
+   We would like to thank Sean Turner for his valuable contributions to
+   this document.
+
 8.  References
 
 8.1.  Normative References
@@ -437,25 +433,22 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
               DOI 10.17487/RFC3280, April 2002,
               <https://www.rfc-editor.org/info/rfc3280>.
 
-
-
-
-
-
-
-
-
-Kampanakis & Dang       Expires November 15, 2018               [Page 8]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
-
    [RFC4055]  Schaad, J., Kaliski, B., and R. Housley, "Additional
               Algorithms and Identifiers for RSA Cryptography for use in
               the Internet X.509 Public Key Infrastructure Certificate
               and Certificate Revocation List (CRL) Profile", RFC 4055,
               DOI 10.17487/RFC4055, June 2005,
               <https://www.rfc-editor.org/info/rfc4055>.
+
+
+
+
+
+
+Kampanakis & Dang       Expires November 16, 2018               [Page 8]
+
+Internet-Draft         SHAKE identifiers in X.509               May 2018
+
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -496,16 +489,6 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
               Elliptic Curve Cryptography", May 2009,
               <http://www.secg.org/sec1-v2.pdf>.
 
-
-
-
-
-
-Kampanakis & Dang       Expires November 15, 2018               [Page 9]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
-
    [SP800-90A]
               National Institute of Standards and Technology,
               "Recommendation for Random Number Generation Using
@@ -513,6 +496,15 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
               June 2015,
               <http://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               NIST.SP.800-90Ar1.pdf>.
+
+
+
+
+
+Kampanakis & Dang       Expires November 16, 2018               [Page 9]
+
+Internet-Draft         SHAKE identifiers in X.509               May 2018
+
 
    [X9.62]    American National Standard for Financial Services (ANSI),
               "X9.62-2005 Public Key Cryptography for the Financial
@@ -557,4 +549,12 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang       Expires November 15, 2018              [Page 10]
+
+
+
+
+
+
+
+
+Kampanakis & Dang       Expires November 16, 2018              [Page 10]

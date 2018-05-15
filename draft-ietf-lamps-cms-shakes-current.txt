@@ -5,8 +5,8 @@
 LAMPS WG                                                         Q. Dang
 Internet-Draft                                                      NIST
 Intended status: Standards Track                           P. Kampanakis
-Expires: November 5, 2018                                  Cisco Systems
-                                                             May 4, 2018
+Expires: November 16, 2018                                 Cisco Systems
+                                                            May 15, 2018
 
 
   Use of the SHAKE One-way Hash Functions in the Cryptographic Message
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 5, 2018.
+   This Internet-Draft will expire on November 16, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Dang & Kampanakis       Expires November 5, 2018                [Page 1]
+Dang & Kampanakis       Expires November 16, 2018               [Page 1]
 
 Internet-Draft                SHAKEs in CMS                     May 2018
 
@@ -61,20 +61,25 @@ Internet-Draft                SHAKEs in CMS                     May 2018
 Table of Contents
 
    1.  Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   3.  Message Digest Algorithms . . . . . . . . . . . . . . . . . .   3
-   4.  Signature Algorithms and Public Keys  . . . . . . . . . . . .   3
-     4.1.  RSASSA-PSS with SHAKEs  . . . . . . . . . . . . . . . . .   4
-     4.2.  ECDSA with SHAKEs . . . . . . . . . . . . . . . . . . . .   5
-   5.  Message Authentication Codes with SHAKEs  . . . . . . . . . .   6
-   6.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .   6
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .   8
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Identifiers . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Use in CMS  . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     4.1.  Message Digests . . . . . . . . . . . . . . . . . . . . .   4
+     4.2.  Signatures  . . . . . . . . . . . . . . . . . . . . . . .   4
+       4.2.1.  RSASSA-PSS Signatures . . . . . . . . . . . . . . . .   5
+       4.2.2.  ECDSA Signatures  . . . . . . . . . . . . . . . . . .   5
+     4.3.  Public Keys . . . . . . . . . . . . . . . . . . . . . . .   5
+       4.3.1.  RSASSA-PSS Public Keys  . . . . . . . . . . . . . . .   6
+       4.3.2.  ECDSA Public Keys . . . . . . . . . . . . . . . . . .   6
+     4.4.  Message Authentication Codes  . . . . . . . . . . . . . .   7
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .   9
    Appendix A.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Change Log
 
@@ -82,13 +87,16 @@ Table of Contents
 
    o  draft-ietf-lamps-cms-shake-01:
 
-      *
+      *  Significant reorganization of the sections to simplify the
+         introduction, the new OIDs and their use in PKIX.
 
-      *
+      *  Added new OID for RSASSA-PSS that hardcodes hash, salt and MFG,
+         according the WG consensus.
 
-      *
+      *  Updated Public Key section to use the new RSASSA-PSS OIDs and
+         clarify the algorithm identifier usage.
 
-      *
+      *  Removed the no longer used SHAKE OIDs from section 3.1.
 
    o  draft-ietf-lamps-cms-shake-00:
 
@@ -98,6 +106,14 @@ Table of Contents
 
    o  draft-dang-lamps-cms-shakes-hash-00:
 
+
+
+
+Dang & Kampanakis       Expires November 16, 2018               [Page 2]
+
+Internet-Draft                SHAKEs in CMS                     May 2018
+
+
       *  Initial version
 
 2.  Introduction
@@ -106,181 +122,205 @@ Table of Contents
    sign, digest, authenticate, or encrypt arbitrary message contents.
    This specification describes the use of the SHAKE128 and SHAKE256
    specified in [SHA3] as new hash functions in CMS.  In addition, it
-
-
-
-Dang & Kampanakis       Expires November 5, 2018                [Page 2]
-
-Internet-Draft                SHAKEs in CMS                     May 2018
-
-
    describes the use of these functions with the RSASSA-PSS signature
    algorithm [RFC8017] and the Elliptic Curve Digital Signature
    Algorithm (ECDSA) [X9.62] with the CMS signed-data content type.
 
-3.  Message Digest Algorithms
+   The SHA-3 family of one-way hash functions is specified in [SHA3].
+   In the SHA-3 family, two extendable-output functions, called SHAKE128
+   and SHAKE256 are defined.  Four hash functions, SHA3-224, SHA3-256,
+   SHA3-384, and SHA3-512 are also defined but are out of scope for this
+   document.  A SHAKE is a variable length hash function.  The output
+   lengths, in bits, of the SHAKE hash functions are defined by the d
+   parameter.  The corresponding collision and preimage resistance
+   security levels for SHAKE128 and SHAKE256 are respectively
+   min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256) bits.
 
-   The SHA-3 family of one-way hash functions is specified in [SHA3],
-   which defines two extendable-output functions, SHAKE128 and SHAKE256.
-   Four other hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512
-   are also defined but are out of scope for this document.  SHAKE is a
-   variable length hash function.  The output lengths, in bits, of the
-   SHAKE hash functions are defined by the parameter d.  The
-   corresponding collision and preimage resistance security levels for
-   SHAKE128 and SHAKE256 are respectively min(d/2,128) and min(d,128)
-   and min(d/2,256) and min(d,256).
+   SHAKEs can be used in CMS as the message digest, the hash of the
+   message authentication code or the mask generating function in
+   RSASSA-PSS.  In this document we define six new OIDs for SHAKE128 and
+   SHAKE256 in CMS.
 
-   In CMS, digest algorithm identifiers are located in the SignedData
-   digestAlgorithm field, the SignerInfo digestAlgorithm field, the
-   DigestedData digestAlgorithm field, and the AuthenticatedData
-   digestAlgorithm field.
+3.  Identifiers
 
-   Digest values are located in the DigestedData field and the Message
-   Digest authenticated attribute.  In addition, digest values are input
-   to signature algorithms.
+   The new identifiers for RSASSA-PSS signatures are below.
 
-   The SHAKEs can also be used as the mask generation function of the
-   RSASSA-PSS signature algorithm.  The mask generation function takes
-   an octet string of variable length and a desired output length as
-   input, and outputs an octet string of the desired length.  To use a
-   SHAKE as the mask generation function in RSASSA-PSS, this document
-   defines it as part of the RSASSA-PSS identifier.
+     id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
 
-4.  Signature Algorithms and Public Keys
+     id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
 
-   This section specifies the conventions employed by CMS
-   implementations that support the SHAKE one-way hash functions with
-   the RSASSA-PSS signature algorithm [RFC8017] and the Elliptic Curve
-   Digital Signature Algorithm (ECDSA) [X9.62] in the CMS signed-data
-   content type.
+     [ EDNOTE: "TBD" will be specified by NIST later. ]
+
+   The new algorithm identifiers of ECDSA signatures using SHAKEs are
+   below.
+
+  id-ecdsa-with-SHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+      us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 3  TBD }
+
+  id-ecdsa-with-SHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+      us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 3  TBD }
+
+  [ EDNOTE: "TBD" will be specified by NIST.
+
+
+
+
+Dang & Kampanakis       Expires November 16, 2018               [Page 3]
+
+Internet-Draft                SHAKEs in CMS                     May 2018
+
+
+   The same algorithm identifiers are used for identifying a public key,
+   a message digest, and identifying a signature.
+
+   The parameters for the four identifiers MUST be absent.  That is, the
+   identifier SHALL be a SEQUENCE of one component, the OID.
+
+   The object identifiers for KMACs with SHAKE128 and SHAKE256 are
+   below.
+
+   id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 TBD }
+
+   id-KmacWithSHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 TBD }
+
+   EDNOTE: "TBD" will be specified by NIST.
+
+   The parameters for the four identifiers MUST be absent.  That is, the
+   identifier SHALL be a SEQUENCE of one component, the OID.
+
+4.  Use in CMS
+
+4.1.  Message Digests
+
+   id-RSASSA-PSS-SHAKE128, id-RSASSA-PSS-SHAKE256, id-ecdsa-with-
+   SHAKE128 and id-ecdsa-with-SHAKE256 defined in Section 3 can be used
+   as the digest algorithm identifiers located in the SignedData,
+   SignerInfo, DigestedData, and the AuthenticatedData digestAlgorithm
+   fields in CMS [RFC5652].  The respective message digest function is
+   SHAKE128 or SHAKE256 with an output size, d, of 32 or 64 bytes
+   respectively.
+
+   The digest values are located in the DigestedData field and the
+   Message Digest authenticated attribute included in the
+   signedAttributes of the SignedData signerInfo.  In addition, digest
+   values are input to signature algorithms.
+
+4.2.  Signatures
 
    In CMS, signature algorithm identifiers are located in the SignerInfo
-   signatureAlgorithm field of SignedData and countersignature
-   attributes.  Signature values are located in the SignerInfo signature
-   field of SignedData and countersignature attributes.
+   signatureAlgorithm field of SignedData content type and
+   countersignature attribute.  Signature values are located in the
+   SignerInfo signature field of SignedData and countersignature.
+
+   Conforming client implementations that process RSASSA-PSS and ECDSA
+   with SHAKE signatures when processing CMS data MUST recognize the
+   corresponding OIDs specified in Section 3.
 
 
 
 
-
-
-
-Dang & Kampanakis       Expires November 5, 2018                [Page 3]
+Dang & Kampanakis       Expires November 16, 2018               [Page 4]
 
 Internet-Draft                SHAKEs in CMS                     May 2018
 
 
-4.1.  RSASSA-PSS with SHAKEs
+4.2.1.  RSASSA-PSS Signatures
 
-   The RSASSA-PSS signature algorithm identifier and its parameters are
-   specifed in [RFC4055].  This document adds two new algorithm choices.
-   The new signature algorithm identifiers are
+   The RSASSA-PSS algorithm is defined in [RFC8017].  When id-RSASSA-
+   PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 specified in Section 3 is
+   used, the encoding MUST omit the parameters field.  That is, the
+   AlgorithmIdentifier SHALL be a SEQUENCE of one component, id-RSASSA-
+   PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.
 
-     id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { pkcs-1 w }
+   The hash algorithm to hash a message being signed and the hash
+   algorithm in the maskGenAlgorithm used in RSASSA-PSS MUST be the
+   same, SHAKE128 or SHAKE256 respectively.  The output-length of the
+   hash algorithm which hashes the message SHALL be 32 or 64 bytes
+   respectively.
 
-     id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { pkcs-1 z }
+   The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of
+   [RFC8017].  The output length for SHAKE128 or SHAKE256 being used as
+   the hash function in MGF1 is (n - 264)/8 or (n - 520)/8 bytes
+   respectively, where n is the RSA modulus in bits.  A mask generation
+   function in RSASSA-PSS takes an octet string of variable length and a
+   desired output length as input, and outputs an octet string of the
+   desired length.  For example, when RSA modulus n is 2048, the mask
+   generation algorithm's output length will be 223 or 191 when id-
+   RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.
+   The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
+   Finally, the trailerField MUST be 1, which represents the trailer
+   field with hexadecimal value 0xBC [RFC8017].
 
-     [ EDNOTE: "w" and "z" will be specified by NIST later. ]
+4.2.2.  ECDSA Signatures
 
-   The parameters for these identifiers MUST be absent.  That is, the
-   AlgorithmIdentifier SHALL be a SEQUENCE of one component, the OID id-
-   RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.
+   The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in
+   [X9.62].  When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256
+   (specified in Section 3) algorithm identifier appears, the respective
+   SHAKE function is used as the hash.  The encoding MUST omit the
+   parameters field.  That is, the AlgorithmIdentifier SHALL be a
+   SEQUENCE of one component, the OID id-ecdsa-with-SHAKE128 or id-
+   ecdsa-with-SHAKE256.
 
-   In the identifiers above, SHAKE128 and SHAKE256 are respectively used
-   as the hashAlgorithm and the maskGenAlgorithm.  The output-lengths of
-   the hashAlgorithm are 32 and 64 bytes respectively.  The respective
-   output length for the mask generation algorithm is (n - 264)/8 or (n
-   - 520)/8 respectively, where n is the RSA modulus in bits.  For
-   example, when RSA modulus n is 2048, the mask generation algorithm
-   length will be 223 or 191.  The saltLength is 32 or 64 bytes
-   respectively for the SHAKE128 and SHA256 OIDs.  Finally, the
-   trailerField SHALL be 1, which represents the trailer field with
-   hexadecimal value 0xBC [RFC4055].
+   For simplicity and compliance with the ECDSA standard specification,
+   the output size of the hash function must be explicitly determined.
+   The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 32
+   or 64 bytes respectively.  The ECDSA message hash function is
+   SHAKE128 or SHAKE256 respectively.
 
-   The conventions for RSA public keys are as specified in [RFC3279] and
-   [RFC4055].  [RFC3279] defines the following OID for RSA with NULL
-   parameters.
+4.3.  Public Keys
 
-      rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
-
-   This document adds the corresponding RSASSA-PSS identifiers defined
-   above.  When used as the public key identifier, the parameters MUST
-   be absent.  That is, the public key identifier SHALL be a SEQUENCE of
-   one component, the OID id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-
-   SHAKE256.  The details of the algorithms, salt length and trailer are
-   defined above.
-
-   Regardless of what RSA algorithm identifier is used, the RSA public
-   key, which is composed of a modulus and a public exponent, MUST be
-   encoded using the RSAPublicKey type [RFC4055].  The output of this
-   encoding is carried in the subjectPublicKey.
-
-
-
-
-
+   In CMS, the signer's public key algorithm identifiers are located in
+   the OriginatorPublicKey's algorithm attribute.
 
 
-Dang & Kampanakis       Expires November 5, 2018                [Page 4]
+
+
+Dang & Kampanakis       Expires November 16, 2018               [Page 5]
 
 Internet-Draft                SHAKEs in CMS                     May 2018
 
+
+   The conventions for RSASSA-PSS and ECDSA public keys algorithm
+   identifiers are as specified in [RFC3279], [RFC4055] and [RFC5480] ,
+   but we include them below for convenience.
+
+4.3.1.  RSASSA-PSS Public Keys
+
+   [RFC3279] defines the following OID for RSA AlgorithmIdentifier in
+   the SubjectPublicKeyInfo with NULL parameters.
+
+     rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
+
+   Additionally, when the RSA private key owner wishes to limit the use
+   of the public key exclusively to RSASSA-PSS, the AlgorithmIdentifier
+   for RSASSA-PSS defined in Section 3 can be used as the algorithm
+   attribute in the OriginatorPublicKey sequence.  The identifier
+   parameters, as explained in section Section 3, MUST be absent.  The
+   RSASSA-PSS algorithm functions and output lengths are the same as
+   defined in Section 4.2.1.
+
+   Regardless of what public key algorithm identifier is used, the RSA
+   public key, which is composed of a modulus and a public exponent,
+   MUST be encoded using the RSAPublicKey type [RFC4055].  The output of
+   this encoding is carried in the CMS publicKey bit string.
 
      RSAPublicKey ::= SEQUENCE {
            modulus INTEGER, -- n
            publicExponent INTEGER  -- e
      }
 
-   Additionally, [RFC4055] adds the RSASSA-PSS OID and parameters shown
-   above as a public key identifier.  The parameters may be either
-   absent or present when RSASSA-PSS OID is used as subject public key
-   information.  If id-RSASSA-PSS is used in the public key identifier
-   with parameters, Section 3.3 of [RFC4055] describes that the
-   signature algorithm parameters MUST match the parameters in the key
-   structure algorithm identifier except the saltLength field.  The
-   saltLength field in the signature parameters MUST be greater or equal
-   to that in the key parameters field.  If the id-RSASSA-PSS parameters
-   are NULL no further parameter validation is necessary.
-
-4.2.  ECDSA with SHAKEs
-
-   The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in
-   [X9.62].  When ECDSA is used in conjunction with one of the SHAKE
-   one-way hash functions, the object identifiers are:
-
-     id-ecdsa-with-SHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-         us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 3  x}
-
-     id-ecdsa-with-SHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-         us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 3  y}
-
-         EDNOTE: x and y will be specified by NIST.
-
-   When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256, algorithm
-   identifier appears in the algorithm field, the encoding MUST omit the
-   parameters field.  That is, the identifier SHALL be a SEQUENCE of one
-   component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.
-
-   For simplicity and compliance with the ECDSA standard specification,
-   the output size of the hash function must be explicitly determined.
-   The ShakeOutputLen parameter of SHAKE128 or SHAKE256 MUST be 32 or 64
-   bytes respectively when it is used in ECDSA.
+4.3.2.  ECDSA Public Keys
 
    When id-ecdsa-with-shake128 or id-ecdsa-with-shake256 are used as the
-   algorithm identitifier in the public key, the parameters MUST be
-   omitted.  That is, the identifier SHALL be a SEQUENCE of one
-   component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256.  The
-   conventions for ECDSA public key is specified in [RFC5480] in
-   Section 2.1.1 and its syntax in Section 2.2.  We include it here for
-   convenience:
+   algorithm identitifier in the public key, the parameters, as
+   explained in section Section 3, MUST be absent.  The hash function
+   and its output-length are the same as in Section 4.2.2.
 
-
-
-
-Dang & Kampanakis       Expires November 5, 2018                [Page 5]
-
-Internet-Draft                SHAKEs in CMS                     May 2018
-
+   Additionally, the mandatory EC SubjectPublicKey is defined in
+   Section 2.1.1 and its syntax in Section 2.2 of [RFC5480].  We also
+   include them here for convenience:
 
       id-ecPublicKey OBJECT IDENTIFIER ::= {
           iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
@@ -291,58 +331,40 @@ Internet-Draft                SHAKEs in CMS                     May 2018
           -- specifiedCurve  SpecifiedECDomain
               }
 
+
+
+Dang & Kampanakis       Expires November 16, 2018               [Page 6]
+
+Internet-Draft                SHAKEs in CMS                     May 2018
+
+
    The ECParameters associated with the ECDSA public key in the signers
    certificate SHALL apply to the verification of the signature.
 
-5.  Message Authentication Codes with SHAKEs
+4.4.  Message Authentication Codes
 
-   This section specifies the conventions employed by CMS
-   implementations that support the KMAC specified in [SP800-185] as
-   authentication code (MAC).
-
+   KMAC message authentication code (MAC) is specified in [SP800-185].
    In CMS, KMAC algorithm identifiers are located in the
-   AuthenticatedData macAlgorithm field.  MAC values are located in the
-   AuthenticatedData mac field.
-
-   The object identifiers for KMACs with SHAKE128 and SHAKE256 are:
-
-   id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 m }
-
-   id-KmacWithSHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 n }
-
-   EDNOTE: m and n will be specified by NIST.
+   AuthenticatedData macAlgorithm field.  The KMAC values are located in
+   the AuthenticatedData mac field.
 
    When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm
-   identifier is used, the parameters field MUST be absent; not NULL but
-   absent.
+   identifier is used as the KMAC algorithm identifier, the parameters
+   field MUST be absent.
+
+   Conforming client implementations that process KMACs with SHAKE when
+   processing CMS data MUST recognize these identifiers.
 
    When calculating the KMAC output, the variable N is 0xD2B282C2, S is
    an empty string, and L, the integer representing the requested output
    length in bits, is 256 or 512 for KmacWithSHAKE128 or
    KmacWithSHAKE256 respectively in this specification.
 
-6.  Acknowledgement
-
-   This document is based on Russ Housley's draft
-   [I-D.housley-lamps-cms-sha3-hash] It replaces SHA3 hash functions by
-   SHAKE128 and SHAKE256 as the LAMPS WG agreed.
-
-
-
-
-
-Dang & Kampanakis       Expires November 5, 2018                [Page 6]
-
-Internet-Draft                SHAKEs in CMS                     May 2018
-
-
-7.  IANA Considerations
+5.  IANA Considerations
 
    This document uses several new registries [ EDNOTE: Update here. ]
 
-8.  Security Considerations
+6.  Security Considerations
 
    SHAKE128 and SHAKE256 are one-way extensible-output functions.  Their
    output length depends on a required length of the consuming
@@ -364,6 +386,14 @@ Internet-Draft                SHAKEs in CMS                     May 2018
 
    Implementations must randomly generate message-authentication keys
    and one-time values, such as the k value when generating a ECDSA
+
+
+
+Dang & Kampanakis       Expires November 16, 2018               [Page 7]
+
+Internet-Draft                SHAKEs in CMS                     May 2018
+
+
    signature.  In addition, the generation of public/private key pairs
    relies on random numbers.  The use of inadequate pseudo-random number
    generators (PRNGs) to generate such cryptographic values can result
@@ -379,26 +409,15 @@ Internet-Draft                SHAKEs in CMS                     May 2018
    to be readily inserted.  That is, implementers should be prepared to
    regularly update the set of algorithms in their implementations.
 
-9.  References
+7.  Acknowledgements
 
-9.1.  Normative References
+   This document is based on Russ Housley's draft
+   [I-D.housley-lamps-cms-sha3-hash] It replaces SHA3 hash functions by
+   SHAKE128 and SHAKE256 as the LAMPS WG agreed.
 
+8.  References
 
-
-
-
-
-
-Dang & Kampanakis       Expires November 5, 2018                [Page 7]
-
-Internet-Draft                SHAKEs in CMS                     May 2018
-
-
-   [RFC3279]  Bassham, L., Polk, W., and R. Housley, "Algorithms and
-              Identifiers for the Internet X.509 Public Key
-              Infrastructure Certificate and Certificate Revocation List
-              (CRL) Profile", RFC 3279, DOI 10.17487/RFC3279, April
-              2002, <https://www.rfc-editor.org/info/rfc3279>.
+8.1.  Normative References
 
    [RFC4055]  Schaad, J., Kaliski, B., and R. Housley, "Additional
               Algorithms and Identifiers for RSA Cryptography for use in
@@ -421,6 +440,16 @@ Internet-Draft                SHAKEs in CMS                     May 2018
               RFC 8017, DOI 10.17487/RFC8017, November 2016,
               <https://www.rfc-editor.org/info/rfc8017>.
 
+
+
+
+
+
+Dang & Kampanakis       Expires November 16, 2018               [Page 8]
+
+Internet-Draft                SHAKEs in CMS                     May 2018
+
+
    [SHA3]     National Institute of Standards and Technology, U.S.
               Department of Commerce, "SHA-3 Standard - Permutation-
               Based Hash and Extendable-Output Functions", FIPS PUB 202,
@@ -433,22 +462,18 @@ Internet-Draft                SHAKEs in CMS                     May 2018
               <http://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               NIST.SP.800-185.pdf>.
 
-9.2.  Informative References
+8.2.  Informative References
 
    [I-D.housley-lamps-cms-sha3-hash]
               Housley, R., "Use of the SHA3 One-way Hash Functions in
               the Cryptographic Message Syntax (CMS)", draft-housley-
               lamps-cms-sha3-hash-00 (work in progress), March 2017.
 
-
-
-
-
-
-Dang & Kampanakis       Expires November 5, 2018                [Page 8]
-
-Internet-Draft                SHAKEs in CMS                     May 2018
-
+   [RFC3279]  Bassham, L., Polk, W., and R. Housley, "Algorithms and
+              Identifiers for the Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 3279, DOI 10.17487/RFC3279, April
+              2002, <https://www.rfc-editor.org/info/rfc3279>.
 
    [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
               "Randomness Requirements for Security", BCP 106, RFC 4086,
@@ -471,6 +496,15 @@ Internet-Draft                SHAKEs in CMS                     May 2018
 Appendix A.  ASN.1 Module
 
    [EDNOTE: Update]
+
+
+
+
+
+Dang & Kampanakis       Expires November 16, 2018               [Page 9]
+
+Internet-Draft                SHAKEs in CMS                     May 2018
+
 
 Authors' Addresses
 
@@ -501,4 +535,26 @@ Authors' Addresses
 
 
 
-Dang & Kampanakis       Expires November 5, 2018                [Page 9]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dang & Kampanakis       Expires November 16, 2018              [Page 10]

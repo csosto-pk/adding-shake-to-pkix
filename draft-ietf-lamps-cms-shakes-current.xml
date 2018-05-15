@@ -265,7 +265,7 @@ Note: x and y will be specified by NIST.
 		SHAKE signatures when processing CMS data MUST recognize the corresponding 
 		OIDs specified in <xref target="oids"/>.</t>
       	    
-	    <section title="RSASSA-PSS Signatures"> 
+	    <section title="RSASSA-PSS Signatures" anchor="rsa-sigs"> 
 	      <t>The RSASSA-PSS algorithm is defined in <xref target="RFC8017"/>.
 		  When id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 specified in <xref target="oids"/> 
 		  is used, the encoding MUST omit the parameters field. That is, 
@@ -289,7 +289,7 @@ Note: x and y will be specified by NIST.
 		  the trailer field with hexadecimal value 0xBC <xref target="RFC8017"/>.</t>
 	    </section>
       
-        <section title="ECDSA Signatures" anchor="section-3.2">
+        <section title="ECDSA Signatures" anchor="ecdsa-sigs">
 	      <t>The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in 
 	      <xref target="X9.62"/>. When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256
 		  (specified in <xref target="oids"/>) algorithm identifier appears, the respective SHAKE 
@@ -309,43 +309,51 @@ Note: x and y will be specified by NIST.
   	  <section title="Public Keys">
 	    <t>In CMS, the signer's public key algorithm identifiers are located in the 
 	    OriginatorPublicKey's algorithm attribute.</t>
+		
+		<t>The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
+		algorithm identifiers are as specified in <xref target="RFC3279"/>, 
+		<xref target="RFC4055"/> and <xref target="RFC5480"/> 
+		<!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->, 
+		but we include them below for convenience.</t>
 	    
 	    <section title="RSASSA-PSS Public Keys"> 
-		  <t>The conventions for RSA public keys are as specified in 
-		  <xref target="RFC3279"/> and <xref target="RFC4055"/>. 
-		  <xref target="RFC3279"/> defines the following OID for RSA with 
-		  NULL parameters.</t>
+		  <t><xref target="RFC3279"/> defines the following OID for RSA AlgorithmIdentifier 
+		  in the SubjectPublicKeyInfo with NULL parameters.</t>
 		  <t><figure><artwork><![CDATA[
-   rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
+  rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
 ]]></artwork></figure></t>
 
-	 	  <t>The RSASSA-PSS SHAKE identifiers defined above can also be used as the signer public key 
-	 	  identifiers. When used as such, the parameters MUST be absent. That is, 
-	 	  the public key identifier SHALL be a SEQUENCE of one component, the OID 
-	 	  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. The details of the algorithms, 
-	 	  salt length and trailer are defined above.</t>
-	 	  
-	 	  <t>Regardless of what RSA algorithm identifier is used, the RSA public key, which 
-	 	  is composed of a modulus and a public exponent, MUST be encoded using the 
-	 	  RSAPublicKey type <xref target="RFC4055"/>. The output of this encoding is carried 
-	 	  in the subjectPublicKey. </t>
+		  <t>Additionally, when the RSA private key owner wishes to limit the use of 
+		  the public key exclusively to RSASSA-PSS, the AlgorithmIdentifier for 
+		  RSASSA-PSS defined in <xref target="oids"/> can be used as the algorithm 
+		  attribute in the OriginatorPublicKey sequence. The 
+		  identifier parameters, as explained in section <xref target="oids"/>, MUST be 
+		  absent. The RSASSA-PSS algorithm functions and output lengths are the 
+		  same as defined in <xref target="rsa-sigs"/>. </t>
+		  
+		  <t>Regardless of what public key algorithm identifier is used, the RSA public 
+		  key, which is composed of a modulus and a public exponent, MUST be encoded 
+		  using the RSAPublicKey type <xref target="RFC4055"/>. The output of this 
+		  encoding is carried in the CMS publicKey bit string. </t>
           <t><figure><artwork><![CDATA[
   RSAPublicKey ::= SEQUENCE {
         modulus INTEGER, -- n
         publicExponent INTEGER  -- e
   }
-]]></artwork></figure></t>
+]]></artwork></figure></t> 
    	    </section>
         
         <section title="ECDSA Public Keys"> 
           <t>When id-ecdsa-with-shake128 or id-ecdsa-with-shake256 are 
-		  used as the algorithm identitifier in the public key, the parameters MUST 
-		  be omitted. That is, the identifier SHALL be a SEQUENCE of one 
-		  component, the OID ecdsa-with-SHAKE128 or ecdsa-with-SHAKE256. 
-		  The conventions for ECDSA public key is specified in 
-	      <xref target="RFC5480"/> in Section 2.1.1 and its syntax in Section 2.2. 
-		  We include it here for convenience: </t>
-	    	<figure><artwork><![CDATA[
+		  used as the algorithm identitifier in the public key, the parameters, 
+		  as explained in section <xref target="oids"/>, MUST be absent. The hash 
+		  function and its output-length are the same as in <xref target="ecdsa-sigs"/>.</t>
+
+		  <t>Additionally, the mandatory EC SubjectPublicKey is defined in Section 2.1.1 
+		  and its syntax in Section 2.2 of <xref target="RFC5480"/>. We also include them 
+		  here for convenience: </t>
+		  
+	      <t><figure><artwork><![CDATA[
    id-ecPublicKey OBJECT IDENTIFIER ::= {
        iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
 	   
@@ -354,20 +362,23 @@ Note: x and y will be specified by NIST.
        -- implicitCurve   NULL
        -- specifiedCurve  SpecifiedECDomain 
 	   }
-]]></artwork></figure>		
+]]></artwork></figure></t>
 	      <t>The ECParameters associated with the ECDSA public key in the signers 
 	      certificate SHALL apply to the verification of the signature.</t> 
 	    </section>
 	  </section>
       
 	  
-	  <section title="Message Authentication Codes" anchor="section-4">
+	  <section title="Message Authentication Codes">
 	    <t>KMAC message authentication code (MAC) is specified in <xref target="SP800-185"/>. 
 	    In CMS, KMAC algorithm identifiers are located in the AuthenticatedData 
 	    macAlgorithm field. The KMAC values are located in the AuthenticatedData mac field.</t>
       
 	    <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm identifier 
 	    is used as the KMAC algorithm identifier, the parameters field MUST be absent.</t>
+
+		<t>Conforming client implementations that process KMACs with SHAKE 
+		when processing CMS data MUST recognize these identifiers.</t>
 	    
 	    <t>When calculating the KMAC output, the variable N is 0xD2B282C2, S 
 	    is an empty string, and L, the integer representing the requested output 
@@ -380,7 +391,7 @@ Note: x and y will be specified by NIST.
 	  <t>This document uses several new registries [ EDNOTE: Update here. ]</t>
     </section>
       
-	<section title="Security Considerations" anchor="section-5">
+	<section title="Security Considerations">
 	  <t>SHAKE128 and SHAKE256 are one-way extensible-output functions. Their 
 	  output length depends on a required length of the consuming application.</t>
       
