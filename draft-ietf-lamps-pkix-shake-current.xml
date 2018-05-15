@@ -455,11 +455,6 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	  
 	</section>
 
-    <!-- Possibly a 'Contributors' section ... -->
-    <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>We would like to thank Sean Turner for his valuable contributions to this document.</t>
-    </section>
-
     <section anchor="IANA" title="IANA Considerations">
       <!-- <t>IANA is kindly requested to register two OIDs in the SMI Security for
       PKIX Module Identifier registry for the ASN.1 modules found in
@@ -503,6 +498,11 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       algorithm implementations should be modular allowing new algorithms
       to be readily inserted. That is, implementers should be prepared to
       regularly update the set of algorithms in their implementations.</t>
+    </section>
+
+    <!-- Possibly a 'Contributors' section ... -->
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>We would like to thank Sean Turner for his valuable contributions to this document.</t>
     </section>
   </middle>
 
