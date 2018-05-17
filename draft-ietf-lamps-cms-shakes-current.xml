@@ -299,20 +299,6 @@ Note: x and y will be specified by NIST.
 		  The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 256 
 		  or 512 bits respectively.  The ECDSA message hash function is 
 		  SHAKE128 or SHAKE256 respectively.</t> 
-
-   <t>Conforming CA implementations that generate ECDSA with SHAKE
-   signatures in certificates or CRLs MUST generate such signatures in
-   accordance with all the requirements specified in Sections 7.2 and
-   7.3 of [X9.62] or with all the requirements specified in
-   Section 4.1.3 of [SEC1].  They MAY also generate such signatures in 
-   accordance with all the recommendations in [X9.62] or [SEC1] if they
-   have a stated policy that requires conformance to these standards.
-   These standards may have not specified SHAKE128 and SHAKE256 as hash
-   algorithm options.  However, SHAKE128 and SHAKE256 with output length
-   being 32 and 64 octets respectively are subtitutions for 256 and
-   512-bit output hash algorithms such as SHA256 and SHA512 used in the
-   standards.</t>
-		     
 	    </section>
 	  </section>
 
