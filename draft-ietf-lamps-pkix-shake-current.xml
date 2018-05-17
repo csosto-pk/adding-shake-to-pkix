@@ -347,8 +347,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	      
           <t>For simplicity and compliance with the ECDSA standard specification, 
 	      the output size of the hash function must be explicitly determined. The 
-	      output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 32 or 64 
-		  bytes respectively. </t>
+	      output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 256 or 512  
+		  bits respectively. </t>
 	  	  	
 		  <t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
 		  in certificates or CRLs MUST generate such signatures in accordance 

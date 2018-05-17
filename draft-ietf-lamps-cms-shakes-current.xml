@@ -114,8 +114,8 @@
 	are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256) bits. </t>
 
 	<t>A SHAKE can be used in CMS as a message digest, message authentication code or 
-	a mask generation (in RSASSA-PSS) function. In this document we define six new OIDs using 
-	SHAKE128 and SHAKE256 in CMS.</t>
+	a mask generation function (in RSASSA-PSS). In this document we define six new OIDs 
+	using SHAKE128 and SHAKE256 in CMS.</t>
     
     <!--  <section title="ASN.1" anchor="section-1.1">
 	  <t>CMS values are generated using ASN.1 <xref target="ASN1-B"/>, using the Basic 
@@ -141,28 +141,8 @@
          trailerField       INTEGER }
 ]]></artwork></figure> -->
 
-  
 	  <!-- Commention out the below OIDs as they are no longer pertinent for the below public keys and sigs -->
-	  <!-- The Object Identifiers (OIDs) for these two hash functions are defined in 
-	  <xref target="shake-nist-oids"/> and are included here for convenience: 
   
-  	<figure><artwork><![CDATA[
-    id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
-                     country(16) us(840) organization(1) gov(101) csor(3)
-                     nistalgorithm(4) hashalgs(2) 17 }
-					 
-    id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
-                     country(16) us(840) organization(1) gov(101) csor(3)
-                     nistalgorithm(4) hashalgs(2) 18 }
-  
-    ShakeOutputLen ::= INTEGER -\- Output length in octets]]></artwork>
-  	</figure>
-  
-     <t>When using the id-shake128-len id-shake256-len algorithm identifiers, 
-	 the parameters MUST be present, and they MUST employ the ShakeOutputLen 
-	 syntax that contains an encoded positive integer value at least 32 or 
-	 64 respectively.</t> -->
-
 	 <!-- The mask generation function used in RSASSA-PSS 
 	 is defined in <xref target="RFC8017"/>, but we include it here as well 
 	 for convenience:
@@ -174,6 +154,22 @@
      SHAKE as this hash, this parameter MUST be id-shake128-len or id-
      shake256-len as specified in <xref target="mdmgf" /> above. </t>    -->
 
+	 <t>The object identifiers for SHAKE128 and SHAKE256 hash functions are defined 
+	 in <xref target="shake-nist-oids"/> and we include them here for convenience.</t>
+	 <t><figure><artwork><![CDATA[
+  id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 17 }
+
+  id-shake256-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 18 }
+]]></artwork></figure></t>
+     
+     <t>When using the id-shake128-len or id-shake256-len algorithm identifiers, the parameters 
+	  MUST be absent. That is, the identifier SHALL be a SEQUENCE of one component, the OID. 
+	  <!-- present, and they MUST employ the ShakeOutputLen -->
+	  <!-- "MUST employ syntax borrowed from RFC4055 -->
+	  <!-- syntax that contains an encoded positive integer value of 32 or 64 respectively.--></t>
+	 
 	 <t>The new identifiers for RSASSA-PSS signatures using SHAKEs are below.</t>
 	 <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
@@ -193,7 +189,7 @@
   id-ecdsa-with-SHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 3  TBD } 
   
-  [ EDNOTE: "TBD" will be specified by NIST.
+  [ EDNOTE: "TBD" will be specified by NIST. ]
 ]]></artwork></figure></t>
      
 <!--   <figure><artwork><![CDATA[
@@ -208,21 +204,11 @@ Note: x and y will be specified by NIST.
 ]]></artwork> </figure> -->
 		
 	 <t>The same algorithm identifiers are used for identifying a public key or a signature.</t>
-	 
-	 <t>The parameters for the four identifiers MUST be absent. That is, the identifier 
-	 SHALL be a SEQUENCE of one component, the OID.</t>
+	 <t>The parameters for the four RSASSA-PSS and ECDSA identifiers MUST be absent. That 
+	 is, the identifier SHALL be a SEQUENCE of one component, the OID.</t>
 	  
-	 <t>The object identifiers for SHAKE128 and SHAKE256  and KMACs using SHAKE128 and SHAKE256 are below.</t>
-	 
+	 <t>The new object identifiers for KMACs using SHAKE128 and SHAKE256 are below.</t>
 	 <t><figure><artwork><![CDATA[
-   id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 17 }
-
-   id-shake256-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-       us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 18 }
-
-   Output lenght, d, must be 256 or 512 bits when SHAKE128 or SHAKE256 is used to geneate a message digest respectively. 
-
    id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
        us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 TBD }
 
@@ -232,9 +218,8 @@ Note: x and y will be specified by NIST.
    EDNOTE: "TBD" will be specified by NIST.
 ]]></artwork></figure></t>
      
-	 <t>The parameter for id-shake128-len, id-shake256-len, id-KmacWithSHAKE128 or id-KmacWithSHAKE256 
-		  MUST be absent. That is, each identifier 
-	 SHALL be a SEQUENCE of one component, the OID.</t>
+	 <t>The parameters for id-KmacWithSHAKE128 and id-KmacWithSHAKE256 MUST be absent. 
+	 That is, each identifier SHALL be a SEQUENCE of one component, the OID.</t>
 <!--       <figure><artwork><![CDATA[
    hashAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
        us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 }
@@ -250,11 +235,12 @@ Note: x and y will be specified by NIST.
 	  
 	<section title="Use in CMS">
 	  <section title="Message Digests"> 
-	    <t>id-shake128-len and id-shake256-len OIDs defined in <xref target="oids"/> can be used as the digest 
-	    algorithm identifiers located in the SignedData, SignerInfo, DigestedData,  
-	    and the AuthenticatedData digestAlgorithm fields in CMS <xref target="RFC5652"/>. 
-	    The respective message digest function is SHAKE128 or SHAKE256 with an output 
-	    size, d, of 256 or 512 bits respectively.</t>
+	    <t>The id-shake128-len and id-shake256-len OIDs (<xref target="oids"/>) can 
+		be used as the digest algorithm identifiers located in the SignedData, 
+		SignerInfo, DigestedData,  and the AuthenticatedData digestAlgorithm fields 
+		in CMS <xref target="RFC5652"/>. The encoding MUST omit the parameters field 
+		and the output size, d, for the SHAKE128 or SHAKE256 message digest MUST be 
+		256 or 512 bits respectively.</t>
 	    
 	    <t>The digest values are located in the DigestedData field and the Message 
 	    Digest authenticated attribute included in the signedAttributes of the 
@@ -279,39 +265,40 @@ Note: x and y will be specified by NIST.
 		  the AlgorithmIdentifier SHALL be a SEQUENCE of one component,  
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.</t>
 		  
-		  <t>The hash algorithm to hash a message being signed and the hash
-   algorithm in the maskGenAlgorithm used in RSASSA-PSS MUST be the
-   same, SHAKE128 or SHAKE256 respectively.  The output-length of the
-   hash algorithm which hashes the message SHALL be 32 or 64 bytes
-   respectively.</t> 
+		  <t>The hash algorithm to hash a message being signed and the hash 
+		  algorithm in the maskGenAlgorithm used in RSASSA-PSS MUST be the 
+		  same, SHAKE128 or SHAKE256 respectively.  The output-length of the 
+		  SHAKE which hashes the message SHALL be 32 or 64 bytes respectively.</t> 
 		  
-	      <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of
-   [RFC8017].  The output length for SHAKE128 or SHAKE256 being used as
-   the hash function in MGF1 is (n - 264)/8 or (n - 520)/8 bytes
-   respectively, where n is the RSA modulus in bits.  A mask generation
-   function in RSASSA-PSS takes an octet string of variable length and a
-   desired output length as input, and outputs an octet string of the
-   desired length.  For example, when RSA modulus n is 2048, the mask
-   generation algorithm's output length will be 223 or 191 when id-
-   RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.
-   The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively. Finally, the trailerField MUST be 1, which represents 
-		  the trailer field with hexadecimal value 0xBC <xref target="RFC8017"/>.</t>
+	      <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of 
+		  <xref target="RFC8017"/>. A mask generation function in RSASSA-PSS 
+		  takes an octet string of variable length and a desired output length 
+		  as input, and outputs an octet string of the desired length. The 
+		  output length for SHAKE128 or SHAKE256 being used as the hash function 
+		  in MGF1 is (n - 264)/8 or (n - 520)/8 bytes respectively, where n 
+		  is the RSA modulus in bits. For example, when RSA modulus n is 2048, 
+		  the mask generation algorithm's output length will be 223 or 191 when 
+		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.</t>
+		  
+		  <t>The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively. Finally, 
+		  the trailerField MUST be 1, which represents the trailer field with 
+		  hexadecimal value 0xBC <xref target="RFC8017"/>.</t>
 	    </section>
       
         <section title="ECDSA Signatures" anchor="ecdsa-sigs">
-	      <t>The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in
-   [X9.62].  When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256
-   (specified in Section 3) algorithm identifier appears, the respective
-   SHAKE function is used as the hash.  The encoding MUST omit the
-   parameters field.  That is, the AlgorithmIdentifier SHALL be a
-   SEQUENCE of one component, the OID id-ecdsa-with-SHAKE128 or id-
-   ecdsa-with-SHAKE256.</t>
-
-   <t>For simplicity and compliance with the ECDSA standard specification,
-   the output size of the hash function must be explicitly determined.
-   The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 32
-   or 64 bytes respectively.  The ECDSA message hash function is
-	   SHAKE128 or SHAKE256 respectively.</t> 
+	      <t>The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in 
+	      <xref target="X9.62"/>. When the id-ecdsa-with-SHAKE128 or id-ecdsa-with-SHAKE256
+		  (specified in <xref target="oids"/>) algorithm identifier appears, the 
+		  respective SHAKE function is used as the hash. 
+		  The encoding MUST omit the parameters field. That is, the AlgorithmIdentifier 
+		  SHALL be a SEQUENCE of one component, the OID id-ecdsa-with-SHAKE128 or 
+		  id-ecdsa-with-SHAKE256.</t> 
+		  
+		  <t>For simplicity and compliance with the ECDSA standard specification, 
+		  the output size of the hash function must be explicitly determined. 
+		  The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 256 
+		  or 512 bits respectively.  The ECDSA message hash function is 
+		  SHAKE128 or SHAKE256 respectively.</t> 
 
    <t>Conforming CA implementations that generate ECDSA with SHAKE
    signatures in certificates or CRLs MUST generate such signatures in
@@ -324,7 +311,7 @@ Note: x and y will be specified by NIST.
    algorithm options.  However, SHAKE128 and SHAKE256 with output length
    being 32 and 64 octets respectively are subtitutions for 256 and
    512-bit output hash algorithms such as SHA256 and SHA512 used in the
-	   standards.</t>
+   standards.</t>
 		     
 	    </section>
 	  </section>
@@ -442,14 +429,13 @@ Note: x and y will be specified by NIST.
 	  in this area, and <xref target="SP800-90A"/> series provide acceptable 
       PRNGs.</t>
       
-	  <t>Implementers should be aware that cryptographic algorithms may become
-   weaker with time.  As new cryptanalysis techniques are developed and
-   computing power increases, the work factor or time required to break
-   a particular cryptographic algorithm may decrease.  Therefore,
-   cryptographic algorithm implementations should be modular allowing
-   new algorithms to be readily inserted.  That is, implementers should
-   be prepared to regularly update the set of algorithms in their
-   implementations.</t>
+	  <t>Implementers should be aware that cryptographic algorithms may 
+	  become weaker with time.  As new cryptanalysis techniques are developed 
+	  and computing power increases, the work factor or time required to break 
+	  a particular cryptographic algorithm may decrease. Therefore, cryptographic 
+	  algorithm implementations should be modular allowing new algorithms to 
+	  be readily inserted.  That is, implementers should be prepared to 
+	  regularly update the set of algorithms in their implementations.</t>
     </section>
 	
 	<section title="Acknowledgements" anchor="ack">
@@ -518,7 +504,7 @@ Note: x and y will be specified by NIST.
 	  &RFC4086;
 	  <!-- <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"?> -->
 	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml"?>
-      <!--<reference anchor="shake-nist-oids" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
+      <reference anchor="shake-nist-oids" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
         <front>
           <title>Computer Security Objects Register</title>
           <author>
@@ -526,7 +512,7 @@ Note: x and y will be specified by NIST.
           </author>
           <date month="October" year="2017" />
         </front>
-      </reference> -->
+      </reference>
       <reference anchor="X9.62">
         <front>
           <title>X9.62-2005 Public Key Cryptography for the Financial Services Industry: The Elliptic Curve Digital Signature Standard (ECDSA)</title>
