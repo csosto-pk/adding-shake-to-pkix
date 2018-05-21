@@ -164,7 +164,7 @@
        us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 18 }
 ]]></artwork></figure></t>
      
-     <t>When using the id-shake128-len or id-shake256-len algorithm identifiers, the parameters 
+     <t>In this specification, when using the id-shake128-len or id-shake256-len algorithm identifiers, the parameters 
 	  MUST be absent. That is, the identifier SHALL be a SEQUENCE of one component, the OID. 
 	  <!-- present, and they MUST employ the ShakeOutputLen -->
 	  <!-- "MUST employ syntax borrowed from RFC4055 -->
@@ -203,9 +203,9 @@
 Note: x and y will be specified by NIST.
 ]]></artwork> </figure> -->
 		
-	 <t>The same algorithm identifiers are used for identifying a public key or a signature.</t>
+	 <t>The same RSASSA-PSS and ECDSA with SHAKEs algorithm identifiers are used for identifying public keys and signatures.</t>
 	 <t>The parameters for the four RSASSA-PSS and ECDSA identifiers MUST be absent. That 
-	 is, the identifier SHALL be a SEQUENCE of one component, the OID.</t>
+	 is, each identifier SHALL be a SEQUENCE of one component, the OID.</t>
 	  
 	 <t>The new object identifiers for KMACs using SHAKE128 and SHAKE256 are below.</t>
 	 <t><figure><artwork><![CDATA[
@@ -254,7 +254,7 @@ Note: x and y will be specified by NIST.
         Signature values are located in the SignerInfo signature field of SignedData and 
         countersignature.</t>
 		
-		<t>Conforming client implementations that process RSASSA-PSS and ECDSA with 
+		<t>Conforming implementations that process RSASSA-PSS and ECDSA with 
 		SHAKE signatures when processing CMS data MUST recognize the corresponding 
 		OIDs specified in <xref target="oids"/>.</t>
       	    
@@ -277,7 +277,7 @@ Note: x and y will be specified by NIST.
 		  output length for SHAKE128 or SHAKE256 being used as the hash function 
 		  in MGF1 is (n - 264)/8 or (n - 520)/8 bytes respectively, where n 
 		  is the RSA modulus in bits. For example, when RSA modulus n is 2048, 
-		  the mask generation algorithm's output length will be 223 or 191 when 
+		  the output length for SHAKE128 or SHAKE256 in the maskGenAlgorithm will be 223 or 191 when 
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.</t>
 		  
 		  <t>The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively. Finally, 
@@ -373,7 +373,7 @@ Note: x and y will be specified by NIST.
 	    <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm identifier 
 	    is used as the KMAC algorithm identifier, the parameters field MUST be absent.</t>
 
-		<t>Conforming client implementations that process KMACs with SHAKE 
+		<t>Conforming implementations that process KMACs with SHAKE 
 		when processing CMS data MUST recognize these identifiers.</t>
 	    
 	    <t>When calculating the KMAC output, the variable N is 0xD2B282C2, S 
