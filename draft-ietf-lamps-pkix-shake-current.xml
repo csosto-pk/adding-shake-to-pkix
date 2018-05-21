@@ -165,10 +165,10 @@
     </section>
 
     <section title="Introduction">
-      <t>This document describes several cryptographic algorithm identifiers  
-	  for several cryptographic algorithms which use variable length output SHAKE algorithms introduced in <xref target="SHA3"/> 
-	  which can be used with the Internet X.509 Certificate and CRL profile 
-	  <xref target="RFC5280"/>. </t>
+      <t>This document describes several cryptographic algorithm identifiers 
+	  for several cryptographic algorithms which use variable length output 
+	  SHAKE functions introduced in <xref target="SHA3"/> which can be used 
+	  with the Internet X.509 Certificate and CRL profile <xref target="RFC5280"/>. </t>
 	  
       <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
 	  In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
@@ -305,8 +305,9 @@
 	      <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of <xref target="RFC8017"/>. 
 		  The output length for SHAKE128 or SHAKE256 being used as the hash function in MGF1 
 		  is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
-		  in bits. For example, when RSA modulus n is 2048, the output length of SHAKE128 or SHAKE256 in the MGF1 will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
-		      id-RSASSA-PSS-SHAKE256 is used respectively. </t>
+		  in bits. For example, when RSA modulus n is 2048, the output length of SHAKE128 or 
+		  SHAKE256 in the MGF1 will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
+		  id-RSASSA-PSS-SHAKE256 is used respectively. </t>
 		      
 		  <t>The RSASSA-PSS saltLength MUST be 32 
 		  or 64 bytes respectively. Finally, the trailerField MUST be 1, which represents 
