@@ -166,7 +166,7 @@
 
     <section title="Introduction">
       <t>This document describes several cryptographic algorithm identifiers  
-	  for variable length SHAKE algorithms introduced in <xref target="SHA3"/> 
+	  for several cryptographic algorithms which use variable length output SHAKE algorithms introduced in <xref target="SHA3"/> 
 	  which can be used with the Internet X.509 Certificate and CRL profile 
 	  <xref target="RFC5280"/>. </t>
 	  
@@ -305,11 +305,10 @@
 	      <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of <xref target="RFC8017"/>. 
 		  The output length for SHAKE128 or SHAKE256 being used as the hash function in MGF1 
 		  is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
-		  in bits. A mask generation function in RSASSA-PSS takes an octet string of 
-		  variable length and a desired output length as input, and outputs an octet 
-		  string of the desired length. For example, when RSA modulus n is 2048, the mask 
-		  generation algorithm's output length will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
-		  id-RSASSA-PSS-SHAKE256 is used respectively. The RSASSA-PSS saltLength MUST be 32 
+		  in bits. For example, when RSA modulus n is 2048, the output length of SHAKE128 or SHAKE256 in the MGF1 will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
+		      id-RSASSA-PSS-SHAKE256 is used respectively. </t>
+		      
+		  <t>The RSASSA-PSS saltLength MUST be 32 
 		  or 64 bytes respectively. Finally, the trailerField MUST be 1, which represents 
 		  the trailer field with hexadecimal value 0xBC <xref target="RFC8017"/>.</t>
 		<!-- <t><figure><artwork><![CDATA[
@@ -409,8 +408,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		  RSASSA-PSS defined in <xref target="oids"/> can be used as the algorithm 
 		  field in the SubjectPublicKeyInfo sequence <xref target="RFC3280"/>. The 
 		  identifier parameters, as explained in section <xref target="oids"/>, MUST be 
-		  absent. The RSASSA-PSS algorithm functions and output lengths are the 
-		  same as defined in <xref target="rsa-sigs"/>. </t>
+		  absent. </t>
 		  
 		  <t>Regardless of what public key algorithm identifier is used, the RSA public 
 		  key, which is composed of a modulus and a public exponent, MUST be encoded 
@@ -427,8 +425,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
         <section title="ECDSA Public Keys">
 		  <t>For ECDSA, when id-ecdsa-with-shake128 or id-ecdsa-with-shake256 
 		  is used as the AlgorithmIdentifier in the algorithm field of SubjectPublicKeyInfo, 
-		  the parameters, as explained in section <xref target="oids"/>, MUST be absent. The hash 
-		  function and its output-length are the same as in <xref target="ecdsa-sigs"/>. </t>
+		  the parameters, as explained in section <xref target="oids"/>, MUST be absent. </t>
 		  
 		  <t>Additionally, the mandatory EC SubjectPublicKey is defined in Section 2.1.1 
 		  and its syntax in Section 2.2 of <xref target="RFC5480"/>. We also include them 
