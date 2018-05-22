@@ -429,7 +429,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		  the parameters, as explained in section <xref target="oids"/>, MUST be absent. </t>
 		  
 		  <t>Additionally, the mandatory EC SubjectPublicKey is defined in Section 2.1.1 
-		  and its syntax in Section 2.2 of <xref target="RFC5480"/>. We also include them 
+		  and its syntax is in Section 2.2 of <xref target="RFC5480"/>. We also include them 
 		  here for convenience: </t>
 		  
 		  <t><figure><artwork><![CDATA[
