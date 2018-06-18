@@ -79,7 +79,7 @@
       <t><list style="symbols"> 
 	    <t>draft-ietf-lamps-cms-shake-01:
 		  <list> 
-		    <t>Significant reorganization of the sections to simplify the introduction, the new OIDs and their use in PKIX.</t>
+		    <t>Significant reorganization of the sections to simplify the introduction, the new OIDs and their use in CMS.</t>
 		    <t>Added new OID for RSASSA-PSS that hardcodes hash, salt and MFG, according the WG consensus.</t>
 		    <t>Updated Public Key section to use the new RSASSA-PSS OIDs and clarify the algorithm identifier usage.</t>
 		    <t>Removed the no longer used SHAKE OIDs from section 3.1.</t>

@@ -5,8 +5,8 @@
 LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Intended status: Standards Track                                 Q. Dang
-Expires: November 18, 2018                                          NIST
-                                                            May 17, 2018
+Expires: December 20, 2018                                          NIST
+                                                           June 18, 2018
 
 
      Internet X.509 Public Key Infrastructure: Additional Algorithm
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 18, 2018.
+   This Internet-Draft will expire on December 20, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kampanakis & Dang       Expires November 18, 2018               [Page 1]
+Kampanakis & Dang       Expires December 20, 2018               [Page 1]
 
-Internet-Draft         SHAKE identifiers in X.509               May 2018
+Internet-Draft         SHAKE identifiers in X.509              June 2018
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Kampanakis & Dang       Expires November 18, 2018               [Page 2]
+Kampanakis & Dang       Expires December 20, 2018               [Page 2]
 
-Internet-Draft         SHAKE identifiers in X.509               May 2018
+Internet-Draft         SHAKE identifiers in X.509              June 2018
 
 
       *  Changed titles and section names.
@@ -133,9 +133,9 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 2.  Introduction
 
    This document describes several cryptographic algorithm identifiers
-   for variable length SHAKE algorithms introduced in [SHA3] which can
-   be used with the Internet X.509 Certificate and CRL profile
-   [RFC5280].
+   for several cryptographic algorithms which use variable length output
+   SHAKE functions introduced in [SHA3] which can be used with the
+   Internet X.509 Certificate and CRL profile [RFC5280].
 
    The SHA-3 family of one-way hash functions is specified in [SHA3].
    In the SHA-3 family, two extendable-output functions, called SHAKE128
@@ -165,9 +165,9 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 18, 2018               [Page 3]
+Kampanakis & Dang       Expires December 20, 2018               [Page 3]
 
-Internet-Draft         SHAKE identifiers in X.509               May 2018
+Internet-Draft         SHAKE identifiers in X.509              June 2018
 
 
    The new algorithm identifiers of ECDSA signatures using SHAKEs are
@@ -221,9 +221,9 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
 
 
 
-Kampanakis & Dang       Expires November 18, 2018               [Page 4]
+Kampanakis & Dang       Expires December 20, 2018               [Page 4]
 
-Internet-Draft         SHAKE identifiers in X.509               May 2018
+Internet-Draft         SHAKE identifiers in X.509              June 2018
 
 
 4.1.1.  RSASSA-PSS Signatures
@@ -243,12 +243,11 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of
    [RFC8017].  The output length for SHAKE128 or SHAKE256 being used as
    the hash function in MGF1 is (n - 264)/8 or (n - 520)/8 bytes
-   respectively, where n is the RSA modulus in bits.  A mask generation
-   function in RSASSA-PSS takes an octet string of variable length and a
-   desired output length as input, and outputs an octet string of the
-   desired length.  For example, when RSA modulus n is 2048, the mask
-   generation algorithm's output length will be 223 or 191 when id-
-   RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.
+   respectively, where n is the RSA modulus in bits.  For example, when
+   RSA modulus n is 2048, the output length of SHAKE128 or SHAKE256 in
+   the MGF1 will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or id-RSASSA-
+   PSS-SHAKE256 is used respectively.
+
    The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
    Finally, the trailerField MUST be 1, which represents the trailer
    field with hexadecimal value 0xBC [RFC8017].
@@ -274,15 +273,15 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    7.3 of [X9.62] or with all the requirements specified in
    Section 4.1.3 of [SEC1].  They MAY also generate such signatures in
    accordance with all the recommendations in [X9.62] or [SEC1] if they
-
-
-
-Kampanakis & Dang       Expires November 18, 2018               [Page 5]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
-
    have a stated policy that requires conformance to these standards.
+
+
+
+Kampanakis & Dang       Expires December 20, 2018               [Page 5]
+
+Internet-Draft         SHAKE identifiers in X.509              June 2018
+
+
    These standards may have not specified SHAKE128 and SHAKE256 as hash
    algorithm options.  However, SHAKE128 and SHAKE256 with output length
    being 32 and 64 octets respectively are subtitutions for 256 and
@@ -328,18 +327,16 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    of the public key exclusively to RSASSA-PSS, the AlgorithmIdentifiers
    for RSASSA-PSS defined in Section 3 can be used as the algorithm
    field in the SubjectPublicKeyInfo sequence [RFC3280].  The identifier
-   parameters, as explained in section Section 3, MUST be absent.  The
+   parameters, as explained in section Section 3, MUST be absent.
 
 
 
 
-Kampanakis & Dang       Expires November 18, 2018               [Page 6]
+
+Kampanakis & Dang       Expires December 20, 2018               [Page 6]
 
-Internet-Draft         SHAKE identifiers in X.509               May 2018
+Internet-Draft         SHAKE identifiers in X.509              June 2018
 
-
-   RSASSA-PSS algorithm functions and output lengths are the same as
-   defined in Section 4.1.1.
 
    Regardless of what public key algorithm identifier is used, the RSA
    public key, which is composed of a modulus and a public exponent,
@@ -356,11 +353,10 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    For ECDSA, when id-ecdsa-with-shake128 or id-ecdsa-with-shake256 is
    used as the AlgorithmIdentifier in the algorithm field of
    SubjectPublicKeyInfo, the parameters, as explained in section
-   Section 3, MUST be absent.  The hash function and its output-length
-   are the same as in Section 4.1.2.
+   Section 3, MUST be absent.
 
    Additionally, the mandatory EC SubjectPublicKey is defined in
-   Section 2.1.1 and its syntax in Section 2.2 of [RFC5480].  We also
+   Section 2.1.1 and its syntax is in Section 2.2 of [RFC5480].  We also
    include them here for convenience:
 
      id-ecPublicKey OBJECT IDENTIFIER ::= {
@@ -386,16 +382,17 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
    The SHAKEs are deterministic functions.  Like any other deterministic
    functions, executing each function with the same input multiple times
    will produce the same output.  Therefore, users should not expect
-
-
-
-Kampanakis & Dang       Expires November 18, 2018               [Page 7]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
-
    unrelated outputs (with the same or different output lengths) from
    excuting a SHAKE function with the same input multiple times.
+
+
+
+
+
+Kampanakis & Dang       Expires December 20, 2018               [Page 7]
+
+Internet-Draft         SHAKE identifiers in X.509              June 2018
+
 
    Implementations must protect the signer's private key.  Compromise of
    the signer's private key permits masquerade.
@@ -440,21 +437,18 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
               DOI 10.17487/RFC4055, June 2005,
               <https://www.rfc-editor.org/info/rfc4055>.
 
-
-
-
-
-
-Kampanakis & Dang       Expires November 18, 2018               [Page 8]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
-
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
+
+
+
+Kampanakis & Dang       Expires December 20, 2018               [Page 8]
+
+Internet-Draft         SHAKE identifiers in X.509              June 2018
+
 
    [RFC5480]  Turner, S., Brown, D., Yiu, K., Housley, R., and T. Polk,
               "Elliptic Curve Cryptography Subject Public Key
@@ -497,19 +491,20 @@ Internet-Draft         SHAKE identifiers in X.509               May 2018
               <http://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               NIST.SP.800-90Ar1.pdf>.
 
-
-
-
-
-Kampanakis & Dang       Expires November 18, 2018               [Page 9]
-
-Internet-Draft         SHAKE identifiers in X.509               May 2018
-
-
    [X9.62]    American National Standard for Financial Services (ANSI),
               "X9.62-2005 Public Key Cryptography for the Financial
               Services Industry: The Elliptic Curve Digital Signature
               Standard (ECDSA)", November 2005.
+
+
+
+
+
+
+Kampanakis & Dang       Expires December 20, 2018               [Page 9]
+
+Internet-Draft         SHAKE identifiers in X.509              June 2018
+
 
 Appendix A.  ASN.1 module
 
@@ -557,4 +552,9 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang       Expires November 18, 2018              [Page 10]
+
+
+
+
+
+Kampanakis & Dang       Expires December 20, 2018              [Page 10]
