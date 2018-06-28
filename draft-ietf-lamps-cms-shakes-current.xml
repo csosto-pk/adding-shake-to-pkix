@@ -80,7 +80,7 @@
 	    <t>draft-ietf-lamps-cms-shake-01:
 		  <list> 
 		    <t>Significant reorganization of the sections to simplify the introduction, the new OIDs and their use in CMS.</t>
-		    <t>Added new OID for RSASSA-PSS that hardcodes hash, salt and MFG, according the WG consensus.</t>
+		    <t>Added new OIDs for RSASSA-PSS that hardcodes hash, salt and MFG, according the WG consensus.</t>
 		    <t>Updated Public Key section to use the new RSASSA-PSS OIDs and clarify the algorithm identifier usage.</t>
 		    <t>Removed the no longer used SHAKE OIDs from section 3.1.</t>
 	    </list></t>
@@ -323,7 +323,7 @@ Note: x and y will be specified by NIST.
 		  the public key exclusively to RSASSA-PSS, the AlgorithmIdentifier for 
 		  RSASSA-PSS defined in <xref target="oids"/> can be used as the algorithm 
 		  attribute in the OriginatorPublicKey sequence. The 
-		  identifier parameters, as explained in section <xref target="oids"/>, MUST be 
+		  identifier parameters, as explained in <xref target="oids"/>, MUST be 
 		  absent. The RSASSA-PSS algorithm functions and output lengths are the 
 		  same as defined in <xref target="rsa-sigs"/>. </t>
 		  
@@ -342,7 +342,7 @@ Note: x and y will be specified by NIST.
         <section title="ECDSA Public Keys"> 
           <t>When id-ecdsa-with-shake128 or id-ecdsa-with-shake256 are 
 		  used as the algorithm identitifier in the public key, the parameters, 
-		  as explained in section <xref target="oids"/>, MUST be absent. The hash 
+		  as explained in <xref target="oids"/>, MUST be absent. The hash 
 		  function and its output-length are the same as in <xref target="ecdsa-sigs"/>.</t>
 
 		  <t>Additionally, the mandatory EC SubjectPublicKey is defined in Section 2.1.1 
@@ -366,14 +366,14 @@ Note: x and y will be specified by NIST.
       
 	  
 	  <section title="Message Authentication Codes">
-	    <t>KMAC message authentication code (MAC) is specified in <xref target="SP800-185"/>. 
+	    <t>KMAC message authentication code (KMAC) is specified in <xref target="SP800-185"/>. 
 	    In CMS, KMAC algorithm identifiers are located in the AuthenticatedData 
 	    macAlgorithm field. The KMAC values are located in the AuthenticatedData mac field.</t>
       
 	    <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm identifier 
 	    is used as the KMAC algorithm identifier, the parameters field MUST be absent.</t>
 
-		<t>Conforming implementations that process KMACs with SHAKE 
+		<t>Conforming implementations that process KMACs with the SHAKEs 
 		when processing CMS data MUST recognize these identifiers.</t>
 	    
 	    <t>When calculating the KMAC output, the variable N is 0xD2B282C2, S 
