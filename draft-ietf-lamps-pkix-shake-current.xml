@@ -142,7 +142,7 @@
 	    <t>draft-ietf-lamps-pkix-shake-02:
 		  <list> 
 		  <t>Significant reorganization of the sections to simplify the introduction, the new OIDs and their use in PKIX.</t>
-		  <t>Added new OID for RSASSA-PSS that hardcodes hash, salt and MFG, according the WG consensus.</t>
+		  <t>Added new OIDs for RSASSA-PSS that hardcode hash, salt and MFG, according the WG consensus.</t>
 		  <t>Updated Public Key section to use the new RSASSA-PSS OIDs and clarify the algorithm identifier usage.</t>
 		  <t>Removed the no longer used SHAKE OIDs from section 3.1.</t>
 		  <t>Consolidated subsection for message digest algorithms.</t>
@@ -178,7 +178,7 @@
 	  The corresponding collision and preimage resistance security levels for SHAKE128 and SHAKE256 
 	  are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256) bits. </t>
 	  
-	  <t>SHAKEs can be used as the hash and mask generating functions in RSASSA-PSS 
+	  <t>SHAKEs can be used as the message digest function (to hash the message to be signed) and as the hash function in the mask generating functions in RSASSA-PSS 
 	  and ECDSA. In this document, we define four new OIDs for RSASSA-PSS and ECDSA when SHAKE128 and SHAKE256 
 	  are used as hash functions. The same algorithm identifiers are used for 
 	  identifying a public key, and identifying a signature. </t>
