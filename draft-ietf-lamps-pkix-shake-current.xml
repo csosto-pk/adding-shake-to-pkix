@@ -6,9 +6,9 @@
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
 
-<!-- <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"> -->
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC3279 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3279.xml">
-<!ENTITY RFC3280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3280.xml">
+<!-- <!ENTITY RFC3280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3280.xml"> -->
 <!ENTITY RFC4055 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4055.xml">
 <!ENTITY RFC4086 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4086.xml">
 <!ENTITY RFC5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
@@ -163,7 +163,7 @@
 	    </list></t>
 	  </list></t>
     </section>
-
+	
     <section title="Introduction">
       <t>This document describes several cryptographic algorithm identifiers 
 	  for several cryptographic algorithms which use variable length output 
@@ -183,9 +183,12 @@
 	  are used as hash functions. The same algorithm identifiers are used for 
 	  identifying a public key, and identifying a signature. </t>
     </section>
-
     <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
 
+    <section anchor="terminology" title="Terminology">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t> 
+    </section>  <!-- Terminology -->
+	
     <?rfc needLines="8" ?>
 
     <section title="Identifiers" anchor="oids">
@@ -234,13 +237,15 @@
       <t><list>
 	    <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
-			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
-			id-ecdsa-with-shake(3) TBD }
+			country(16) us(840) organization(1) gov(101) 
+			csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+			TBD }
 ]]></artwork></figure></t>
 		<t><figure><artwork><![CDATA[
   id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
-			country(16) us(840) organization(1) gov(101) csor(3) algorithms(4) 
-			id-ecdsa-with-shake(3) TBD }
+			country(16) us(840) organization(1) gov(101) 
+			csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+			TBD }
 			
   [ EDNOTE: "TBD" will be specified by NIST later. ]
 ]]></artwork></figure></t>
@@ -277,7 +282,7 @@
 	    <t>The identifiers defined in <xref target="oids"/> can be used 
 		as the AlgorithmIdentifier in the signatureAlgorithm field in the sequence 
 		Certificate and the signature field in the sequence tbsCertificate in X.509 
-		<xref target="RFC3280"/>.</t>
+		<xref target="RFC5280"/>.</t>
 		
 		<t>Conforming CA implementations MUST specify the algorithms  
 		explicitly by using the OIDs specified in <xref target="oids"/> when 
@@ -407,7 +412,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		  <t>Additionally, when the RSA private key owner wishes to limit the use of 
 		  the public key exclusively to RSASSA-PSS, the AlgorithmIdentifiers for 
 		  RSASSA-PSS defined in <xref target="oids"/> can be used as the algorithm 
-		  field in the SubjectPublicKeyInfo sequence <xref target="RFC3280"/>. The 
+		  field in the SubjectPublicKeyInfo sequence <xref target="RFC5280"/>. The 
 		  identifier parameters, as explained in section <xref target="oids"/>, MUST be 
 		  absent. </t>
 		  
@@ -520,12 +525,12 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 
     <references title="Normative References">
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-      <!-- &RFC2119; -->
-	  &RFC3280;
+      &RFC2119; 
+	  <!-- &RFC3280; -->
 	  &RFC4055;
       &RFC5280;
 	  &RFC5480;
-	  &RFC8017;
+	  &RFC8017; <!-- RFC8017 is Informational draft but we are keeping it in the Normative References even though idnits complains because we need a normative reference for RSASSA-PSS. RFC4056 does the same thing with RSASS-PSS v2.1 -->
 	  <!-- <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-josefsson-pkix-eddsa-04.xml"?> -->
       <reference anchor="SHA3" target="https://www.nist.gov/publications/sha-3-standard-permutation-based-hash-and-extendable-output-functions">
         <front>
