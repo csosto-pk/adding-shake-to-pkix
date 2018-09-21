@@ -186,7 +186,7 @@
 	  
 	  <t>SHAKE can be used as the message digest function (to hash the message to be signed) 
 	  in RSASSA-PSS and ECDSA and as the hash in the mask generating function in RSASSA-PSS. 
-	  In this document, we define four new OIDs for RSASSA-PSS and ECDSA when SHAKE128 and 
+	  In <xref target="oids"/>, we define four new OIDs for RSASSA-PSS and ECDSA when SHAKE128 and 
 	  SHAKE256 are used. The same algorithm identifiers are used for identifying a public key, 
 	  and identifying a signature. </t>
     </section>
