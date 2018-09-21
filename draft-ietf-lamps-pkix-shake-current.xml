@@ -179,9 +179,10 @@
 	  SHAKE128 and SHAKE256, is defined. Four other hash function instances, SHA3-224, SHA3-256, 
 	  SHA3-384, and SHA3-512 are also defined but are out of scope for this document. 
 	  SHAKE is a variable length hash function. The output length, in bits, of the SHAKE 
-	  instances is defined by the d parameter. The corresponding collision and preimage 
-	  resistance security levels for SHAKE128 and SHAKE256 are respectively 
-	  min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256) bits. </t>
+	  instances is defined by the d parameter. The corresponding collision and second 
+	  preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits respectively. 
+	  And, the corresponding collision and second preimage resistance strengths for SHAKE256 
+	  are min(d/2,256) and min(d,256) bits respectively.</t>
 	  
 	  <t>SHAKE can be used as the message digest function (to hash the message to be signed) 
 	  in RSASSA-PSS and ECDSA and as the hash in the mask generating function in RSASSA-PSS. 
