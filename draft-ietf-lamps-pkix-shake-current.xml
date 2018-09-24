@@ -473,8 +473,9 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       </list>
       where the four digits at the end represent the ASN.1's publication
       date.</t> -->
-	  <t><!-- This document uses several registries that were originally created in <xref target="shake-nist-oids"/>. -->
-	  This document uses several new registries [ EDNOTE: Update here. ]</t>
+	  <t>[ EDNOTE: Update here only if there are OID allocations by IANA. ]
+	  <!-- This document uses several registries that were originally created in <xref target="shake-nist-oids"/>. --></t>
+	  <t>This document has no IANA actions. </t>
     </section>
 
     <section anchor="Security" title="Security Considerations">  
