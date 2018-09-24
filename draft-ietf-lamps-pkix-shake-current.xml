@@ -268,7 +268,8 @@
     
 	  <t>The parameters for these four identifiers above MUST be absent. That is, 
 	  the identifier SHALL be a SEQUENCE of one component, the OID.</t>
-	
+	  <t><xref target="rsa-sigs"/> and <xref target="ecdsa-sigs"/> specify the required output length 
+	  for each use of SHAKE128 or SHAKE256 in RSASSA-PSS and ECDSA.</t>
 	</section> 
 	
 	<section title="Use in PKIX">
@@ -293,7 +294,7 @@
 		
 		<t>Conforming CA implementations MUST specify the algorithms  
 		explicitly by using the OIDs specified in <xref target="oids"/> when 
-		encoding RSASSA-PSS and ECDSA with SHAKE signatures, and public keys 
+		encoding RSASSA-PSS and ECDSA with SHAKE signatures 
 		in certificates and CRLs. Encoding rules for RSASSA-PSS and ECDSA 
 		signature values are specified in <xref target="RFC4055"/> and 
 		<xref target="RFC5480"/> respectively.</t>
@@ -402,11 +403,16 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           as an exact multiple of 8-bits.</t>
         </list></t>
    	  
-		<t>The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
+		<t>Conforming CA implementations MUST specify the algorithms  
+		explicitly by using the OIDs specified in <xref target="oids"/> 
+		when encoding RSASSA-PSS and ECDSA with SHAKE public keys 
+		in certificates and CRLs. 
+		The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
 		algorithm identifiers are as specified in <xref target="RFC3279"/>, 
-		<xref target="RFC4055"/> and <xref target="RFC5480"/> 
+		<xref target="RFC4055"/> and <xref target="RFC5480"/>
 		<!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->, 
-		but we include them below for convenience.</t>
+		but we include them below for convenience. 
+		</t> 
 	    
 		<section title="RSASSA-PSS Public Keys"> 
 	
@@ -595,7 +601,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     </references>
 
     <section anchor="asn" title="ASN.1 module">
-	  <t>[ EDNOTE: More here. ] </t>
+	  <t>[ EDNOTE: More here. TBD. ] </t>
     </section>
 
   </back>
