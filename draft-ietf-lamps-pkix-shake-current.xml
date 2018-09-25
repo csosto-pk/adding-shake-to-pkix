@@ -366,7 +366,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	  	  	
 		  <t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
 		  in certificates or CRLs MUST generate such signatures with a deterministicly 
-		  generated non-random k in accordance 
+		  generated, non-random k in accordance 
 		  with all the requirements specified in <xref target="RFC6979"/>.  
 		  <!-- Sections 7.2 and 7.3 of 
 		  <xref target="X9.62"/> or with all the requirements specified in Section 
