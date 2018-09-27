@@ -110,16 +110,19 @@
 	Algorithm (ECDSA) <xref target="X9.62"/> with the CMS signed-data content type.</t>
 
     <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
-	In the SHA-3 family, two extendable-output functions, called SHAKE128 and SHAKE256 are 
-	defined. Four hash functions, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also 
-	defined but are out of scope for this document. A SHAKE is a variable length hash function. 
-	The output lengths, in bits, of the SHAKE hash functions are defined by the d parameter. 
-	The corresponding collision and preimage resistance security levels for SHAKE128 and SHAKE256 
-	are respectively min(d/2,128) and min(d,128) and min(d/2,256) and min(d,256) bits. </t>
+	In the SHA-3 family, one extendable-output function (SHAKE) with two variants, 
+	SHAKE128 and SHAKE256, is defined. Four other hash function instances, SHA3-224, SHA3-256, 
+	SHA3-384, and SHA3-512 are also defined but are out of scope for this document. 
+	SHAKE is a variable length hash function. The output length, in bits, of the SHAKE 
+	instances is defined by the d parameter. The corresponding collision and second 
+	preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits 
+	respectively. And, the corresponding collision and second preimage resistance 
+	strengths for SHAKE256 are min(d/2,256) and min(d,256) bits respectively.</t>
 
-	<t>A SHAKE can be used in CMS as a message digest, message authentication code or 
-	a mask generation function (in RSASSA-PSS). In this document we define six new OIDs 
-	using SHAKE128 and SHAKE256 in CMS.</t>
+	<t>SHAKE can be used in CMS as the message digest function (to hash the message 
+	to be signed) in RSASSA-PSS and ECDSA, message authentication code and as the hash in the mask 
+	generating function in RSASSA-PSS. In <xref target="oids"/> of this document we define six new OIDs 
+	using SHAKE128 and SHAKE256 in CMS. </t>
     
     <!--  <section title="ASN.1" anchor="section-1.1">
 	  <t>CMS values are generated using ASN.1 <xref target="ASN1-B"/>, using the Basic 
@@ -238,11 +241,15 @@ Note: x and y will be specified by NIST.
 
    Note: x and y will be specified by NIST.
 ]]></artwork></figure> -->
+
+     <t><xref target="md"/>, <xref target="rsa-sigs"/>, <xref target="ecdsa-sigs"/> 
+	 and <xref target="kmac"/> specify the required output length for each use 
+	 of SHAKE128 or SHAKE256 in message digests, RSASSA-PSS, ECDSA and KMAC.</t> 
 	</section>
 	  
 	  
 	<section title="Use in CMS">
-	  <section title="Message Digests"> 
+	  <section anchor="md" title="Message Digests"> 
 	    <t>The id-shake128-len and id-shake256-len OIDs (<xref target="oids"/>) can 
 		be used as the digest algorithm identifiers located in the SignedData, 
 		SignerInfo, DigestedData,  and the AuthenticatedData digestAlgorithm fields 
@@ -326,7 +333,10 @@ Note: x and y will be specified by NIST.
 	    <t>In CMS, the signer's public key algorithm identifiers are located in the 
 	    OriginatorPublicKey's algorithm attribute.</t>
 		
-		<t>The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
+		<t>Conforming implementations MUST specify the algorithms explicitly by 
+		using the OIDs specified in <xref target="oids"/> when encoding RSASSA-PSS and 
+		ECDSA with SHAKE public keys in CMS messages. 
+		The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
 		algorithm identifiers are as specified in <xref target="RFC3279"/>, 
 		<xref target="RFC4055"/> and <xref target="RFC5480"/> 
 		<!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->, 
@@ -365,9 +375,9 @@ Note: x and y will be specified by NIST.
 		  as explained in <xref target="oids"/>, MUST be absent. The hash 
 		  function and its output-length are the same as in <xref target="ecdsa-sigs"/>.</t>
 
-		  <t>Additionally, the mandatory EC SubjectPublicKey is defined in Section 2.1.1 
-		  and its syntax in Section 2.2 of <xref target="RFC5480"/>. We also include them 
-		  here for convenience: </t>
+		  <t>Additionally, the mandatory EC 
+		  SubjectPublicKey is defined in Section 2.1.1 and its syntax in Section 2.2 of 
+		  <xref target="RFC5480"/>. We also include them here for convenience: </t>
 		  
 	      <t><figure><artwork><![CDATA[
    id-ecPublicKey OBJECT IDENTIFIER ::= {
@@ -385,7 +395,7 @@ Note: x and y will be specified by NIST.
 	  </section>
       
 	  
-	  <section title="Message Authentication Codes">
+	  <section anchor="kmac"  title="Message Authentication Codes">
 	    <t>KMAC message authentication code (KMAC) is specified in <xref target="SP800-185"/>. 
 	    In CMS, KMAC algorithm identifiers are located in the AuthenticatedData 
 	    macAlgorithm field. The KMAC values are located in the AuthenticatedData mac field.</t>
@@ -415,9 +425,13 @@ Note: x and y will be specified by NIST.
       
       <t>The SHAKEs are deterministic functions.  Like any other deterministic
       functions, executing each function with the same input multiple times
-      will produce the same output.  Therefore, users should not expect
+      will produce the same output. Therefore, users should not expect
       unrelated outputs (with the same or different output lengths) from
-      excuting a SHAKE function with the same input multiple times.</t>
+      excuting a SHAKE function with the same input multiple times. 
+	  The shorter one of any 2 outputs produced from a SHAKE with the same 
+	  input is a prefix of the longer one. It is a similar situation as 
+	  truncating a 512-bit output of SHA-512 by taking its 256 left-most bits. 
+	  These 256 left-most bits are a prefix of the 512-bit output.</t>
 	  
 	  <t>Implementations must protect the signer's private key. Compromise of
       the signer's private key permits masquerade.</t>
