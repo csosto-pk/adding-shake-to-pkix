@@ -84,7 +84,7 @@
 	    <t>draft-ietf-lamps-cms-shake-01:
 		  <list> 
 		    <t>Significant reorganization of the sections to simplify the introduction, the new OIDs and their use in CMS.</t>
-		    <t>Added new OIDs for RSASSA-PSS that hardcodes hash, salt and MFG, according the WG consensus.</t>
+		    <t>Added new OIDs for RSASSA-PSS that hardcodes hash, salt and MGF, according the WG consensus.</t>
 		    <t>Updated Public Key section to use the new RSASSA-PSS OIDs and clarify the algorithm identifier usage.</t>
 		    <t>Removed the no longer used SHAKE OIDs from section 3.1.</t>
 	    </list></t>
@@ -285,15 +285,26 @@ Note: x and y will be specified by NIST.
 		  same, SHAKE128 or SHAKE256 respectively.  The output-length of the 
 		  SHAKE which hashes the message SHALL be 32 or 64 bytes respectively.</t> 
 		  
-	      <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of 
-		  <xref target="RFC8017"/>. A mask generation function in RSASSA-PSS 
-		  takes an octet string of variable length and a desired output length 
-		  as input, and outputs an octet string of the desired length. The 
-		  output length for SHAKE128 or SHAKE256 being used as the hash function 
-		  in MGF1 is (n - 264)/8 or (n - 520)/8 bytes respectively, where n 
-		  is the RSA modulus in bits. For example, when RSA modulus n is 2048, 
-		  the output length for SHAKE128 or SHAKE256 in the maskGenAlgorithm will be 223 or 191 when 
-		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.</t>
+	      <t>In RSASSA-PSS, a mask generation function takes an octet
+          string of variable length and a desired output length as input, and outputs an octet 
+		  string of the desired length. In RSASSA-PSS with SHAKES, the SHAKEs MUST be 
+		  used natively as the MGF1 function, instead of the MGF1 algorithm that uses 
+		  the hash function in multiple iterations as specified in Section B.2.1 of 
+		  <xref target="RFC8017"/>. In other words, the MGF1 is defined as 
+
+		  <figure><artwork><![CDATA[
+    SHAKE128(mgfSeed, maskLen) 
+]]></artwork></figure>
+          and 
+          <figure><artwork><![CDATA[
+    SHA256(mgfSeed, maskLen)
+]]></artwork></figure>
+          respectively for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256. The mgfSeed is 
+		  the seed from which mask is generated, an octet string. The maskLen for SHAKE128 or SHAKE256 being used 
+		  as the MGF1 is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
+		  in bits. For example, when RSA modulus n is 2048, the output length of SHAKE128 or 
+		  SHAKE256 in the MGF1 will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
+		  id-RSASSA-PSS-SHAKE256 is used respectively. </t>
 		  
 		  <t>The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively. Finally, 
 		  the trailerField MUST be 1, which represents the trailer field with 
@@ -379,15 +390,15 @@ Note: x and y will be specified by NIST.
 		  SubjectPublicKey is defined in Section 2.1.1 and its syntax in Section 2.2 of 
 		  <xref target="RFC5480"/>. We also include them here for convenience: </t>
 		  
-	      <t><figure><artwork><![CDATA[
+          <t><figure><artwork><![CDATA[
    id-ecPublicKey OBJECT IDENTIFIER ::= {
        iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
-	   
+
    ECParameters ::= CHOICE {
        namedCurve         OBJECT IDENTIFIER
        -- implicitCurve   NULL
        -- specifiedCurve  SpecifiedECDomain 
-	   }
+       }
 ]]></artwork></figure></t>
 	      <t>The ECParameters associated with the ECDSA public key in the signers 
 	      certificate SHALL apply to the verification of the signature.</t> 

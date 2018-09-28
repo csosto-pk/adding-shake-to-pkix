@@ -147,7 +147,7 @@
 	    <t>draft-ietf-lamps-pkix-shake-02:
 		  <list> 
 		  <t>Significant reorganization of the sections to simplify the introduction, the new OIDs and their use in PKIX.</t>
-		  <t>Added new OIDs for RSASSA-PSS that hardcode hash, salt and MFG, according the WG consensus.</t>
+		  <t>Added new OIDs for RSASSA-PSS that hardcode hash, salt and MGF, according the WG consensus.</t>
 		  <t>Updated Public Key section to use the new RSASSA-PSS OIDs and clarify the algorithm identifier usage.</t>
 		  <t>Removed the no longer used SHAKE OIDs from section 3.1.</t>
 		  <t>Consolidated subsection for message digest algorithms.</t>
@@ -243,18 +243,18 @@
 		           
  	  <t>The new algorithm identifiers of ECDSA signatures using SHAKEs are below.</t> 
       <t><list>
-	    <t><figure><artwork><![CDATA[
+        <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
-			country(16) us(840) organization(1) gov(101) 
-			csor(3) algorithms(4) id-ecdsa-with-shake(3) 
-			TBD }
+            country(16) us(840) organization(1) gov(101) 
+            csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+            TBD }
 ]]></artwork></figure></t>
-		<t><figure><artwork><![CDATA[
+        <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
-			country(16) us(840) organization(1) gov(101) 
-			csor(3) algorithms(4) id-ecdsa-with-shake(3) 
-			TBD }
-			
+            country(16) us(840) organization(1) gov(101) 
+            csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+            TBD }
+
   [ EDNOTE: "TBD" will be specified by NIST later. ]
 ]]></artwork></figure></t>
 	  </list></t> 
@@ -316,9 +316,23 @@
 		  The output-length of the hash algorithm which hashes the message SHALL be 
 		  32 or 64 bytes respectively. </t> 
 			
-	      <t>The maskGenAlgorithm is the MGF1 specified in Section B.2.1 of <xref target="RFC8017"/>. 
-		  The output length for SHAKE128 or SHAKE256 being used as the hash function in MGF1 
-		  is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
+	      <t>In RSASSA-PSS, a mask generation function takes an octet
+          string of variable length and a desired output length as input, and outputs an octet 
+		  string of the desired length. In RSASSA-PSS with SHAKES, the SHAKEs MUST be 
+		  used natively as the MGF1 function, instead of the MGF1 algorithm that uses 
+		  the hash function in multiple iterations as specified in Section B.2.1 of 
+		  <xref target="RFC8017"/>. In other words, the MGF1 is defined as 
+
+		  <figure><artwork><![CDATA[
+    SHAKE128(mgfSeed, maskLen) 
+]]></artwork></figure>
+          and 
+          <figure><artwork><![CDATA[
+    SHA256(mgfSeed, maskLen)
+]]></artwork></figure>
+          respectively for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256. The mgfSeed is 
+		  the seed from which mask is generated, an octet string. The maskLen for SHAKE128 or SHAKE256 being used 
+		  as the MGF1 is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
 		  in bits. For example, when RSA modulus n is 2048, the output length of SHAKE128 or 
 		  SHAKE256 in the MGF1 will be 223 or 191 when id-RSASSA-PSS-SHAKE128 or 
 		  id-RSASSA-PSS-SHAKE256 is used respectively. </t>
