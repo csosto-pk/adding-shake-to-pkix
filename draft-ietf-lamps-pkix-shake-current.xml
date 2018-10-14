@@ -315,9 +315,10 @@
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. </t>
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash algorithm as the
-		  mask generatin function "MGF(H, emLen - hLen - 1)" (defined in RFC 8017) used in RSASSA-PSS
-		  MUST be the same, SHAKE128 or SHAKE256 respectively. The output-length of the hash 
-		  algorithm which hashes the message SHALL be 32 or 64 bytes respectively. </t> 
+		  mask generation function "MGF(H, emLen - hLen - 1)" <xref target="RFC8017"/> used 
+		  in RSASSA-PSS MUST be the same, SHAKE128 or SHAKE256 respectively. The 
+		  output-length of the hash algorithm which hashes the message SHALL be 32 or 
+		  64 bytes respectively. </t> 
 			
 	      <t>In RSASSA-PSS, a mask generation function takes an octet string of variable length and
 		  a desired output length as input, and outputs an octet 
