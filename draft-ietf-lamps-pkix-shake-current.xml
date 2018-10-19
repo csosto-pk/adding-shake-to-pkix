@@ -645,7 +645,173 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     </references>
 
     <section anchor="asn" title="ASN.1 module">
-	  <t>[ EDNOTE: More here. TBD. ] </t>
+	  <t>This appendix includes the ASN.1 modules for SHAKEs in X.509. 
+	  This module does not come from any existing RFC. </t>
+    <t><figure><artwork><![CDATA[ 
+ PKIXAlgsForSHAKE-2018 { iso(1) identified-organization(3) dod(6)
+     internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+     id-mod-pkix1-shake-2018(TBD) }
+
+   DEFINITIONS EXPLICIT TAGS ::=
+
+   BEGIN
+
+   -- EXPORTS ALL;
+
+   IMPORTS
+
+   -- FROM [RFC5912]
+
+   PUBLIC-KEY, SIGNATURE-ALGORITHM, DIGEST-ALGORITHM, SMIME-CAPS
+   FROM AlgorithmInformation-2009
+     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) id-mod(0)
+       id-mod-algorithmInformation-02(58) }
+
+   -- FROM [RFC5912]
+   
+   id-RSASSA-PSS, RSAPublicKey, id-ecPublicKey, ECPoint, ECDSA-Sig-Value 
+   FROM PKIXAlgs-2009 { iso(1) identified-organization(3) dod(6)
+        internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+        id-mod-pkix1-algorithms2008-02(56) }
+
+   ;
+
+   -- One-Way Hash Functions
+
+   -- SHAKE128
+
+   mda-shake128 DIGEST-ALGORITHM ::= {
+     IDENTIFIER id-shake128
+     PARAMS ARE absent
+     }
+
+   id-shake128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+                                       us(840) organization(1) gov(101)
+                                       csor(3) nistAlgorithm(4)
+                                       hashAlgs(2) 11 }
+
+   -- SHAKE-256
+
+   mda-shake256 DIGEST-ALGORITHM ::= {
+     IDENTIFIER id-shake256
+     PARAMS ARE absent
+     }
+
+   id-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+                                       us(840) organization(1) gov(101)
+                                       csor(3) nistAlgorithm(4)
+                                       hashAlgs(2) 12 }
+	 
+   --
+   -- Public Key (pk-) Algorithms
+   --
+
+   PublicKeys PUBLIC-KEY ::= {
+     ...,
+     pk-ec
+	 pk-rsaSSA-PSS
+     }
+
+   -- From [RFC5912] - Here so it compiles.
+
+   pk-ec PUBLIC-KEY ::= {
+     IDENTIFIER id-ecPublicKey
+     KEY ECPoint
+     PARAMS TYPE ECParameters ARE required
+     -- Private key format not in this module --
+     CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyAgreement,
+                      keyCertSign, cRLSign }
+     }
+	 
+   pk-rsaSSA-PSS PUBLIC-KEY ::= {
+       IDENTIFIER id-RSASSA-PSS
+       KEY RSAPublicKey
+       PARAMS TYPE RSASSA-PSS-params ARE optional
+        -- Private key format not in this module --
+       CERT-KEY-USAGE { nonRepudiation, digitalSignature,
+                            keyCertSign, cRLSign }
+   }
+
+   --
+   -- Signature Algorithms (sa-)
+   --
+
+   SignatureAlgs SIGNATURE-ALGORITHM ::= {
+     ...,
+     -- This expands SignatureAlgorithms from [RFC5912]
+     sa-ecdsaWithSHAKE128 |
+     sa-ecdsaWithSHAKE256 |
+	 sa-rsassapssWithSHAKE128 |  
+	 sa-rsassapssWithSHAKE256 
+     }
+
+   --
+   -- SMIME Capabilities (sa-)
+   --
+   SMimeCaps SMIME-CAPS ::= {
+     -- The expands SMimeCaps from [RFC5912]
+     sa-ecdsaWithSHAKE128.&smimeCaps |
+     sa-ecdsaWithSHAKE256.&smimeCaps | 
+	 sa-rsassapssWithSHAKE128.&smimeCaps |
+	 sa-rsassapssWithSHAKE256.&smimeCaps
+     }
+
+   -- ECDSA with SHAKE-128
+
+   sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-ecdsa-with-shake128
+      VALUE ECDSA-Sig-Value
+      PARAMS TYPE NULL ARE absent
+      HASHES { mda-shake128 }
+      PUBLIC-KEYS { pk-ec }
+      SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake128 }
+      }
+
+   id-ecdsa-with-shake128 ::= { joint-iso-itu-t(2) country(16)
+                                us(840) organization(1) gov(101)
+                                csor(3) nistAlgorithm(4)
+                                sigAlgs(3) TBD }
+
+   -- ECDSA with SHAKE-256
+
+   sa-ecdsaWithSHAKE256 SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-ecdsa-with-shake256
+      VALUE ECDSA-Sig-Value
+      PARAMS TYPE NULL ARE absent
+      HASHES { mda-shake256 }
+      PUBLIC-KEYS { pk-ec }
+      SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake256 }
+      }
+   
+   id-ecdsa-with-shake256 ::= { joint-iso-itu-t(2) country(16)
+                                us(840) organization(1) gov(101)
+                                csor(3) nistAlgorithm(4)
+                                sigAlgs(3) TBD }
+
+   sa-rsassapssWithSHAKE128 SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-RSASSA-PSS-SHAKE128
+      VALUE ECDSA-Sig-Value
+      PARAMS TYPE NULL ARE absent
+      HASHES { mda-shake256 }
+      PUBLIC-KEYS { pk-ec }
+      SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE128 }
+      }
+								
+    id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
+
+   sa-rsassapssWithSHAKE256 SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-RSASSA-PSS-SHAKE256
+      VALUE ECDSA-Sig-Value
+      PARAMS TYPE NULL ARE absent
+      HASHES { mda-shake256 }
+      PUBLIC-KEYS { pk-ec }
+      SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE256 }
+      }
+	
+    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+	]]></artwork></figure>
+   </t>
     </section>
 
   </back>
