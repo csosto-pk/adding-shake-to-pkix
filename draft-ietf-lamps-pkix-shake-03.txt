@@ -11,7 +11,7 @@ Expires: April 22, 2019                                             NIST
 
      Internet X.509 Public Key Infrastructure: Additional Algorithm
   Identifiers for RSASSA-PSS and ECDSA using SHAKEs as Hash Functions
-                     draft-ietf-lamps-pkix-shake-02
+                     draft-ietf-lamps-pkix-shake-03
 
 Abstract
 
@@ -591,25 +591,25 @@ Appendix A.  ASN.1 module
    This appendix includes the ASN.1 modules for SHAKEs in X.509.  This
    module does not come from any existing RFC.
 
-   PKIXAlgsForSHAKE-2018 { iso(1) identified-organization(3) dod(6)
-     internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
-     id-mod-pkix1-shake-2018(TBD) }
+    PKIXAlgsForSHAKE-2018 { iso(1) identified-organization(3) dod(6)
+      internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+      id-mod-pkix1-shake-2018(TBD) }
 
-   DEFINITIONS EXPLICIT TAGS ::=
+    DEFINITIONS EXPLICIT TAGS ::=
 
-   BEGIN
+    BEGIN
 
-   -- EXPORTS ALL;
+    -- EXPORTS ALL;
 
-   IMPORTS
+    IMPORTS
 
-   -- FROM [RFC5912]
+    -- FROM [RFC5912]
 
-   PUBLIC-KEY, SIGNATURE-ALGORITHM, DIGEST-ALGORITHM, MAC-ALGORITHM, SMIME-CAPS
-   FROM AlgorithmInformation-2009
-     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
-       mechanisms(5) pkix(7) id-mod(0)
-       id-mod-algorithmInformation-02(58) }
+    PUBLIC-KEY, SIGNATURE-ALGORITHM, DIGEST-ALGORITHM, MAC-ALGORITHM,
+                                                       SMIME-CAPS
+    FROM AlgorithmInformation-2009
+      { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+        mechanisms(5) pkix(7) id-mod(0)
 
 
 
@@ -618,54 +618,54 @@ Kampanakis & Dang        Expires April 22, 2019                [Page 11]
 Internet-Draft         SHAKE identifiers in X.509           October 2018
 
 
-   -- FROM [RFC5912]
+        id-mod-algorithmInformation-02(58) }
 
-   id-RSASSA-PSS, RSAPublicKey, rsaEncryption, id-ecPublicKey, ECPoint, ECDSA-Sig-Value
-   FROM PKIXAlgs-2009 { iso(1) identified-organization(3) dod(6)
-        internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
-        id-mod-pkix1-algorithms2008-02(56) }
+    -- FROM [RFC5912]
 
-   --
-   -- One-Way Hash Functions
-   -- SHAKE128
-   mda-shake128 DIGEST-ALGORITHM ::= {
-     IDENTIFIER id-shake128  -- with output length 32 bytes.
-   }
-   id-shake128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-                                       us(840) organization(1) gov(101)
-                                       csor(3) nistAlgorithm(4)
-                                       hashAlgs(2) 11 }
+    id-RSASSA-PSS, RSAPublicKey, rsaEncryption, id-ecPublicKey,
+                                        ECPoint, ECDSA-Sig-Value
+    FROM PKIXAlgs-2009 { iso(1) identified-organization(3) dod(6)
+         internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+         id-mod-pkix1-algorithms2008-02(56) }
 
-   -- SHAKE-256
-   mda-shake256 DIGEST-ALGORITHM ::= {
-     IDENTIFIER id-shake256  -- with output length 64 bytes.
-   }
-   id-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-                                       us(840) organization(1) gov(101)
-                                       csor(3) nistAlgorithm(4)
-                                       hashAlgs(2) 12 }
+    --
+    -- One-Way Hash Functions
+    -- SHAKE128
+    mda-shake128 DIGEST-ALGORITHM ::= {
+      IDENTIFIER id-shake128  -- with output length 32 bytes.
+    }
+    id-shake128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+                                        us(840) organization(1) gov(101)
+                                        csor(3) nistAlgorithm(4)
+                                        hashAlgs(2) 11 }
 
-   --
-   -- Public Key (pk-) Algorithms
-   --
-   PublicKeys PUBLIC-KEY ::= {
-     ...,
-         pk-rsaSSA-PSS-SHAKE128 |
-     pk-rsaSSA-PSS-SHAKE256 |
-     pk-ec,
-         ...
-   }
+    -- SHAKE-256
+    mda-shake256 DIGEST-ALGORITHM ::= {
+      IDENTIFIER id-shake256  -- with output length 64 bytes.
+    }
+    id-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+                                        us(840) organization(1) gov(101)
+                                        csor(3) nistAlgorithm(4)
+                                        hashAlgs(2) 12 }
 
-   -- From [RFC5912] - Here so it compiles.
+    --
+    -- Public Key (pk-) Algorithms
+    --
+    PublicKeys PUBLIC-KEY ::= {
+      ...,
+          pk-rsaSSA-PSS-SHAKE128 |
+      pk-rsaSSA-PSS-SHAKE256 |
+      pk-ec,
+          ...
+    }
 
-   pk-rsa PUBLIC-KEY ::= {
-    IDENTIFIER rsaEncryption
-    KEY RSAPublicKey
-    PARAMS TYPE NULL ARE absent
-    -- Private key format not in this module --
-    CERT-KEY-USAGE {digitalSignature, nonRepudiation,
-    keyEncipherment, dataEncipherment, keyCertSign, cRLSign}
-   }
+    -- From [RFC5912] - Here so it compiles.
+
+    pk-rsa PUBLIC-KEY ::= {
+     IDENTIFIER rsaEncryption
+     KEY RSAPublicKey
+     PARAMS TYPE NULL ARE absent
+     -- Private key format not in this module --
 
 
 
@@ -674,54 +674,54 @@ Kampanakis & Dang        Expires April 22, 2019                [Page 12]
 Internet-Draft         SHAKE identifiers in X.509           October 2018
 
 
-   -- The hashAlgorithm is mda-shake128
-   -- The maskGenAlgorithm is mda-shake128
-   -- Mask Gen Algorithm is SHAKE128 with output length
-   -- (n - 264)/8, where n is the RSA modulus in bits.
-   -- the saltLength is 32
-   -- the trailerField is 1
-   pk-rsaSSA-PSS-SHAKE128 PUBLIC-KEY ::= {
-       IDENTIFIER id-RSASSA-PSS-SHAKE128
-       KEY RSAPublicKey
-       PARAMS TYPE NULL ARE absent
-        -- Private key format not in this module --
-       CERT-KEY-USAGE { nonRepudiation, digitalSignature,
-                            keyCertSign, cRLSign }
-   }
+     CERT-KEY-USAGE {digitalSignature, nonRepudiation,
+     keyEncipherment, dataEncipherment, keyCertSign, cRLSign}
+    }
 
-   -- The hashAlgorithm is mda-shake256
-   -- The maskGenAlgorithm is mda-shake256
-   -- Mask Gen Algorithm is SHAKE256 with output length
-   -- (n - 520)/8, where n is the RSA modulus in bits.
-   -- the saltLength is 64
-   -- the trailerField is 1
-   pk-rsaSSA-PSS-SHAKE256 PUBLIC-KEY ::= {
-       IDENTIFIER id-RSASSA-PSS-SHAKE256
-       KEY RSAPublicKey
-       PARAMS TYPE NULL ARE absent
-        -- Private key format not in this module --
-       CERT-KEY-USAGE { nonRepudiation, digitalSignature,
-                            keyCertSign, cRLSign }
-   }
+    -- The hashAlgorithm is mda-shake128
+    -- The maskGenAlgorithm is mda-shake128
+    -- Mask Gen Algorithm is SHAKE128 with output length
+    -- (n - 264)/8, where n is the RSA modulus in bits.
+    -- the saltLength is 32
+    -- the trailerField is 1
+    pk-rsaSSA-PSS-SHAKE128 PUBLIC-KEY ::= {
+        IDENTIFIER id-RSASSA-PSS-SHAKE128
+        KEY RSAPublicKey
+        PARAMS TYPE NULL ARE absent
+         -- Private key format not in this module --
+        CERT-KEY-USAGE { nonRepudiation, digitalSignature,
+                             keyCertSign, cRLSign }
+    }
 
-   pk-ec PUBLIC-KEY ::= {
-     IDENTIFIER id-ecPublicKey
-     KEY ECPoint
-     PARAMS TYPE ECParameters ARE required
-     -- Private key format not in this module --
-     CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyAgreement,
-                      keyCertSign, cRLSign }
-   }
-   ECParameters ::= CHOICE {
-    namedCurve      CURVE.&id({NamedCurve})
-    -- implicitCurve   NULL
-      -- implicitCurve MUST NOT be used in PKIX
-    -- specifiedCurve  SpecifiedCurve
-      -- specifiedCurve MUST NOT be used in PKIX
-      -- Details for specifiedCurve can be found in [X9.62]
-      -- Any future additions to this CHOICE should be coordinated
-      -- with ANSI X.9.
-   }
+    -- The hashAlgorithm is mda-shake256
+    -- The maskGenAlgorithm is mda-shake256
+    -- Mask Gen Algorithm is SHAKE256 with output length
+    -- (n - 520)/8, where n is the RSA modulus in bits.
+    -- the saltLength is 64
+    -- the trailerField is 1
+    pk-rsaSSA-PSS-SHAKE256 PUBLIC-KEY ::= {
+        IDENTIFIER id-RSASSA-PSS-SHAKE256
+        KEY RSAPublicKey
+        PARAMS TYPE NULL ARE absent
+         -- Private key format not in this module --
+        CERT-KEY-USAGE { nonRepudiation, digitalSignature,
+                             keyCertSign, cRLSign }
+    }
+
+    pk-ec PUBLIC-KEY ::= {
+      IDENTIFIER id-ecPublicKey
+      KEY ECPoint
+      PARAMS TYPE ECParameters ARE required
+      -- Private key format not in this module --
+      CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyAgreement,
+                       keyCertSign, cRLSign }
+    }
+    ECParameters ::= CHOICE {
+     namedCurve      CURVE.&id({NamedCurve})
+     -- implicitCurve   NULL
+       -- implicitCurve MUST NOT be used in PKIX
+     -- specifiedCurve  SpecifiedCurve
+       -- specifiedCurve MUST NOT be used in PKIX
 
 
 
@@ -730,54 +730,54 @@ Kampanakis & Dang        Expires April 22, 2019                [Page 13]
 Internet-Draft         SHAKE identifiers in X.509           October 2018
 
 
-   --
-   -- Signature Algorithms (sa-)
-   --
-   SignatureAlgs SIGNATURE-ALGORITHM ::= {
-     ...,
-     -- This expands SignatureAlgorithms from [RFC5912]
-     sa-rsassapssWithSHAKE128 |
-     sa-rsassapssWithSHAKE256 |
-     sa-ecdsaWithSHAKE128 |
-     sa-ecdsaWithSHAKE256
-   }
+       -- Details for specifiedCurve can be found in [X9.62]
+       -- Any future additions to this CHOICE should be coordinated
+       -- with ANSI X.9.
+    }
 
-   --
-   -- SMIME Capabilities (sa-)
-   --
-   SMimeCaps SMIME-CAPS ::= {
-     ...,
-     -- The expands SMimeCaps from [RFC5912]
-     sa-rsassapssWithSHAKE128.&smimeCaps |
-     sa-rsassapssWithSHAKE256.&smimeCaps |
-     sa-ecdsaWithSHAKE128.&smimeCaps |
-     sa-ecdsaWithSHAKE256.&smimeCaps
-     }
+    --
+    -- Signature Algorithms (sa-)
+    --
+    SignatureAlgs SIGNATURE-ALGORITHM ::= {
+      ...,
+      -- This expands SignatureAlgorithms from [RFC5912]
+      sa-rsassapssWithSHAKE128 |
+      sa-rsassapssWithSHAKE256 |
+      sa-ecdsaWithSHAKE128 |
+      sa-ecdsaWithSHAKE256
+    }
 
-   -- RSASSA-PSS with SHAKE128
-   sa-rsassapssWithSHAKE128 SIGNATURE-ALGORITHM ::= {
-      IDENTIFIER id-RSASSA-PSS-SHAKE128
-      PARAMS TYPE NULL ARE absent
-         -- The hashAlgorithm is mda-shake128
-         -- The maskGenAlgorithm is mda-shake128
-         -- Mask Gen Algorithm is SHAKE128 with output length
-         -- (n - 264)/8, where n is the RSA modulus in bits.
-         -- the saltLength is 32
-         -- the trailerField is 1
-          HASHES {mda-shake128} -- omitting mda-shake128-params
-      PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE128 }
-      SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE128 }
-   }
-   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
+    --
+    -- SMIME Capabilities (sa-)
+    --
+    SMimeCaps SMIME-CAPS ::= {
+      ...,
+      -- The expands SMimeCaps from [RFC5912]
+      sa-rsassapssWithSHAKE128.&smimeCaps |
+      sa-rsassapssWithSHAKE256.&smimeCaps |
+      sa-ecdsaWithSHAKE128.&smimeCaps |
+      sa-ecdsaWithSHAKE256.&smimeCaps
+      }
 
-   -- RSASSA-PSS with SHAKE256
-   sa-rsassapssWithSHAKE256 SIGNATURE-ALGORITHM ::= {
-      IDENTIFIER id-RSASSA-PSS-SHAKE256
-      PARAMS TYPE NULL ARE absent
-         -- The hashAlgorithm is mda-shake256
-         -- The maskGenAlgorithm is mda-shake256
-         -- Mask Gen Algorithm is SHAKE256 with output length
-         -- (n - 520)/8, where n is the RSA modulus in bits.
+    -- RSASSA-PSS with SHAKE128
+    sa-rsassapssWithSHAKE128 SIGNATURE-ALGORITHM ::= {
+       IDENTIFIER id-RSASSA-PSS-SHAKE128
+       PARAMS TYPE NULL ARE absent
+          -- The hashAlgorithm is mda-shake128
+          -- The maskGenAlgorithm is mda-shake128
+          -- Mask Gen Algorithm is SHAKE128 with output length
+          -- (n - 264)/8, where n is the RSA modulus in bits.
+          -- the saltLength is 32
+          -- the trailerField is 1
+           HASHES {mda-shake128} -- omitting mda-shake128-params
+       PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE128 }
+       SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE128 }
+    }
+    id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
+
+    -- RSASSA-PSS with SHAKE256
+    sa-rsassapssWithSHAKE256 SIGNATURE-ALGORITHM ::= {
+       IDENTIFIER id-RSASSA-PSS-SHAKE256
 
 
 
@@ -786,54 +786,54 @@ Kampanakis & Dang        Expires April 22, 2019                [Page 14]
 Internet-Draft         SHAKE identifiers in X.509           October 2018
 
 
-         -- the saltLength is 64
-         -- the trailerField is 1
-          HASHES {mda-shake256} -- omitting mda-shake256-params
-      PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE256 }
-      SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE256 }
-   }
-   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+       PARAMS TYPE NULL ARE absent
+          -- The hashAlgorithm is mda-shake256
+          -- The maskGenAlgorithm is mda-shake256
+          -- Mask Gen Algorithm is SHAKE256 with output length
+          -- (n - 520)/8, where n is the RSA modulus in bits.
+          -- the saltLength is 64
+          -- the trailerField is 1
+           HASHES {mda-shake256} -- omitting mda-shake256-params
+       PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE256 }
+       SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE256 }
+    }
+    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
 
-   -- Determinstic ECDSA with SHAKE128
-   -- Generating k by using KMAC with SHAKE128 as the hash
-   -- [SP800-185] instead of HMAC with output length 256-bits
-   -- that is equal to or slightly less than the elliptic
-   -- curve group order. S is set to an empty string.
-   sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
-      IDENTIFIER id-ecdsa-with-shake128
-      VALUE ECDSA-Sig-Value
-      PARAMS TYPE NULL ARE absent
-      HASHES { mda-shake128 }
-      PUBLIC-KEYS { pk-ec }
-      SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake128 }
-   }
-   id-ecdsa-with-shake128 ::= { joint-iso-itu-t(2) country(16)
-                                us(840) organization(1) gov(101)
-                                csor(3) nistAlgorithm(4)
-                                sigAlgs(3) TBD }
+    -- Determinstic ECDSA with SHAKE128
+    -- Generating k by using KMAC with SHAKE128 as the hash
+    -- [SP800-185] instead of HMAC with output length 256-bits
+    -- that is equal to or slightly less than the elliptic
+    -- curve group order. S is set to an empty string.
+    sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
+       IDENTIFIER id-ecdsa-with-shake128
+       VALUE ECDSA-Sig-Value
+       PARAMS TYPE NULL ARE absent
+       HASHES { mda-shake128 }
+       PUBLIC-KEYS { pk-ec }
+       SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake128 }
+    }
+    id-ecdsa-with-shake128 ::= { joint-iso-itu-t(2) country(16)
+                                 us(840) organization(1) gov(101)
+                                 csor(3) nistAlgorithm(4)
+                                 sigAlgs(3) TBD }
 
-   -- Determinstic ECDSA with SHAKE256
-   -- Generating k by using KMAC with SHAKE256 as the hash
-   -- [SP800-185] instead of HMAC with output length 512-bits
-   -- truncated to equal to or slightly less than the elliptic
-   -- curve group order. S is set to an empty string.
-   sa-ecdsaWithSHAKE256 SIGNATURE-ALGORITHM ::= {
-      IDENTIFIER id-ecdsa-with-shake256
-      VALUE ECDSA-Sig-Value
-      PARAMS TYPE NULL ARE absent
-      HASHES { mda-shake256 }
-      PUBLIC-KEYS { pk-ec }
-      SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake256 }
-   }
-   id-ecdsa-with-shake256 ::= { joint-iso-itu-t(2) country(16)
-                                us(840) organization(1) gov(101)
-                                csor(3) nistAlgorithm(4)
-                                sigAlgs(3) TBD }
-
-   END
-
-
-
+    -- Determinstic ECDSA with SHAKE256
+    -- Generating k by using KMAC with SHAKE256 as the hash
+    -- [SP800-185] instead of HMAC with output length 512-bits
+    -- truncated to equal to or slightly less than the elliptic
+    -- curve group order. S is set to an empty string.
+    sa-ecdsaWithSHAKE256 SIGNATURE-ALGORITHM ::= {
+       IDENTIFIER id-ecdsa-with-shake256
+       VALUE ECDSA-Sig-Value
+       PARAMS TYPE NULL ARE absent
+       HASHES { mda-shake256 }
+       PUBLIC-KEYS { pk-ec }
+       SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake256 }
+    }
+    id-ecdsa-with-shake256 ::= { joint-iso-itu-t(2) country(16)
+                                 us(840) organization(1) gov(101)
+                                 csor(3) nistAlgorithm(4)
+                                 sigAlgs(3) TBD }
 
 
 
@@ -841,6 +841,8 @@ Kampanakis & Dang        Expires April 22, 2019                [Page 15]
 
 Internet-Draft         SHAKE identifiers in X.509           October 2018
 
+
+    END
 
 Authors' Addresses
 
@@ -857,8 +859,6 @@ Authors' Addresses
    USA
 
    Email: quynh.dang@nist.gov
-
-
 
 
 

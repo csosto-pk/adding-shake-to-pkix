@@ -590,7 +590,41 @@ Note: x and y will be specified by NIST.
 	</references>
 	<section title="ASN.1 Module" anchor="section-a"><t>
     [EDNOTE: Update. TBD. ] </t>
+    <t><figure><artwork><![CDATA[ 
+	
+   --
+   -- KMAC Functions
+   -- KMAC with SHAKE128					   
+   KMACwithSHAKE128 MAC-ALGORITHM ::= { 
+	 IDENTIFIER id-KMACWithSHAKE128 
+	 PARAMS TYPE KMACwithSHAKE128-params ARE required
+   }
+   id-KMACWithSHAKE128 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2) 
+                                country(16) us(840) organization(1) 
+                                gov(101) csor(3) nistAlgorithm(4)
+                                hashAlgs(2) 19 }
+   KMACwithSHAKE128-params ::= SEQUENCE {
+      KMACOutputLength     INTEGER DEFAULT 256, -- Output length in bits
+      customizationString  OCTET STRING DEFAULT ''
+   }
 
+   -- KMAC with SHAKE256
+   KMACwithSHAKE256 MAC-ALGORITHM ::= { 
+	 IDENTIFIER id-KMACWithSHAKE256 
+	 PARAMS TYPE KMACwithSHAKE256-params ARE required
+   }
+   id-KMACWithSHAKE256 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2) 
+                               country(16) us(840) organization(1) 
+                               gov(101) csor(3) nistAlgorithm(4)
+                               hashAlgs(2) 20 }
+   KMACwithSHAKE256-params ::= SEQUENCE {
+      KMACOutputLength     INTEGER DEFAULT 512, -- Output length in bits
+      customizationString  OCTET STRING DEFAULT ''
+   }
+
+   END
+	]]></artwork></figure>
+   </t>
 	</section>
 
 	</back>
