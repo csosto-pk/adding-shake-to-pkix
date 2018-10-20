@@ -803,7 +803,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
          -- (n - 264)/8, where n is the RSA modulus in bits. 
          -- the saltLength is 32 
          -- the trailerField is 1 
-	  HASHES {mda-shake128} -- omitting mda-shake128-params
+	  HASHES mda-shake128 
       PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE128 }
       SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE128 }
    }
@@ -819,7 +819,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
          -- (n - 520)/8, where n is the RSA modulus in bits. 
          -- the saltLength is 64
          -- the trailerField is 1
-	  HASHES {mda-shake256} -- omitting mda-shake256-params
+	  HASHES mda-shake256 
       PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE256 }
       SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE256 }
    }
