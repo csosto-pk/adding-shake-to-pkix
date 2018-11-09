@@ -5,13 +5,13 @@
 LAMPS WG                                                         Q. Dang
 Internet-Draft                                                      NIST
 Intended status: Standards Track                           P. Kampanakis
-Expires: April 25, 2019                                    Cisco Systems
-                                                        October 22, 2018
+Expires: May 13, 2019                                      Cisco Systems
+                                                        November 9, 2018
 
 
   Use of the SHAKE One-way Hash Functions in the Cryptographic Message
                               Syntax (CMS)
-                     draft-ietf-lamps-cms-shakes-01
+                     draft-ietf-lamps-cms-shakes-02
 
 Abstract
 
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 25, 2019.
+   This Internet-Draft will expire on May 13, 2019.
 
 Copyright Notice
 
@@ -53,22 +53,22 @@ Copyright Notice
 
 
 
-Dang & Kampanakis        Expires April 25, 2019                 [Page 1]
+Dang & Kampanakis         Expires May 13, 2019                  [Page 1]
 
-Internet-Draft                SHAKEs in CMS                 October 2018
+Internet-Draft                SHAKEs in CMS                November 2018
 
 
 Table of Contents
 
    1.  Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Identifiers . . . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  Identifiers . . . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Use in CMS  . . . . . . . . . . . . . . . . . . . . . . . . .   5
      4.1.  Message Digests . . . . . . . . . . . . . . . . . . . . .   5
      4.2.  Signatures  . . . . . . . . . . . . . . . . . . . . . . .   5
        4.2.1.  RSASSA-PSS Signatures . . . . . . . . . . . . . . . .   6
-       4.2.2.  Deterministic ECDSA Signatures  . . . . . . . . . . .   6
+       4.2.2.  Deterministic ECDSA Signatures  . . . . . . . . . . .   7
      4.3.  Public Keys . . . . . . . . . . . . . . . . . . . . . . .   7
        4.3.1.  RSASSA-PSS Public Keys  . . . . . . . . . . . . . . .   7
        4.3.2.  ECDSA Public Keys . . . . . . . . . . . . . . . . . .   8
@@ -79,18 +79,40 @@ Table of Contents
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  10
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  11
-   Appendix A.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  12
+   Appendix A.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  11
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Change Log
 
    [ EDNOTE: Remove this section before publication. ]
 
+   o  draft-ietf-lamps-cms-shake-03:
+
+      *  Removed paragraph suggesting KMAC to be used in generating k in
+         Deterministric ECDSA.  That should be RFC6979-bis.
+
+      *  Removed paragraph from Security Considerations that talks about
+         randomness of k because we are using deterministric ECDSA.
+
+      *  Completed ASN.1 module and fixed KMAC ASN.1 based on Jim's
+         feedback.
+
    o  draft-ietf-lamps-cms-shake-02:
 
       *  Updates based on suggestions and clarifications by Jim.
 
+      *  Started ASN.1 module.
+
    o  draft-ietf-lamps-cms-shake-01:
+
+
+
+
+
+Dang & Kampanakis         Expires May 13, 2019                  [Page 2]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
 
       *  Significant reorganization of the sections to simplify the
          introduction, the new OIDs and their use in CMS.
@@ -106,13 +128,6 @@ Table of Contents
    o  draft-ietf-lamps-cms-shake-00:
 
       *  Various updates to title and section names.
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                 [Page 2]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
 
       *  Content changes filling in text and references.
 
@@ -148,6 +163,13 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    RSASSA-PSS.  In Section 3 of this document we define six new OIDs
    using SHAKE128 and SHAKE256 in CMS.
 
+
+
+Dang & Kampanakis         Expires May 13, 2019                  [Page 3]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
+
 2.1.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -159,16 +181,6 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    The object identifiers for SHAKE128 and SHAKE256 hash functions are
    defined in [shake-nist-oids] and we include them here for
    convenience.
-
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                 [Page 3]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
 
      id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
           country(16) us(840) organization(1) gov(101) csor(3)
@@ -207,6 +219,13 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    The same RSASSA-PSS and deterministric ECDSA with SHAKEs algorithm
    identifiers are used for identifying public keys and signatures.
 
+
+
+Dang & Kampanakis         Expires May 13, 2019                  [Page 4]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
+
    The parameters for the four RSASSA-PSS and deterministic ECDSA
    identifiers MUST be absent.  That is, each identifier SHALL be a
    SEQUENCE of one component, the OID.
@@ -214,25 +233,13 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    The new object identifiers for KMACs using SHAKE128 and SHAKE256 are
    below.
 
-
-
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                 [Page 4]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
-
       id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
           country(16) us(840) organization(1) gov(101) csor(3)
-          nistAlgorithm(4) 2 TBD }
+          nistAlgorithm(4) 2 19 }
 
       id-KmacWithSHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
           country(16) us(840) organization(1) gov(101) csor(3)
-          nistAlgorithm(4) 2 TBD }
+          nistAlgorithm(4) 2 20 }
 
       EDNOTE: "TBD" will be specified by NIST.
 
@@ -267,20 +274,17 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    countersignature attribute.  Signature values are located in the
    SignerInfo signature field of SignedData and countersignature.
 
+
+
+
+Dang & Kampanakis         Expires May 13, 2019                  [Page 5]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
+
    Conforming implementations that process RSASSA-PSS and deterministic
    ECDSA with SHAKE signatures when processing CMS data MUST recognize
    the corresponding OIDs specified in Section 3.
-
-
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                 [Page 5]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
 
 4.2.1.  RSASSA-PSS Signatures
 
@@ -323,6 +327,17 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    Finally, the trailerField MUST be 1, which represents the trailer
    field with hexadecimal value 0xBC [RFC8017].
 
+
+
+
+
+
+
+Dang & Kampanakis         Expires May 13, 2019                  [Page 6]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
+
 4.2.2.  Deterministic ECDSA Signatures
 
    The Elliptic Curve Digital Signature Algorithm (ECDSA) is defined in
@@ -330,14 +345,6 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    (specified in Section 3) algorithm identifier appears, the respective
    SHAKE function is used as the hash.  The encoding MUST omit the
    parameters field.  That is, the AlgorithmIdentifier SHALL be a
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                 [Page 6]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
-
    SEQUENCE of one component, the OID id-ecdsa-with-SHAKE128 or id-
    ecdsa-with-SHAKE256.
 
@@ -354,15 +361,6 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    accordance with all other recommendations in [X9.62] or [SEC1] if
    they have a stated policy that requires conformance to these
    standards.
-
-   In Section 3.2 "Generation of k" of [RFC6979], HMAC is used to derive
-   the deterministic k.  Conforming implementations that generate
-   deterministic ECDSA with SHAKE signatures in X.509 MUST use KMAC with
-   SHAKE128 or KMAC with SHAKE256 as specfied in [SP800-185] when
-   SHAKE128 or SHAKE256 is used as the message hashing algorithm,
-   respectively.  In this situation, KMAC with SHAKE128 and KMAC with
-   SHAKE256 have 256-bit and 512-bit outputs respectively, and the
-   optional customization bit string S is an empty string.
 
 4.3.  Public Keys
 
@@ -386,16 +384,16 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    Additionally, when the RSA private key owner wishes to limit the use
    of the public key exclusively to RSASSA-PSS, the AlgorithmIdentifier
    for RSASSA-PSS defined in Section 3 can be used as the algorithm
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                 [Page 7]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
-
    attribute in the OriginatorPublicKey sequence.  The identifier
    parameters, as explained in Section 3, MUST be absent.  The RSASSA-
+
+
+
+Dang & Kampanakis         Expires May 13, 2019                  [Page 7]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
+
    PSS algorithm functions and output lengths are the same as defined in
    Section 4.2.1.
 
@@ -441,13 +439,15 @@ Internet-Draft                SHAKEs in CMS                 October 2018
 
    When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm
    identifier is used as the KMAC algorithm identifier, the parameters
-   field MUST be absent.
+   field is optional (absent or present).  If absent, the SHAKE256
+   output length used in KMAC is 256 or 512 bits respectively and the
+   customization string is an empty string.
 
 
 
-Dang & Kampanakis        Expires April 25, 2019                 [Page 8]
+Dang & Kampanakis         Expires May 13, 2019                  [Page 8]
 
-Internet-Draft                SHAKEs in CMS                 October 2018
+Internet-Draft                SHAKEs in CMS                November 2018
 
 
    Conforming implementations that process KMACs with the SHAKEs when
@@ -471,7 +471,7 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    application.
 
    The SHAKEs are deterministic functions.  Like any other deterministic
-   functions, executing each function with the same input multiple times
+   function, executing each function with the same input multiple times
    will produce the same output.  Therefore, users should not expect
    unrelated outputs (with the same or different output lengths) from
    excuting a SHAKE function with the same input multiple times.  The
@@ -488,24 +488,6 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    message-authentication key can compute a valid MAC, therefore the
    content could originate from any one of the parties.
 
-   Implementations must randomly generate message-authentication keys
-   and one-time values, such as the k value when generating a ECDSA
-   signature.  In addition, the generation of public/private key pairs
-   relies on random numbers.  The use of inadequate pseudo-random number
-   generators (PRNGs) to generate such cryptographic values can result
-   in little or no security.  The generation of quality random numbers
-   is difficult.  [RFC4086] offers important guidance in this area, and
-   [SP800-90A] series provide acceptable PRNGs.
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                 [Page 9]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
-
    Implementers should be aware that cryptographic algorithms may become
    weaker with time.  As new cryptanalysis techniques are developed and
    computing power increases, the work factor or time required to break
@@ -514,6 +496,15 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    new algorithms to be readily inserted.  That is, implementers should
    be prepared to regularly update the set of algorithms in their
    implementations.
+
+
+
+
+
+Dang & Kampanakis         Expires May 13, 2019                  [Page 9]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
 
 7.  Acknowledgements
 
@@ -551,17 +542,6 @@ Internet-Draft                SHAKEs in CMS                 October 2018
               RFC 8017, DOI 10.17487/RFC8017, November 2016,
               <https://www.rfc-editor.org/info/rfc8017>.
 
-
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                [Page 10]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
-
    [SHA3]     National Institute of Standards and Technology, U.S.
               Department of Commerce, "SHA-3 Standard - Permutation-
               Based Hash and Extendable-Output Functions", FIPS PUB 202,
@@ -573,6 +553,14 @@ Internet-Draft                SHAKEs in CMS                 October 2018
               ParallelHash. NIST SP 800-185", December 2016,
               <http://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               NIST.SP.800-185.pdf>.
+
+
+
+
+Dang & Kampanakis         Expires May 13, 2019                 [Page 10]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
 
 8.2.  Informative References
 
@@ -586,11 +574,6 @@ Internet-Draft                SHAKEs in CMS                 October 2018
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 3279, DOI 10.17487/RFC3279, April
               2002, <https://www.rfc-editor.org/info/rfc3279>.
-
-   [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
-              "Randomness Requirements for Security", BCP 106, RFC 4086,
-              DOI 10.17487/RFC4086, June 2005,
-              <https://www.rfc-editor.org/info/rfc4086>.
 
    [RFC6979]  Pornin, T., "Deterministic Usage of the Digital Signature
               Algorithm (DSA) and Elliptic Curve Digital Signature
@@ -606,25 +589,6 @@ Internet-Draft                SHAKEs in CMS                 October 2018
               Security Objects Register", October 2017,
               <https://csrc.nist.gov/Projects/Computer-Security-Objects-
               Register/Algorithm-Registration>.
-
-
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                [Page 11]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
-
-   [SP800-90A]
-              National Institute of Standards and Technology,
-              "Recommendation for Random Number Generation Using
-              Deterministic Random Bit Generators. NIST SP 800-90A",
-              June 2015,
-              <http://nvlpubs.nist.gov/nistpubs/SpecialPublications/
-              NIST.SP.800-90Ar1.pdf>.
 
    [X9.62]    American National Standard for Financial Services (ANSI),
               "X9.62-2005 Public Key Cryptography for the Financial
@@ -647,9 +611,14 @@ Appendix A.  ASN.1 Module
 
    IMPORTS
 
+
+
+Dang & Kampanakis         Expires May 13, 2019                 [Page 11]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
+
    -- FROM [RFC6268]
-
-
 
    --
    -- One-Way Hash Functions
@@ -666,14 +635,6 @@ Appendix A.  ASN.1 Module
    mda-shake256 DIGEST-ALGORITHM ::= {
      IDENTIFIER id-shake256  -- with output length 64 bytes.
    }
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                [Page 12]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
-
-
    id-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
                                        us(840) organization(1) gov(101)
                                        csor(3) nistAlgorithm(4)
@@ -683,7 +644,10 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    -- KMAC with SHAKE128
    KMACwithSHAKE128 MAC-ALGORITHM ::= {
          IDENTIFIER id-KMACWithSHAKE128
-         PARAMS TYPE KMACwithSHAKE128-params ARE required
+         PARAMS TYPE KMACwithSHAKE128-params ARE optional
+           -- If KMACwithSHAKE128-params parameters are absent
+           -- the SHAKE128 output length used in KMAC is 256 bits
+           -- and the customization string is an empty string.
    }
    id-KMACWithSHAKE128 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2)
                                 country(16) us(840) organization(1)
@@ -697,8 +661,19 @@ Internet-Draft                SHAKEs in CMS                 October 2018
    -- KMAC with SHAKE256
    KMACwithSHAKE256 MAC-ALGORITHM ::= {
          IDENTIFIER id-KMACWithSHAKE256
-         PARAMS TYPE KMACwithSHAKE256-params ARE required
+         PARAMS TYPE KMACwithSHAKE256-params ARE optional
+            -- If KMACwithSHAKE256-params parameters are absent
+            -- the SHAKE256 output length used in KMAC is 512 bits
+            -- and the customization string is an empty string.
    }
+
+
+
+Dang & Kampanakis         Expires May 13, 2019                 [Page 12]
+
+Internet-Draft                SHAKEs in CMS                November 2018
+
+
    id-KMACWithSHAKE256 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2)
                                country(16) us(840) organization(1)
                                gov(101) csor(3) nistAlgorithm(4)
@@ -718,16 +693,6 @@ Authors' Addresses
    Gaithersburg, MD 20899
 
    Email: quynh.Dang@nist.gov
-
-
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                [Page 13]
-
-Internet-Draft                SHAKEs in CMS                 October 2018
 
 
    Panos Kampanakis
@@ -760,25 +725,4 @@ Internet-Draft                SHAKEs in CMS                 October 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Dang & Kampanakis        Expires April 25, 2019                [Page 14]
+Dang & Kampanakis         Expires May 13, 2019                 [Page 13]

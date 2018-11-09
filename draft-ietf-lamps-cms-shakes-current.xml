@@ -4,7 +4,7 @@
 <!ENTITY RFC2119 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC3279 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3279.xml">
 <!ENTITY RFC4055 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4055.xml">
-<!ENTITY RFC4086 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4086.xml">
+<!-- <!ENTITY RFC4086 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4086.xml">  --> 
 <!ENTITY RFC5480 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5480.xml">
 <!ENTITY RFC5652 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5652.xml">
 <!ENTITY RFC6979 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6979.xml">
@@ -77,6 +77,12 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-03:
+		  <list> 
+		  <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministric ECDSA. That should be RFC6979-bis. </t>
+		  <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministric ECDSA.</t>
+		  <t>Completed ASN.1 module and fixed KMAC ASN.1 based on Jim's feedback.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-02:
 		  <list> 
 		  <t>Updates based on suggestions and clarifications by Jim. </t>
@@ -224,11 +230,11 @@ Note: x and y will be specified by NIST.
 	 <t><figure><artwork><![CDATA[
    id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
-       nistAlgorithm(4) 2 TBD }
+       nistAlgorithm(4) 2 19 }
 
    id-KmacWithSHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
-       nistAlgorithm(4) 2 TBD }
+       nistAlgorithm(4) 2 20 }
 
    EDNOTE: "TBD" will be specified by NIST.
 ]]></artwork></figure></t>
@@ -343,13 +349,13 @@ Note: x and y will be specified by NIST.
 		  <xref target="SEC1"/> if they have a stated policy that requires 
 		  conformance to these standards. </t>
 
-		  <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
+		  <!-- <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
 		  the deterministic k. Conforming implementations that generate deterministic 
 		  ECDSA with SHAKE signatures in X.509 MUST use KMAC with SHAKE128 or KMAC with 
 		  SHAKE256 as specfied in <xref target="SP800-185"/> when SHAKE128 or SHAKE256 is 
 		  used as the message hashing algorithm, respectively. In this situation, KMAC with 
 		  SHAKE128 and KMAC with SHAKE256 have 256-bit and 512-bit outputs respectively, 
-		  and the optional customization bit string S is an empty string.</t>
+		  and the optional customization bit string S is an empty string.</t> -->
 	    </section>
 	  </section>
 
@@ -425,7 +431,9 @@ Note: x and y will be specified by NIST.
 	    macAlgorithm field. The KMAC values are located in the AuthenticatedData mac field.</t>
       
 	    <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm identifier 
-	    is used as the KMAC algorithm identifier, the parameters field MUST be absent.</t>
+	    is used as the KMAC algorithm identifier, the parameters field is optional 
+	    (absent or present). If absent, the SHAKE256 output length used in KMAC is 
+	    256 or 512 bits respectively and the customization string is an empty string.</t>
 
 		<t>Conforming implementations that process KMACs with the SHAKEs 
 		when processing CMS data MUST recognize these identifiers.</t>
@@ -447,8 +455,8 @@ Note: x and y will be specified by NIST.
 	  <t>SHAKE128 and SHAKE256 are one-way extensible-output functions. Their 
 	  output length depends on a required length of the consuming application.</t>
       
-      <t>The SHAKEs are deterministic functions.  Like any other deterministic
-      functions, executing each function with the same input multiple times
+      <t>The SHAKEs are deterministic functions. Like any other deterministic
+      function, executing each function with the same input multiple times
       will produce the same output. Therefore, users should not expect
       unrelated outputs (with the same or different output lengths) from
       excuting a SHAKE function with the same input multiple times. 
@@ -465,7 +473,7 @@ Note: x and y will be specified by NIST.
       message-authentication key can compute a valid MAC, therefore the
       content could originate from any one of the parties.</t>
       
-	  <t>Implementations must randomly generate message-authentication keys
+	  <!-- <t>Implementations must randomly generate message-authentication keys
       and one-time values, such as the k value when generating a ECDSA
       signature. In addition, the generation of public/private key pairs
       relies on random numbers. The use of inadequate pseudo-random
@@ -473,7 +481,7 @@ Note: x and y will be specified by NIST.
       result in little or no security. The generation of quality random
       numbers is difficult. <xref target="RFC4086"/> offers important guidance 
 	  in this area, and <xref target="SP800-90A"/> series provide acceptable 
-      PRNGs.</t>
+      PRNGs.</t> --> 
       
 	  <t>Implementers should be aware that cryptographic algorithms may 
 	  become weaker with time.  As new cryptanalysis techniques are developed 
@@ -548,7 +556,7 @@ Note: x and y will be specified by NIST.
 
 	<references title="Informative References">
 	  &RFC3279;
-	  &RFC4086;
+	  <!-- &RFC4086; -->
 	  &RFC6979;
 	  <!-- <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"?> -->
 	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml"?>
@@ -579,7 +587,7 @@ Note: x and y will be specified by NIST.
           <date month="May" year="2009" />
         </front>
       </reference>
-      <reference anchor="SP800-90A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
+      <!-- <reference anchor="SP800-90A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
         <front>
           <title>Recommendation for Random Number Generation Using Deterministic Random Bit Generators. NIST SP 800-90A</title>
           <author>
@@ -587,7 +595,7 @@ Note: x and y will be specified by NIST.
           </author>
           <date month="June" year="2015" />
         </front>
-      </reference>
+      </reference> -->
 	</references>
 	<section title="ASN.1 Module" anchor="section-a"><t>
     [EDNOTE: Update. TBD. ] </t>
@@ -595,7 +603,7 @@ Note: x and y will be specified by NIST.
    PKIXAlgsForSHAKE-2018 { iso(1) identified-organization(3) dod(6)
      internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
      id-mod-cms-shakes-2018(TBD) }
-	
+
    DEFINITIONS EXPLICIT TAGS ::=
 
    BEGIN
@@ -605,8 +613,6 @@ Note: x and y will be specified by NIST.
    IMPORTS
 
    -- FROM [RFC6268]
-   
-
 
    --
    -- One-Way Hash Functions
@@ -629,27 +635,33 @@ Note: x and y will be specified by NIST.
                                        hashAlgs(2) 12 }   
    --
    -- KMAC Functions
-   -- KMAC with SHAKE128					   
-   KMACwithSHAKE128 MAC-ALGORITHM ::= { 
-	 IDENTIFIER id-KMACWithSHAKE128 
-	 PARAMS TYPE KMACwithSHAKE128-params ARE required
+   -- KMAC with SHAKE128
+   KMACwithSHAKE128 MAC-ALGORITHM ::= {
+         IDENTIFIER id-KMACWithSHAKE128
+         PARAMS TYPE KMACwithSHAKE128-params ARE optional
+           -- If KMACwithSHAKE128-params parameters are absent 
+           -- the SHAKE128 output length used in KMAC is 256 bits
+           -- and the customization string is an empty string.
    }
-   id-KMACWithSHAKE128 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2) 
-                                country(16) us(840) organization(1) 
+   id-KMACWithSHAKE128 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2)
+                                country(16) us(840) organization(1)
                                 gov(101) csor(3) nistAlgorithm(4)
                                 hashAlgs(2) 19 }
    KMACwithSHAKE128-params ::= SEQUENCE {
       KMACOutputLength     INTEGER DEFAULT 256, -- Output length in bits
       customizationString  OCTET STRING DEFAULT ''
    }
-
+ 
    -- KMAC with SHAKE256
-   KMACwithSHAKE256 MAC-ALGORITHM ::= { 
-	 IDENTIFIER id-KMACWithSHAKE256 
-	 PARAMS TYPE KMACwithSHAKE256-params ARE required
+   KMACwithSHAKE256 MAC-ALGORITHM ::= {
+         IDENTIFIER id-KMACWithSHAKE256
+         PARAMS TYPE KMACwithSHAKE256-params ARE optional
+            -- If KMACwithSHAKE256-params parameters are absent 
+            -- the SHAKE256 output length used in KMAC is 512 bits
+            -- and the customization string is an empty string.
    }
-   id-KMACWithSHAKE256 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2) 
-                               country(16) us(840) organization(1) 
+   id-KMACWithSHAKE256 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2)
+                               country(16) us(840) organization(1)
                                gov(101) csor(3) nistAlgorithm(4)
                                hashAlgs(2) 20 }
    KMACwithSHAKE256-params ::= SEQUENCE {
