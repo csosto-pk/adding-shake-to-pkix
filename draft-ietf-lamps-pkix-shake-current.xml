@@ -10,7 +10,7 @@
 <!ENTITY RFC3279 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3279.xml">
 <!-- <!ENTITY RFC3280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3280.xml"> -->
 <!ENTITY RFC4055 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4055.xml">
-<!ENTITY RFC4086 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4086.xml">
+<!-- <!ENTITY RFC4086 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4086.xml"> -->
 <!ENTITY RFC5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
 <!ENTITY RFC5480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5480.xml">
 <!ENTITY RFC6979 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6979.xml">
@@ -140,6 +140,11 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-pkix-shake-04:
+		  <list> 
+		    <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministric ECDSA. That should be RFC6979-bis. </t>
+		    <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministric ECDSA.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-pkix-shake-03:
 		  <list> 
 		  <t>Updates based on suggestions and clarifications by Jim. </t>
@@ -399,13 +404,13 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		  subtitutions for 256 and 512-bit output hash algorithms such as SHA256 
 		  and SHA512 used in the standards.</t>
 		  
-		  <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
+		  <!-- <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
 		  the deterministic k. Conforming implementations that generate deterministic 
 		  ECDSA with SHAKE signatures in X.509 MUST use KMAC with SHAKE128 or KMAC with 
 		  SHAKE256 as specfied in <xref target="SP800-185"/> when SHAKE128 or SHAKE256 is 
 		  used as the message hashing algorithm, respectively. In this situation, KMAC with 
 		  SHAKE128 and KMAC with SHAKE256 have 256-bit and 512-bit outputs respectively, 
-		  and the optional customization bit string S is an empty string.</t>
+		  and the optional customization bit string S is an empty string.</t> -->
           </section>
 	    </section>
 
@@ -532,14 +537,14 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	  <t>Implementations must protect the signer's private key. Compromise of
       the signer's private key permits masquerade.</t>
 
-	  <t>Implementations must randomly generate one-time values, such as the k value when generating a ECDSA
+	  <!-- <t>Implementations must randomly generate one-time values, such as the k value when generating a ECDSA
       signature. In addition, the generation of public/private key pairs
       relies on random numbers. The use of inadequate pseudo-random
       number generators (PRNGs) to generate such cryptographic values can
       result in little or no security. The generation of quality random
       numbers is difficult. <xref target="RFC4086"/> offers important guidance 
 	  in this area, and <xref target="SP800-90A"/> series provide acceptable 
-      PRNGs.</t>
+      PRNGs.</t> -->
       
 	  <t>Implementers should be aware that cryptographic algorithms may 
 	  become weaker with time. As new cryptanalysis techniques are developed 
@@ -596,7 +601,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       <!-- Here we use entities that we defined at the beginning. -->
       <!--&RFC2629; -->
 	  &RFC3279;
-	  &RFC4086;
+	  <!-- &RFC4086; -->
 	  &RFC6979;
       <!--<reference anchor="shake-nist-oids" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
         <front>
@@ -625,7 +630,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           <date month="November" year="2005" />
         </front>
       </reference>
-      <reference anchor="SP800-90A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
+      <!-- <reference anchor="SP800-90A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
         <front>
           <title>Recommendation for Random Number Generation Using Deterministic Random Bit Generators. NIST SP 800-90A</title>
           <author>
@@ -633,8 +638,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           </author>
           <date month="June" year="2015" />
         </front>
-      </reference>
-      <reference anchor="SP800-185" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf">
+      </reference> -->
+      <!-- <reference anchor="SP800-185" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf">
         <front>
           <title>SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash. NIST SP 800-185</title>
           <author>
@@ -642,7 +647,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           </author>
           <date month="December" year="2016" />
         </front>
-      </reference>
+      </reference> -->
     </references>
 
     <section anchor="asn" title="ASN.1 module">
@@ -826,10 +831,6 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
    
    -- Determinstic ECDSA with SHAKE128
-   -- Generating k by using KMAC with SHAKE128 as the hash 
-   -- [SP800-185] instead of HMAC with output length 256-bits 
-   -- that is equal to or slightly less than the elliptic 
-   -- curve group order. S is set to an empty string. 
    sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-ecdsa-with-shake128
       VALUE ECDSA-Sig-Value
@@ -844,10 +845,6 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
                                 sigAlgs(3) TBD }
    
    -- Determinstic ECDSA with SHAKE256
-   -- Generating k by using KMAC with SHAKE256 as the hash 
-   -- [SP800-185] instead of HMAC with output length 512-bits 
-   -- truncated to equal to or slightly less than the elliptic 
-   -- curve group order. S is set to an empty string.
    sa-ecdsaWithSHAKE256 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-ecdsa-with-shake256
       VALUE ECDSA-Sig-Value
