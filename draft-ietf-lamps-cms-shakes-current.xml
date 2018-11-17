@@ -600,9 +600,9 @@ Note: x and y will be specified by NIST.
 	<section title="ASN.1 Module" anchor="section-a"><t>
     [EDNOTE: Update. TBD. ] </t>
     <t><figure><artwork><![CDATA[ 
-   PKIXAlgsForSHAKE-2018 { iso(1) identified-organization(3) dod(6)
-     internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
-     id-mod-cms-shakes-2018(TBD) }
+   CMSAlgsForSHAKE-2018 { { iso(1) member-body(2) us(840) 
+        rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) modules(0) 
+        id-mod-cms-shakes(TBD) }
 
    DEFINITIONS EXPLICIT TAGS ::=
 
@@ -612,8 +612,29 @@ Note: x and y will be specified by NIST.
 
    IMPORTS
 
-   -- FROM [RFC6268]
+   PUBLIC-KEY, SIGNATURE-ALGORITHM, DIGEST-ALGORITHM, MAC-ALGORITHM,
+                                                      SMIME-CAPS
+   FROM AlgorithmInformation-2009
+     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) id-mod(0)
+       id-mod-algorithmInformation-02(58) }
+   
+   id-RSASSA-PSS, RSAPublicKey, rsaEncryption, id-ecPublicKey,
+                                        ECPoint, ECDSA-Sig-Value
+   FROM PKIXAlgs-2009 { iso(1) identified-organization(3) dod(6)
+        internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+        id-mod-pkix1-algorithms2008-02(56) }
 
+   --
+   -- Message Digest Algorithms (mda-)
+   --
+   HashAlgs DIGEST-ALGORITHM ::= {
+    ... 
+    mda-shake128   |
+    mda-shake256, 
+    ... 
+   }
+  
    --
    -- One-Way Hash Functions
    -- SHAKE128
@@ -632,11 +653,67 @@ Note: x and y will be specified by NIST.
    id-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
                                        us(840) organization(1) gov(101)
                                        csor(3) nistAlgorithm(4)
-                                       hashAlgs(2) 12 }   
+                                       hashAlgs(2) 12 }
+
+-- From RFC4056
+-- When the rsaEncryption algorithm identifier is used for a public key,
+   the AlgorithmIdentifier parameters field MUST contain NULL.  Complete
+   details can be found in [RSA-ALGS].
+
+   When the id-RSASSA-PSS algorithm identifier is used for a public key,
+   the AlgorithmIdentifier parameters field MUST either be absent or
+   contain RSASSA-PSS-params. Again, complete details can be found in
+
+In both cases, the RSA public key, which is composed of a modulus and
+   a public exponent, MUST be encoded using the RSAPublicKey type.  The
+   output of this encoding is carried in the certificate subject public
+   key.
+
+         RSAPublicKey ::= SEQUENCE {
+            modulus INTEGER, -- n
+            publicExponent INTEGER } -- e
+
+When the id-RSASSA-PSS algorithm identifier is used for a signature,
+   the AlgorithmIdentifier parameters field MUST contain RSASSA-PSS-
+   params.  Information about RSASSA-PSS-params can be found in [RSA-
+   ALGS].
+
+   When signing, the RSA algorithm generates a single value, and that
+   value is used directly as the signature value.
+The MGF etc is ...
+
+Signature algorithm should the same as the digest 
+   
+   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
+   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+   id-ecdsa-with-shake128 ::= { joint-iso-itu-t(2) country(16)
+                                us(840) organization(1) gov(101)
+                                csor(3) nistAlgorithm(4)
+                                sigAlgs(3) TBD }   
+   id-ecdsa-with-shake256 ::= { joint-iso-itu-t(2) country(16)
+                                us(840) organization(1) gov(101)
+                                csor(3) nistAlgorithm(4)
+                                sigAlgs(3) TBD }
+									   
    --
-   -- KMAC Functions
+   -- Message Authentication (maca-) Algorithms 
+   MessageAuthAlgs MAC-ALGORITHM ::= { 
+     ...
+	 -- This expands MessageAuthAlgs from [RFC6268]
+	 maca-KMACwithSHAKE128   | 
+	 maca-KMACwithSHAKE256 
+   }
+
+   SMimeCaps SMIME-CAPS ::= {
+      ...
+	  -- The expands SMimeCaps from [RFC6268]
+      maca-KMACwithSHAKE128   |
+      maca-KMACwithSHAKE256 
+    }
+
+   --
    -- KMAC with SHAKE128
-   KMACwithSHAKE128 MAC-ALGORITHM ::= {
+   maca-KMACwithSHAKE128 MAC-ALGORITHM ::= {
          IDENTIFIER id-KMACWithSHAKE128
          PARAMS TYPE KMACwithSHAKE128-params ARE optional
            -- If KMACwithSHAKE128-params parameters are absent 
@@ -653,7 +730,7 @@ Note: x and y will be specified by NIST.
    }
  
    -- KMAC with SHAKE256
-   KMACwithSHAKE256 MAC-ALGORITHM ::= {
+   maca-KMACwithSHAKE256 MAC-ALGORITHM ::= {
          IDENTIFIER id-KMACWithSHAKE256
          PARAMS TYPE KMACwithSHAKE256-params ARE optional
             -- If KMACwithSHAKE256-params parameters are absent 
@@ -670,7 +747,7 @@ Note: x and y will be specified by NIST.
    }
 
    END
-	]]></artwork></figure>
+   ]]></artwork></figure>
    </t>
 	</section>
 
