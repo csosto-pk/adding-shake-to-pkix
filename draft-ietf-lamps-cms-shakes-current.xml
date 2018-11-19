@@ -271,7 +271,8 @@ Note: x and y will be specified by NIST.
 	    <t>The digest values are located in the DigestedData field and the Message 
 	    Digest authenticated attribute included in the signedAttributes of the 
 	    SignedData signerInfo. In addition, digest values are input to 
-	    signature algorithms.</t>
+	    signature algorithms. The digest algorithm MUST be the same as the 
+		message hash algorithms used in signatures.</t>
       </section> 
 	    
 	  <section title="Signatures" anchor="sigs">      	  
@@ -310,9 +311,10 @@ Note: x and y will be specified by NIST.
           <figure><artwork><![CDATA[
     SHA256(mgfSeed, maskLen)
 ]]></artwork></figure>
-          respectively for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256. The mgfSeed is 
-		  the seed from which mask is generated, an octet string. The maskLen for SHAKE128 or SHAKE256 being used 
-		  as the MGF is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
+          respectively for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256. The 
+          mgfSeed is the seed from which mask is generated, an octet string. The 
+          output length maskLen for SHAKE128 or SHAKE256 being used as the MGF 
+          is (n - 264)/8 or (n - 520)/8 bytes respectively, where n is the RSA modulus 
 		  in bits. For example, when RSA modulus n is 2048, the output length of SHAKE128 or 
 		  SHAKE256 as the MGF will be 223 or 191 bytes when id-RSASSA-PSS-SHAKE128 or 
 		  id-RSASSA-PSS-SHAKE256 is used respectively. </t>
@@ -597,8 +599,8 @@ Note: x and y will be specified by NIST.
         </front>
       </reference> -->
 	</references>
-	<section title="ASN.1 Module" anchor="section-a"><t>
-    [EDNOTE: Update. TBD. ] </t>
+	<section title="ASN.1 Module" anchor="section-a">
+    <t>[EDNOTE: Update. TBD. ] </t>
     <t><figure><artwork><![CDATA[ 
    CMSAlgsForSHAKE-2018 { { iso(1) member-body(2) us(840) 
         rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) modules(0) 
@@ -612,15 +614,13 @@ Note: x and y will be specified by NIST.
 
    IMPORTS
 
-   PUBLIC-KEY, SIGNATURE-ALGORITHM, DIGEST-ALGORITHM, MAC-ALGORITHM,
-                                                      SMIME-CAPS
+   DIGEST-ALGORITHM, MAC-ALGORITHM, SMIME-CAPS
    FROM AlgorithmInformation-2009
      { iso(1) identified-organization(3) dod(6) internet(1) security(5)
        mechanisms(5) pkix(7) id-mod(0)
        id-mod-algorithmInformation-02(58) }
    
-   id-RSASSA-PSS, RSAPublicKey, rsaEncryption, id-ecPublicKey,
-                                        ECPoint, ECDSA-Sig-Value
+   RSAPublicKey, rsaEncryption, id-ecPublicKey 
    FROM PKIXAlgs-2009 { iso(1) identified-organization(3) dod(6)
         internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
         id-mod-pkix1-algorithms2008-02(56) }
@@ -628,8 +628,10 @@ Note: x and y will be specified by NIST.
    --
    -- Message Digest Algorithms (mda-)
    --
-   HashAlgs DIGEST-ALGORITHM ::= {
+   digestAlgorithms DIGEST-ALGORITHM ::= {
     ... 
+    -- This expands MessageAuthAlgs from [RFC5652] 
+    -- and MessageDigestAlgs in [RFC5753] 
     mda-shake128   |
     mda-shake256, 
     ... 
@@ -655,37 +657,29 @@ Note: x and y will be specified by NIST.
                                        csor(3) nistAlgorithm(4)
                                        hashAlgs(2) 12 }
 
--- From RFC4056
--- When the rsaEncryption algorithm identifier is used for a public key,
-   the AlgorithmIdentifier parameters field MUST contain NULL.  Complete
-   details can be found in [RSA-ALGS].
-
-   When the id-RSASSA-PSS algorithm identifier is used for a public key,
-   the AlgorithmIdentifier parameters field MUST either be absent or
-   contain RSASSA-PSS-params. Again, complete details can be found in
-
-In both cases, the RSA public key, which is composed of a modulus and
-   a public exponent, MUST be encoded using the RSAPublicKey type.  The
-   output of this encoding is carried in the certificate subject public
-   key.
-
-         RSAPublicKey ::= SEQUENCE {
-            modulus INTEGER, -- n
-            publicExponent INTEGER } -- e
-
-When the id-RSASSA-PSS algorithm identifier is used for a signature,
-   the AlgorithmIdentifier parameters field MUST contain RSASSA-PSS-
-   params.  Information about RSASSA-PSS-params can be found in [RSA-
-   ALGS].
-
-   When signing, the RSA algorithm generates a single value, and that
-   value is used directly as the signature value.
-The MGF etc is ...
-
-Signature algorithm should the same as the digest 
-   
+   -- From RFC5280, for reference. 
+   -- rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1 }
+      -- When the rsaEncryption algorithm identifier is used 
+      -- for a public key, the AlgorithmIdentifier parameters 
+      -- field MUST contain NULL.
    id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+      -- When the id-RSASSA-PSS-* algorithm identifiers are used 
+      -- for a public key or a signature in CMS, the AlgorithmIdentifier 
+      -- parameters field MUST be absent. The message digest algorithm 
+      -- used in RSASSA-PSS MUST be SHAKE128 or SHAKE256 with a 32 or 
+      -- 64 byte outout length respectively. The mask generating 
+      -- function MUST be SHAKE128 or SHAKE256 with an output length 
+      -- of (n - 264)/8 or (n - 520)/8 bytes respectively, where n 
+      -- is the RSA modulus in bits.  
+      -- The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
+      -- In both cases, the RSA public key, MUST be encoded using the 
+      -- RSAPublicKey type. 
+   -- From RFC4055, for reference. 
+   -- RSAPublicKey ::= SEQUENCE {
+   --   modulus INTEGER, -- n
+   --   publicExponent INTEGER } -- e
+
    id-ecdsa-with-shake128 ::= { joint-iso-itu-t(2) country(16)
                                 us(840) organization(1) gov(101)
                                 csor(3) nistAlgorithm(4)
@@ -694,19 +688,38 @@ Signature algorithm should the same as the digest
                                 us(840) organization(1) gov(101)
                                 csor(3) nistAlgorithm(4)
                                 sigAlgs(3) TBD }
-									   
+      -- When the id-ecdsa-with-shake* algorithm identifiers are used 
+      -- SignedData signatureAlgorithm and signature field in CMS, 
+      -- the AlgorithmIdentifier parameters field MUST be absent 
+      -- and the signature algorithm should Deterministric ECDSA 
+      -- [RFC6979]. The message digest MUST be SHAKE128 or SHAKE256  
+      -- with a 32 or 64 byte outout length respectively. 
+      -- The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
+      -- In both cases, the ECDSA public key, MUST be encoded using the 
+      -- id-ecPublicKey type. 
+   -- From RFC5480, for reference. 
+   -- id-ecPublicKey OBJECT IDENTIFIER ::= {
+   --     iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
+        -- The id-ecPublicKey parameters must be absent or present 
+        -- and are defined as 
+   -- ECParameters ::= CHOICE {
+   --     namedCurve         OBJECT IDENTIFIER
+   --     -- implicitCurve   NULL
+   --     -- specifiedCurve  SpecifiedECDomain 
+   --  }
+
    --
    -- Message Authentication (maca-) Algorithms 
    MessageAuthAlgs MAC-ALGORITHM ::= { 
      ...
-	 -- This expands MessageAuthAlgs from [RFC6268]
+	 -- This expands MessageAuthAlgs from [RFC5652] and [RFC6268]
 	 maca-KMACwithSHAKE128   | 
 	 maca-KMACwithSHAKE256 
    }
 
    SMimeCaps SMIME-CAPS ::= {
       ...
-	  -- The expands SMimeCaps from [RFC6268]
+	  -- The expands SMimeCaps from [RFC5911]
       maca-KMACwithSHAKE128   |
       maca-KMACwithSHAKE256 
     }
