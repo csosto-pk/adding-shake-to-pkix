@@ -749,7 +749,7 @@ Note: x and y will be specified by NIST.
                                 hashAlgs(2) 19 }
    KMACwithSHAKE128-params ::= SEQUENCE {
       KMACOutputLength     INTEGER DEFAULT 256, -- Output length in bits
-      customizationString  OCTET STRING DEFAULT ''
+      customizationString  OCTET STRING DEFAULT ''H
    }
  
    -- KMAC with SHAKE256
@@ -767,7 +767,7 @@ Note: x and y will be specified by NIST.
                                hashAlgs(2) 20 }
    KMACwithSHAKE256-params ::= SEQUENCE {
       KMACOutputLength     INTEGER DEFAULT 512, -- Output length in bits
-      customizationString  OCTET STRING DEFAULT ''
+      customizationString  OCTET STRING DEFAULT ''H
    }
 
    END
