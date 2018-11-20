@@ -235,8 +235,6 @@ Note: x and y will be specified by NIST.
    id-KmacWithSHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
        nistAlgorithm(4) 2 20 }
-
-   EDNOTE: "TBD" will be specified by NIST.
 ]]></artwork></figure></t>
      
 	 <t>The parameters for id-KmacWithSHAKE128 and id-KmacWithSHAKE256 MUST be absent. 
@@ -600,7 +598,8 @@ Note: x and y will be specified by NIST.
       </reference> -->
 	</references>
 	<section title="ASN.1 Module" anchor="section-a">
-    <t>[EDNOTE: Update. TBD. ] </t>
+    <t>This appendix includes the ASN.1 modules for SHAKEs in CMS. 
+    This module includes some ASN.1 from other standards for reference.</t>
     <t><figure><artwork><![CDATA[ 
    CMSAlgsForSHAKE-2018 { { iso(1) member-body(2) us(840) 
         rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) modules(0) 
@@ -627,6 +626,9 @@ Note: x and y will be specified by NIST.
 
    --
    -- Message Digest Algorithms (mda-)
+   -- used in SignedData, SignerInfo, DigestedData, 
+   -- and the AuthenticatedData digestAlgorithm
+   -- fields in CMS
    --
    digestAlgorithms DIGEST-ALGORITHM ::= {
     ... 
@@ -657,11 +659,19 @@ Note: x and y will be specified by NIST.
                                        csor(3) nistAlgorithm(4)
                                        hashAlgs(2) 12 }
 
+   --
+   -- Public key algorithm identifiers located in the 
+   -- OriginatorPublicKey's algorithm attribute in CMS. 
+   -- And Signature identifiers used in SignerInfo
+   -- signatureAlgorithm field of SignedData content 
+   -- type and countersignature attribute in CMS.
+   --
    -- From RFC5280, for reference. 
    -- rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1 }
       -- When the rsaEncryption algorithm identifier is used 
       -- for a public key, the AlgorithmIdentifier parameters 
       -- field MUST contain NULL.
+   -- 
    id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
       -- When the id-RSASSA-PSS-* algorithm identifiers are used 
@@ -671,10 +681,9 @@ Note: x and y will be specified by NIST.
       -- 64 byte outout length respectively. The mask generating 
       -- function MUST be SHAKE128 or SHAKE256 with an output length 
       -- of (n - 264)/8 or (n - 520)/8 bytes respectively, where n 
-      -- is the RSA modulus in bits.  
-      -- The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
-      -- In both cases, the RSA public key, MUST be encoded using the 
-      -- RSAPublicKey type. 
+      -- is the RSA modulus in bits.  The RSASSA-PSS saltLength MUST 
+      -- be 32 or 64 bytes respectively. In both cases, the RSA  
+      -- public key, MUST be encoded using the RSAPublicKey type. 
    -- From RFC4055, for reference. 
    -- RSAPublicKey ::= SEQUENCE {
    --   modulus INTEGER, -- n
@@ -688,15 +697,13 @@ Note: x and y will be specified by NIST.
                                 us(840) organization(1) gov(101)
                                 csor(3) nistAlgorithm(4)
                                 sigAlgs(3) TBD }
-      -- When the id-ecdsa-with-shake* algorithm identifiers are used 
-      -- SignedData signatureAlgorithm and signature field in CMS, 
-      -- the AlgorithmIdentifier parameters field MUST be absent 
-      -- and the signature algorithm should Deterministric ECDSA 
-      -- [RFC6979]. The message digest MUST be SHAKE128 or SHAKE256  
-      -- with a 32 or 64 byte outout length respectively. 
-      -- The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
-      -- In both cases, the ECDSA public key, MUST be encoded using the 
-      -- id-ecPublicKey type. 
+      -- When the id-ecdsa-with-shake* algorithm identifiers are  
+      -- used in CMS, the AlgorithmIdentifier parameters field  
+      -- MUST be absent and the signature algorithm should  
+      -- Deterministric ECDSA [RFC6979]. The message digest MUST   
+      -- be SHAKE128 or SHAKE256 with a 32 or 64 byte outout 
+      -- length respectively. In both cases, the ECDSA public key, 
+      -- MUST be encoded using the id-ecPublicKey type. 
    -- From RFC5480, for reference. 
    -- id-ecPublicKey OBJECT IDENTIFIER ::= {
    --     iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
@@ -708,8 +715,10 @@ Note: x and y will be specified by NIST.
    --     -- specifiedCurve  SpecifiedECDomain 
    --  }
 
+   -- 
+   -- Message Authentication (maca-) Algorithms
+   -- used in AuthenticatedData macAlgorithm in CMS
    --
-   -- Message Authentication (maca-) Algorithms 
    MessageAuthAlgs MAC-ALGORITHM ::= { 
      ...
 	 -- This expands MessageAuthAlgs from [RFC5652] and [RFC6268]
@@ -732,6 +741,7 @@ Note: x and y will be specified by NIST.
            -- If KMACwithSHAKE128-params parameters are absent 
            -- the SHAKE128 output length used in KMAC is 256 bits
            -- and the customization string is an empty string.
+         SMIME-CAPS {IDENTIFIED BY id-KMACWithSHAKE128}
    }
    id-KMACWithSHAKE128 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2)
                                 country(16) us(840) organization(1)
@@ -749,6 +759,7 @@ Note: x and y will be specified by NIST.
             -- If KMACwithSHAKE256-params parameters are absent 
             -- the SHAKE256 output length used in KMAC is 512 bits
             -- and the customization string is an empty string.
+         SMIME-CAPS {IDENTIFIED BY id-KMACWithSHAKE256}
    }
    id-KMACWithSHAKE256 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2)
                                country(16) us(840) organization(1)

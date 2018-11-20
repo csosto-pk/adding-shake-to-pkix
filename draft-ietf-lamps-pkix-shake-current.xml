@@ -55,7 +55,7 @@
     <!-- The abbreviated title is used in the page header - it is only necessary if the 
          full title is longer than 39 characters -->
 
-    <title abbrev="SHAKE identifiers in X.509">Internet X.509 Public Key Infrastructure: Additional Algorithm Identifiers for RSASSA-PSS and ECDSA using SHAKEs as Hash Functions</title>
+    <title abbrev="SHAKE identifiers in X.509">Internet X.509 Public Key Infrastructure: Additional Algorithm Identifiers for RSASSA-PSS and ECDSA using SHAKEs</title>
 
     <!-- add 'role="editor"' below for the editors if appropriate -->
     <author fullname="Panos Kampanakis" initials="P.K."
@@ -144,6 +144,7 @@
 		  <list> 
 		    <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministric ECDSA. That should be RFC6979-bis. </t>
 		    <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministric ECDSA.</t>
+            <t>Various ASN.1 fixes.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-pkix-shake-03:
 		  <list> 
@@ -595,7 +596,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           <date month="August" year="2015" />
         </front>
       </reference>
-	</references>
+    </references>
 
     <references title="Informative References">
       <!-- Here we use entities that we defined at the beginning. -->
@@ -651,8 +652,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     </references>
 
     <section anchor="asn" title="ASN.1 module">
-	  <t>This appendix includes the ASN.1 modules for SHAKEs in X.509. 
-	  This module does not come from any existing RFC. </t>
+    <t>This appendix includes the ASN.1 modules for SHAKEs in X.509. 
+    This module does not come from any existing RFC. </t>
     <t><figure><artwork><![CDATA[ 
    PKIXAlgsForSHAKE-2018 { iso(1) identified-organization(3) dod(6)
      internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
