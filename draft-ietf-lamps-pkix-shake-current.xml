@@ -237,7 +237,7 @@
 
 	  <t>This section defines four new OIDs for RSASSA-PSS and ECDSA when 
 	  SHAKE128 and SHAKE256 are used. The same algorithm identifiers are 
-	  used for identifying a public and a signature.</t>
+	  used for identifying a public key in RSASSA-PSS.</t>
 	  
 	  <t>The new identifiers for RSASSA-PSS signatures using SHAKEs are below.</t>
 	  

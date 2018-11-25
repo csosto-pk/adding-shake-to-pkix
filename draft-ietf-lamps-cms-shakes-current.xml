@@ -68,7 +68,10 @@
 	  
 	  <abstract>
 	    <t>This document describes the conventions for using the SHAKE family of 
-		hash functions with the Cryptographic Message Syntax (CMS).</t>
+		hash functions with the Cryptographic Message Syntax (CMS) as one-way hash 
+	    functions with the RSA Probabilistic signature and ECDSA signature algorithms, 
+	    as message digests and message authentication codes. The conventions for the 
+	    associated signer public keys in CMS are also described. </t>
 	  </abstract>
 	</front>
 
@@ -82,6 +85,7 @@
 		  <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministric ECDSA. That should be RFC6979-bis. </t>
 		  <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministric ECDSA.</t>
 		  <t>Completed ASN.1 module and fixed KMAC ASN.1 based on Jim's feedback.</t>
+		  <t>Text fixes.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-02:
 		  <list> 
@@ -116,8 +120,7 @@
 	algorithm <xref target="RFC8017"/> and the Elliptic Curve Digital Signature 
 	Algorithm (ECDSA) <xref target="X9.62"/> with the CMS signed-data content type.</t>
 
-    <t>The SHA-3 family of one-way hash functions is specified in <xref target="SHA3"/>. 
-	In the SHA-3 family, two extendable-output functions (SHAKEs): SHAKE128 and SHAKE256, 
+    <t>In the SHA-3 family, two extendable-output functions (SHAKEs), SHAKE128 and SHAKE256, 
 	are defined. Four other hash function instances, SHA3-224, SHA3-256, 
 	SHA3-384, and SHA3-512 are also defined but are out of scope for this document. 
 	A SHAKE is a variable length hash function. The output length, in bits, of a 
@@ -129,8 +132,8 @@
 	<t>A SHAKE can be used in CMS as the message digest function (to hash the 
     message to be signed) in RSASSA-PSS and deterministic ECDSA, message 
     authentication code and as the mask generating function in RSASSA-PSS. 
-	In <xref target="oids"/> of this document we define six new OIDs 
-	using SHAKE128 and SHAKE256 in CMS. </t>
+	This specification describes the identifiers for SHAKEs to be used in 
+	CMS and their meaning. </t>
     
     <!--  <section title="ASN.1" anchor="section-1.1">
 	  <t>CMS values are generated using ASN.1 <xref target="ASN1-B"/>, using the Basic 
@@ -167,7 +170,11 @@
      SHAKE as this hash, this parameter MUST be id-shake128-len or id-
      shake256-len as specified in <xref target="mdmgf" /> above. </t>    -->
 
-	 <t>The object identifiers for SHAKE128 and SHAKE256 hash functions are defined 
+     <t>This section defines six new OIDs for using SHAKE128 and SHAKE256 in CMS. </t>
+	 <t>EDNOTE: If PKIX draft is standardized first maybe we should not say the 
+	 identifiers are new for the RSASSA-PSS and ECDSA. </t>
+	 
+	 <t>Two object identifiers for SHAKE128 and SHAKE256 hash functions are defined 
 	 in <xref target="shake-nist-oids"/> and we include them here for convenience.</t>
 	 <t><figure><artwork><![CDATA[
   id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
@@ -178,14 +185,14 @@
        country(16) us(840) organization(1) gov(101) csor(3) 
        nistAlgorithm(4) 2 18 }
 ]]></artwork></figure></t>
-     
+ 
      <t>In this specification, when using the id-shake128-len or id-shake256-len algorithm identifiers, the parameters 
 	  MUST be absent. That is, the identifier SHALL be a SEQUENCE of one component, the OID. 
 	  <!-- present, and they MUST employ the ShakeOutputLen -->
 	  <!-- "MUST employ syntax borrowed from RFC4055 -->
 	  <!-- syntax that contains an encoded positive integer value of 32 or 64 respectively.--></t>
 	 
-	 <t>The new identifiers for RSASSA-PSS signatures using SHAKEs are below.</t>
+	 <t>We define two new identifiers for RSASSA-PSS signatures using SHAKEs.</t>
 	 <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
 ]]></artwork></figure></t>
@@ -195,8 +202,11 @@
    
   [ EDNOTE: "TBD" will be specified by NIST later. ]
 ]]></artwork></figure></t>
-		
- 	 <t>The new algorithm identifiers of ECDSA signatures using SHAKEs are below.</t> 
+
+	 <t>The same RSASSA-PSS algorithm identifiers can be used for identifying 
+	 public keys and signatures.</t> 
+
+ 	 <t>We define two new algorithm identifiers of ECDSA signatures using SHAKEs.</t> 
 	 <t><figure><artwork><![CDATA[
   id-ecdsa-with-SHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
       country(16) us(840) organization(1) gov(101) csor(3) 
@@ -208,6 +218,10 @@
   
   [ EDNOTE: "TBD" will be specified by NIST. ]
 ]]></artwork></figure></t>
+
+     <t>The parameters for the four RSASSA-PSS and deterministic ECDSA identifiers 
+	 MUST be absent. That is, each identifier SHALL be a SEQUENCE of one component, 
+	 the OID.</t>
      
 <!--   <figure><artwork><![CDATA[
    sigAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
@@ -219,14 +233,8 @@
    
 Note: x and y will be specified by NIST.
 ]]></artwork> </figure> -->
-		
-	 <t>The same RSASSA-PSS and deterministric ECDSA with SHAKEs algorithm identifiers 
-	 are used for identifying public keys and signatures.</t> 
-	 <t>The parameters for the four RSASSA-PSS and deterministic ECDSA identifiers 
-	 MUST be absent. That is, each identifier SHALL be a SEQUENCE of one component, 
-	 the OID.</t>
-	  
-	 <t>The new object identifiers for KMACs using SHAKE128 and SHAKE256 are below.</t>
+
+	 <t>Two new object identifiers for KMACs using SHAKE128 and SHAKE256 are define elow.</t>
 	 <t><figure><artwork><![CDATA[
    id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
@@ -256,7 +264,7 @@ Note: x and y will be specified by NIST.
 	 and KMAC.</t> 
 	</section>
 	  
-	  
+
 	<section title="Use in CMS">
 	  <section anchor="md" title="Message Digests"> 
 	    <t>The id-shake128-len and id-shake256-len OIDs (<xref target="oids"/>) can 
