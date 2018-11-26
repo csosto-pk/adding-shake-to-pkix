@@ -11,7 +11,7 @@ Expires: May 29, 2019                                      Cisco Systems
 
   Use of the SHAKE One-way Hash Functions in the Cryptographic Message
                               Syntax (CMS)
-                     draft-ietf-lamps-cms-shakes-02
+                     draft-ietf-lamps-cms-shakes-03
 
 Abstract
 
