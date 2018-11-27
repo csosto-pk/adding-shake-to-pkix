@@ -143,7 +143,8 @@
       <t><list style="symbols"> 
 	    <t>draft-ietf-lamps-pkix-shake-05:
 		  <list> 
-		  <t>Added RFC8174 reference and text. </t>
+		  <t>Added RFC8174 reference and text.</t>
+		  <t>Explicitly explained why RSASSA-PSS-params are omitted in section 5.1.1.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-pkix-shake-04:
 		  <list> 
@@ -331,7 +332,11 @@
 		  When id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 specified in <xref target="oids"/> 
 		  is used, the encoding MUST omit the parameters field. That is, 
 		  the AlgorithmIdentifier SHALL be a SEQUENCE of one component,  
-		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. </t>
+		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. <xref target="RFC4055"/>
+		  defines RSASSA-PSS-params that are used to define the algorithms and inputs 
+		  to the algorithm. This specification does not use parameters because the 
+		  hash and mask generating algorithsm and trailer and salt are embedded in 
+		  the OID definition.</t>
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash algorithm as the
 		  mask generation function <!-- "MGF(H, emLen - hLen - 1)" <xref target="RFC8017"/> -->
