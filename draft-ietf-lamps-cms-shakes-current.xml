@@ -9,6 +9,7 @@
 <!ENTITY RFC5652 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5652.xml">
 <!ENTITY RFC6979 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6979.xml">
 <!ENTITY RFC8017 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8017.xml">
+<!ENTITY RFC8174 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!-- <!ENTITY I-D.draft-ietf-lamps-pkix-shake SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"> -->
 <!ENTITY I-D.draft-housley-lamps-cms-sha3-hash SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml">
 ]>
@@ -80,6 +81,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-04:
+		  <list> 
+		  <t>Added RFC8174 reference and text. </t>
+	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-03:
 		  <list> 
 		  <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministric ECDSA. That should be RFC6979-bis. </t>
@@ -142,7 +147,11 @@
       </section> -->
       
     <section anchor="terminology" title="Terminology">
-      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t> 
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL 
+      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+      "MAY", and "OPTIONAL" in this document are to be interpreted as
+      described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> 
+      when, and only when, they appear in all capitals, as shown here.</t>
     </section>  <!-- Terminology -->
 	</section>
 
@@ -497,6 +506,7 @@ Note: x and y will be specified by NIST.
 	<back>
 	<references title="Normative References">
       &RFC2119; 
+	  &RFC8174; 
  	  &RFC5652;
 	  &RFC8017; <!-- RFC8017 is Informational draft but we are keeping it in the Normative References even though idnits complains because we need a normative reference for RSASSA-PSS. RFC4056 does the same thing with RSASS-PSS v2.1 -->
 	  &RFC4055;
