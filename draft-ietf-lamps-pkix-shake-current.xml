@@ -263,13 +263,13 @@
  	  <t>The new algorithm identifiers of ECDSA signatures using SHAKEs are below.</t> 
       <t><list>
         <t><figure><artwork><![CDATA[
-  id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
+  id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
             country(16) us(840) organization(1) gov(101) 
             csor(3) algorithms(4) id-ecdsa-with-shake(3) 
             TBD }
 ]]></artwork></figure></t>
         <t><figure><artwork><![CDATA[
-  id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2) 
+  id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
             country(16) us(840) organization(1) gov(101) 
             csor(3) algorithms(4) id-ecdsa-with-shake(3) 
             TBD }
