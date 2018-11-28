@@ -85,6 +85,7 @@
 		  <list> 
 		  <t>Added RFC8174 reference and text. </t>
 		  <t>Explicitly explained why RSASSA-PSS-params are omitted in section 4.2.1.</t>
+		  <t>Simplified Public Keys section by removing redundand info from RFCs.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-03:
 		  <list> 
@@ -379,60 +380,22 @@ Note: x and y will be specified by NIST.
 	    OriginatorPublicKey's algorithm attribute.</t>
 		
 		<t>Conforming implementations MUST specify the algorithms explicitly by 
-		using the OIDs specified in <xref target="oids"/> when encoding RSASSA-PSS and 
-		ECDSA with SHAKE public keys in CMS messages. 
-		The conventions for RSASSA-PSS and ECDSA <!-- and EdDSA --> public keys 
-		algorithm identifiers are as specified in <xref target="RFC3279"/>, 
-		<xref target="RFC4055"/> and <xref target="RFC5480"/> 
-		<!-- and <xref target="I-D.josefsson-pkix-eddsa"/>-->, 
-		but we include them below for convenience.</t>
+		using the OIDs specified in <xref target="oids"/> when encoding RSASSA-PSS   
+		with SHAKE public keys in CMS messages. 
+		The conventions and encoding for RSASSA-PSS and ECDSA <!-- and EdDSA --> 
+		public keys algorithm identifiers are as specified in 
+		Section 2.3 of <xref target="RFC3279"/>, 
+		Section 3.1 of <xref target="RFC4055"/> 
+		and Section 2.1 of <xref target="RFC5480"/>. 
+		<!-- and <xref target="I-D.josefsson-pkix-eddsa"/>--></t>
 	    
-	    <section title="RSASSA-PSS Public Keys"> 
-		  <t><xref target="RFC3279"/> defines the following OID for RSA AlgorithmIdentifier 
-		  in the SubjectPublicKeyInfo with NULL parameters.</t>
-		  <t><figure><artwork><![CDATA[
-  rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1}
-]]></artwork></figure></t>
-
-		  <t>Additionally, when the RSA private key owner wishes to limit the use of 
-		  the public key exclusively to RSASSA-PSS, the AlgorithmIdentifier for 
-		  RSASSA-PSS defined in <xref target="oids"/> can be used as the algorithm 
-		  attribute in the OriginatorPublicKey sequence. The 
-		  identifier parameters, as explained in <xref target="oids"/>, MUST be 
-		  absent. The RSASSA-PSS algorithm functions and output lengths are the 
-		  same as defined in <xref target="rsa-sigs"/>. </t>
-		  
-		  <t>Regardless of what public key algorithm identifier is used, the RSA public 
-		  key, which is composed of a modulus and a public exponent, MUST be encoded 
-		  using the RSAPublicKey type <xref target="RFC4055"/>. The output of this 
-		  encoding is carried in the CMS publicKey bit string. </t>
-          <t><figure><artwork><![CDATA[
-  RSAPublicKey ::= SEQUENCE {
-        modulus INTEGER, -- n
-        publicExponent INTEGER  -- e
-  }
-]]></artwork></figure></t> 
-   	    </section>
-        
-        <section title="ECDSA Public Keys"> 
-
-		  <t>For ECDSA, the  mandatory EC SubjectPublicKey is defined in Section 
-		  2.1.1 and its syntax in Section 2.2 of <xref target="RFC5480"/>. 
-		  We also include them here for convenience: </t>
-		  
-          <t><figure><artwork><![CDATA[
-   id-ecPublicKey OBJECT IDENTIFIER ::= {
-       iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
-
-   ECParameters ::= CHOICE {
-       namedCurve         OBJECT IDENTIFIER
-       -- implicitCurve   NULL
-       -- specifiedCurve  SpecifiedECDomain 
-       }
-]]></artwork></figure></t>
-	      <t>The ECParameters associated with the ECDSA public key in the signers 
-	      certificate SHALL apply to the verification of the signature.</t> 
-	    </section>
+		<t>When the RSA private key owner wishes to limit the use of 
+		the public key exclusively to RSASSA-PSS, the AlgorithmIdentifier for 
+		RSASSA-PSS defined in <xref target="oids"/> can be used as the algorithm 
+		attribute in the OriginatorPublicKey sequence. The 
+		identifier parameters, as explained in <xref target="oids"/>, MUST be 
+		absent. The RSASSA-PSS algorithm functions and output lengths are the 
+		same as defined in <xref target="rsa-sigs"/>.</t>
 	  </section>
       
 	  
