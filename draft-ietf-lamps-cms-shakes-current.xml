@@ -39,7 +39,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-cms-shakes-02" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-lamps-cms-shakes-04" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667

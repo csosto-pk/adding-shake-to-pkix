@@ -43,7 +43,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-pkix-shake-04" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-lamps-pkix-shake-05" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -436,30 +436,11 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	     
 	        <t>Certificates conforming to <xref target="RFC5280"/> can convey a 
 		public key for any public key algorithm. The certificate indicates 
-		the algorithm through an algorithm identifier. This algorithm 
+		the public key algorithm through an algorithm identifier. This algorithm 
 		identifier is an OID and optionally associated parameters.</t>
-   
-        <t>In the X.509 certificate, the subjectPublicKeyInfo field has the
-        SubjectPublicKeyInfo type, which has the following ASN.1 syntax: </t>
-        
-		<t><figure><artwork><![CDATA[
-  SubjectPublicKeyInfo  ::=  SEQUENCE  {
-       algorithm         AlgorithmIdentifier,
-       subjectPublicKey  BIT STRING
-  }
-]]></artwork></figure></t>
-   
-        <t>The fields in SubjectPublicKeyInfo have the following meanings:
-        <list style="symbols"> 
-          <t>algorithm is the algorithm identifier and parameters for the
-           public key.</t>
-          <t>subjectPublicKey contains the byte stream of the public key. The
-          algorithms defined in this document always encode the public key
-          as an exact multiple of 8-bits.</t>
-        </list></t>
    	  
-		<t>Conforming CA implementations MUST specify the algorithms  
-		explicitly by using the OIDs specified in <xref target="oids"/> 
+		<t>Conforming CA implementations MUST specify the X.509 public key 
+		algorithm explicitly by using the OIDs specified in <xref target="oids"/> 
 		when encoding RSASSA-PSS or ECDSA with SHAKE public keys 
 		in certificates and CRLs. 
 		Conforming client implementations that process RSASSA-PSS or ECDSA with 
