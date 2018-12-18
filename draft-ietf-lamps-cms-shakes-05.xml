@@ -433,7 +433,7 @@ Note: x and y will be specified by NIST.
 	  was assigned in the SMI Security for S/MIME Module Identifiers 
 	  (1.2.840.113549.1.9.16.0) registry: </t>
       <t><figure><artwork><![CDATA[
-   CMSAlgsForSHAKE-2018 { iso(1) member-body(2) us(840)
+   CMSAlgsForSHAKE-2018 { { iso(1) member-body(2) us(840)
         rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) modules(0)
         id-mod-cms-shakes(TBD) }   ]]></artwork></figure></t>
     </section>
