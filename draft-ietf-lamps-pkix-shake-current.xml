@@ -700,7 +700,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     pk-rsaSSA-PSS-SHAKE128 PUBLIC-KEY ::= {
       IDENTIFIER id-RSASSA-PSS-SHAKE128
       KEY RSAPublicKey
-      PARAMS TYPE NULL ARE absent
+      PARAMS ARE absent
       -- Private key format not in this module --
       CERT-KEY-USAGE { nonRepudiation, digitalSignature,
                        keyCertSign, cRLSign }
@@ -715,7 +715,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     pk-rsaSSA-PSS-SHAKE256 PUBLIC-KEY ::= {
       IDENTIFIER id-RSASSA-PSS-SHAKE256
       KEY RSAPublicKey
-      PARAMS TYPE NULL ARE absent
+      PARAMS ARE absent
       -- Private key format not in this module --
       CERT-KEY-USAGE { nonRepudiation, digitalSignature,
                        keyCertSign, cRLSign }
@@ -748,7 +748,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     -- RSASSA-PSS with SHAKE128
     sa-rsassapssWithSHAKE128 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-RSASSA-PSS-SHAKE128
-      PARAMS TYPE NULL ARE absent
+      PARAMS ARE absent
           -- The hashAlgorithm is mda-shake128
           -- The maskGenAlgorithm is id-shake128
           -- Mask Gen Algorithm is SHAKE128 with output length
@@ -764,7 +764,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     -- RSASSA-PSS with SHAKE256
     sa-rsassapssWithSHAKE256 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-RSASSA-PSS-SHAKE256
-      PARAMS TYPE NULL ARE absent
+      PARAMS ARE absent
           -- The hashAlgorithm is mda-shake256
           -- The maskGenAlgorithm is id-shake256
           -- Mask Gen Algorithm is SHAKE256 with output length
@@ -781,7 +781,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-ecdsa-with-shake128
       VALUE ECDSA-Sig-Value
-      PARAMS TYPE NULL ARE absent
+      PARAMS ARE absent
       HASHES { mda-shake128 }
       PUBLIC-KEYS { pk-ec }
       SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake128 }
@@ -795,7 +795,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     sa-ecdsaWithSHAKE256 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-ecdsa-with-shake256
       VALUE ECDSA-Sig-Value
-      PARAMS TYPE NULL ARE absent
+      PARAMS ARE absent
       HASHES { mda-shake256 }
       PUBLIC-KEYS { pk-ec }
       SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake256 }
