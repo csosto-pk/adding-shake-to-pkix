@@ -44,7 +44,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-pkix-shake-06" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-lamps-pkix-shake-07" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -142,6 +142,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-pkix-shake-07:
+		  <list> 
+		  <t>Incorporated Eric's suggestion from WGLC.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-pkix-shake-06:
 		  <list> 
 		  <t>Added informative references.</t>
@@ -200,8 +204,8 @@
       <t>In the SHA-3 family, two extendable-output functions (SHAKEs),  
 	  SHAKE128 and SHAKE256, are defined. Four other hash function instances, SHA3-224, SHA3-256, 
 	  SHA3-384, and SHA3-512 are also defined but are out of scope for this document. 
-	  A SHAKE is a variable length hash function. The output length, in bits, of a SHAKE 
-	  is defined by the d parameter. The corresponding collision and second 
+	  A SHAKE is a variable length hash function defined as SHAKE(M, d) where the 
+	  output is a d-bits long digest of message M. The corresponding collision and second 
 	  preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits respectively. 
 	  And, the corresponding collision and second preimage resistance strengths for SHAKE256 
 	  are min(d/2,256) and min(d,256) bits respectively.</t>
@@ -253,8 +257,8 @@
 	  <!-- syntax that contains an encoded positive integer value at least 64 
 	  in this specification.</t>	-->
 
-	  <t>This section defines four new OIDs for RSASSA-PSS and ECDSA when 
-	  SHAKE128 and SHAKE256 are used. The same algorithm identifiers are 
+	  <t>This section defines four new OIDs, for RSASSA-PSS and ECDSA with each 
+	  of SHAKE-128 and SHAKE-256. The same algorithm identifiers can be  
 	  used for identifying a public key in RSASSA-PSS.</t>
 	  
 	  <t>The new identifiers for RSASSA-PSS signatures using SHAKEs are below.</t>
@@ -301,17 +305,18 @@
 	  for each use of SHAKE128 or SHAKE256 in RSASSA-PSS and ECDSA. In summary, when hashing messages
       to be signed, output lengths of SHAKE128 and SHAKE256 are 256 and 512 bits respectively. 
 	  When the SHAKEs are used as mask generation functions RSASSA-PSS, their output length is 
-	  (n - 264) or (n - 520) bits respectively, where n is a RSA modulus size in bits.</t>
+	  (n - 264) or (n - 520) bits respectively, where n is the RSA modulus size in bits.</t>
 	</section> 
 	
 	<section title="Use in PKIX">
 
 	  <section title="Signatures" anchor="sigs">
 	  
-	    <t>Signatures can be placed in a number of different ASN.1 structures.
-        The top level structure for an X.509 certificate, to illustrate 
-        how signatures are frequently encoded with an algorithm identifier 
-		and a location for the signature, is </t>
+	    <t>Signatures are used in a number of different ASN.1 structures.
+        In an X.509 certificate a signature is encoded with an 
+		algorithm identifier in the signatureAlgorithm attribute and 
+		a signatureValue that contains the actual signature.  
+		 </t>
         <t><figure><artwork><![CDATA[
    Certificate  ::=  SEQUENCE  {
       tbsCertificate       TBSCertificate,
@@ -321,7 +326,9 @@
 	  
 	    <t>The identifiers defined in <xref target="oids"/> can be used 
 		as the AlgorithmIdentifier in the signatureAlgorithm field in the sequence 
-		Certificate and the signature field in the sequence tbsCertificate in X.509 
+		Certificate and the signature field in the sequence tbsCertificate in X.509. 
+		The parameters of these signature algorithms are absent as explained 
+		in <xref target="oids"/>.
 		<xref target="RFC5280"/>.</t>
 		
 		<t>Conforming CA implementations MUST specify the algorithms  
@@ -365,11 +372,15 @@
     SHAKE256(mgfSeed, maskLen)
 ]]></artwork></figure></t> --> 
           the SHAKE128 or SHAKE256 output of the mgfSeed for id-RSASSA-PSS-SHAKE128 and 
-		  id-RSASSA-PSS-SHAKE256 respectively. The mgfSeed is 
-		  the seed from which mask is generated, an octet string <xref target="RFC8017"/>. 
-		  The output length is (n - 264)/8 or (n - 520)/8 bytes respectively, where n 
-		  is the RSA modulus in bits. For example, when RSA modulus n is 2048, the 
-		  output length of SHAKE128 or SHAKE256 as the MGF will be 223 or 191-bits 
+		  id-RSASSA-PSS-SHAKE256 respectively. The mgfSeed is the seed 
+		  from which mask is generated, an octet string <xref target="RFC8017"/>.		  
+		  As explained in Step 9 of section 9.1.1 of <xref target="RFC8017"/>, the output 
+		  length of the MGF is emLen - hLen - 1 bytes. emLen is the maximum message 
+		  length ceil((n-1)/8), where n is the RSA modulus in bits. hLen is 32 and 
+		  64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256 respectively. 
+		  Thus when SHAKE is used as the MGF, the SHAKE output length maskLen is 
+		  (n - 264) or (n - 520) bits respectively. For example, when RSA modulus n is 2048, 
+		  the output length of SHAKE128 or SHAKE256 as the MGF will be 1784 or 1528-bits 
 		  when id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively. </t>
 		      
 		  <t>The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively. 
@@ -460,8 +471,13 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		and Section 2.1 of <xref target="RFC5480"/>.
 		<!-- and <xref target="I-D.josefsson-pkix-eddsa"/>--></t> 
 
-		<t>When the RSA private key owner wishes to limit the use of 
-		the public key exclusively to RSASSA-PSS, the AlgorithmIdentifiers for 
+		<t>Traditionally, the rsaEncryption object identifier is used to
+		identify RSA public keys. The rsaEncryption object identifier 
+		continues to identify the subject public key when the RSA private 
+		key owner does not wish to limit the use of the public key 
+		exclusively to RSASSA-PSS with SHAKEs. When the RSA private 
+		key owner wishes to limit the use of 
+		the public key exclusively to RSASSA-PSS with SHAKEs, the AlgorithmIdentifiers for 
 		RSASSA-PSS defined in <xref target="oids"/> can be used as the algorithm 
 		field in the SubjectPublicKeyInfo sequence <xref target="RFC5280"/>. The 
 		identifier parameters, as explained in section <xref target="oids"/>, MUST be 
@@ -495,8 +511,8 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	  situation as truncating a 512-bit output of SHA-512 by taking its 256 
 	  left-most bits. These 256 left-most bits are a prefix of the 512-bit output.</t>
 	  
-	  <t>Implementations must protect the signer's private key. Compromise of
-      the signer's private key permits masquerade attacks.</t>
+	  <!-- <t>Implementations must protect the signer's private key. Compromise of
+      the signer's private key permits masquerade attacks.</t> -->
 
 	  <!-- <t>Implementations must randomly generate one-time values, such as the k value when generating a ECDSA
       signature. In addition, the generation of public/private key pairs
@@ -507,19 +523,19 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	  in this area, and <xref target="SP800-90A"/> series provide acceptable 
       PRNGs.</t> -->
       
-	  <t>Implementers should be aware that cryptographic algorithms may 
+	  <!-- <t>Implementers should be aware that cryptographic algorithms may 
 	  become weaker with time. As new cryptanalysis techniques are developed 
 	  and computing power increases, the work factor or time required to break a 
 	  particular cryptographic algorithm may decrease. Therefore, cryptographic
       algorithm implementations should be modular allowing new algorithms
       to be readily inserted. That is, implementers should be prepared to
-      regularly update the set of algorithms in their implementations.</t>
+      regularly update the set of algorithms in their implementations.</t> -->
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>We would like to thank Sean Turner and Jim Schaad for their valuable 
-	  contributions to this document.</t>
+      <t>We would like to thank Sean Turner, Jim Schaad and Eric 
+	  Rescorla for their valuable contributions to this document.</t>
 	  <t>The authors would like to thank Russ Housley for his guidance and 
 	  very valuable contributions with the ASN.1 module.</t>
     </section>
@@ -694,7 +710,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     -- The hashAlgorithm is mda-shake128
     -- The maskGenAlgorithm is id-shake128
     -- Mask Gen Algorithm is SHAKE128 with output length
-    -- (n - 264)/8, where n is the RSA modulus in bits.
+    -- (n - 264)-bits, where n is the RSA modulus in bits.
     -- the saltLength is 32
     -- the trailerField is 1
     pk-rsaSSA-PSS-SHAKE128 PUBLIC-KEY ::= {
@@ -709,7 +725,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     -- The hashAlgorithm is mda-shake256
     -- The maskGenAlgorithm is id-shake256
     -- Mask Gen Algorithm is SHAKE256 with output length
-    -- (n - 520)/8, where n is the RSA modulus in bits.
+    -- (n - 520)-bits, where n is the RSA modulus in bits.
     -- the saltLength is 64
     -- the trailerField is 1
     pk-rsaSSA-PSS-SHAKE256 PUBLIC-KEY ::= {
@@ -752,7 +768,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           -- The hashAlgorithm is mda-shake128
           -- The maskGenAlgorithm is id-shake128
           -- Mask Gen Algorithm is SHAKE128 with output length
-          -- (n - 264)/8, where n is the RSA modulus in bits.
+          -- (n - 264)-bits, where n is the RSA modulus in bits.
           -- the saltLength is 32
           -- the trailerField is 1
       HASHES { mda-shake128 }
@@ -768,7 +784,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           -- The hashAlgorithm is mda-shake256
           -- The maskGenAlgorithm is id-shake256
           -- Mask Gen Algorithm is SHAKE256 with output length
-          -- (n - 520)/8, where n is the RSA modulus in bits.
+          -- (n - 520)-bits, where n is the RSA modulus in bits.
           -- the saltLength is 64
           -- the trailerField is 1
      HASHES { mda-shake256 }
