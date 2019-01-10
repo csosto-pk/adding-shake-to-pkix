@@ -413,7 +413,7 @@ Note: x and y will be specified by NIST.
 		in <xref target="oids"/> SHOULD be used as the algorithm attribute 
 		in the OriginatorPublicKey sequence. Conforming client 
 		implementations that process RSASSA-PSS with SHAKE public keys 
-		in CMS message MUST recognize the corresponding OIDs.</t>
+		in CMS message MUST recognize the corresponding OIDs in <xref target="oids"/>.</t>
 		
 		<t>Conforming implementations MUST specify and process the 
 		algorithms explicitly by using the OIDs specified in 
@@ -512,7 +512,8 @@ Note: x and y will be specified by NIST.
 	  It replaces SHA3 hash functions by SHAKE128 and SHAKE256 as the LAMPS 
 	  WG agreed.</t>
 	  <t>The authors would like to thank Russ Housley for his guidance and 
-	  very valuable contributions with the ASN.1 module.</t>
+	  very valuable contributions with the ASN.1 module. Valuable 
+	  feedback was also provided by Eric Rescorla. </t>
 	</section>
 	</middle>
 
@@ -720,9 +721,13 @@ Note: x and y will be specified by NIST.
       -- 64 byte outout length respectively. The mask generating
       -- function MUST be SHAKE128 or SHAKE256 with an output length
       -- of (n - 264) or (n - 520) bits respectively, where n
-      -- is the RSA modulus in bits.  The RSASSA-PSS saltLength MUST
-      -- be 32 or 64 bytes respectively. In both cases, the RSA
-      -- public key, MUST be encoded using the RSAPublicKey type.
+      -- is the RSA modulus in bits. The RSASSA-PSS saltLength MUST
+      -- be 32 or 64 bytes respectively. The trailerField MUST be 1, 
+	  -- which represents the trailer field with hexadecimal value 
+	  -- 0xBC. Regardless of id-RSASSA-PSS-* or rsaEncryption being 
+	  -- used as the AlgorithmIdentifier of the OriginatorPublicKey, 
+	  -- the RSA public key MUST be encoded using the RSAPublicKey 
+	  -- type.
    -- From RFC4055, for reference.
    -- RSAPublicKey ::= SEQUENCE {
    --   modulus INTEGER, -- -- n

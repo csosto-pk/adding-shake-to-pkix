@@ -578,7 +578,6 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 	  &RFC4055;
       &RFC5280;
 	  &RFC5480;
-	  &RFC6979;
 	  &RFC8017; <!-- RFC8017 is Informational draft but we are keeping it in the Normative References even though idnits complains because we need a normative reference for RSASSA-PSS. RFC4056 does the same thing with RSASS-PSS v2.1 -->
 	  <!-- <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-josefsson-pkix-eddsa-04.xml"?> -->
       <reference anchor="SHA3" target="https://www.nist.gov/publications/sha-3-standard-permutation-based-hash-and-extendable-output-functions">
@@ -597,6 +596,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       <!--&RFC2629; -->
 	  &RFC3279;
 	  &RFC5912;
+	  &RFC6979;
 	  <!-- &RFC4086; -->
       <!--<reference anchor="shake-nist-oids" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
         <front>
