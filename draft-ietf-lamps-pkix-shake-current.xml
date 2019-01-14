@@ -257,7 +257,7 @@
 	  <!-- syntax that contains an encoded positive integer value at least 64 
 	  in this specification.</t>	-->
 
-	  <t>This section defines four new OIDs, for RSASSA-PSS and ECDSA with each 
+	  <t>This section defines four new object identifiers (OIDs), for RSASSA-PSS and ECDSA with each 
 	  of SHAKE-128 and SHAKE-256. The same algorithm identifiers can be  
 	  used for identifying a public key in RSASSA-PSS.</t>
 	  
@@ -326,10 +326,10 @@
 	  
 	    <t>The identifiers defined in <xref target="oids"/> can be used 
 		as the AlgorithmIdentifier in the signatureAlgorithm field in the sequence 
-		Certificate and the signature field in the sequence tbsCertificate in X.509. 
+		Certificate and the signature field in the sequence tbsCertificate in X.509  
+		<xref target="RFC5280"/>. 
 		The parameters of these signature algorithms are absent as explained 
-		in <xref target="oids"/>.
-		<xref target="RFC5280"/>.</t>
+		in <xref target="oids"/>.</t>
 		
 		<t>Conforming CA implementations MUST specify the algorithms  
 		explicitly by using the OIDs specified in <xref target="oids"/> when 

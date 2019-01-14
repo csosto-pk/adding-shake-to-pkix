@@ -196,7 +196,7 @@
      SHAKE as this hash, this parameter MUST be id-shake128-len or id-
      shake256-len as specified in <xref target="mdmgf" /> above. </t>    -->
 
-     <t>This section defines six new OIDs for using SHAKE128 and SHAKE256 in CMS. </t>
+     <t>This section defines six new object identifiers (OIDs) for using SHAKE128 and SHAKE256 in CMS. </t>
 	 <t>EDNOTE: If PKIX draft is standardized first maybe we should not say the 
 	 identifiers are new for the RSASSA-PSS and ECDSA. </t>
 	 
