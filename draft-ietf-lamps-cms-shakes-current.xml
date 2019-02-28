@@ -207,16 +207,16 @@
 	 <t>Two object identifiers for SHAKE128 and SHAKE256 hash functions are defined 
 	 in <xref target="shake-nist-oids"/> and we include them here for convenience.</t>
 	 <t><figure><artwork><![CDATA[
-  id-shake128-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
+  id-shake128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
-       nistAlgorithm(4) 2 17 }
+       nistAlgorithm(4) 2 11 }
 
-  id-shake256-len OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
+  id-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
-       nistAlgorithm(4) 2 18 }
+       nistAlgorithm(4) 2 12 }
 ]]></artwork></figure></t>
  
-     <t>In this specification, when using the id-shake128-len or id-shake256-len algorithm identifiers, the parameters 
+     <t>In this specification, when using the id-shake128 or id-shake256 algorithm identifiers, the parameters 
 	  MUST be absent. That is, the identifier SHALL be a SEQUENCE of one component, the OID. 
 	  <!-- present, and they MUST employ the ShakeOutputLen -->
 	  <!-- "MUST employ syntax borrowed from RFC4055 -->
@@ -275,8 +275,7 @@ Note: x and y will be specified by NIST.
        nistAlgorithm(4) 2 20 }
 ]]></artwork></figure></t>
      
-	 <t>The parameters for id-KmacWithSHAKE128 and id-KmacWithSHAKE256 MUST be absent. 
-	 That is, each identifier SHALL be a SEQUENCE of one component, the OID.</t>
+	 <t>The parameters for id-KmacWithSHAKE128 and id-KmacWithSHAKE256 are OPTIONAL.</t>
 <!--       <figure><artwork><![CDATA[
    hashAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
        us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 }
@@ -297,7 +296,7 @@ Note: x and y will be specified by NIST.
 
 	<section title="Use in CMS">
 	  <section anchor="md" title="Message Digests"> 
-	    <t>The id-shake128-len and id-shake256-len OIDs (<xref target="oids"/>) can 
+	    <t>The id-shake128 and id-shake256 OIDs (<xref target="oids"/>) can 
 		be used as the digest algorithm identifiers located in the SignedData, 
 		SignerInfo, DigestedData,  and the AuthenticatedData digestAlgorithm fields 
 		in CMS <xref target="RFC5652"/>. The encoding MUST omit the parameters field 
@@ -434,7 +433,7 @@ Note: x and y will be specified by NIST.
 	    In CMS, KMAC algorithm identifiers are located in the AuthenticatedData 
 	    macAlgorithm field. The KMAC values are located in the AuthenticatedData mac field.</t>
       
-	    <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 algorithm identifier 
+	    <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 OID  
 	    is used as the MAC algorithm identifier, the parameters field is optional 
 	    (absent or present). If absent, the SHAKE256 output length used in KMAC is 
 	    256 or 512 bits respectively and the customization string is an empty string by default.</t>
