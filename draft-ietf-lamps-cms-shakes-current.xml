@@ -697,7 +697,7 @@ Note: x and y will be specified by NIST.
                                        csor(3) nistAlgorithm(4)
                                        hashAlgs(2) 11 }
 
-   -- SHAKE-256
+   -- SHAKE256
    mda-shake256 DIGEST-ALGORITHM ::= {
      IDENTIFIER id-shake256  -- with output length 64 bytes.
    }

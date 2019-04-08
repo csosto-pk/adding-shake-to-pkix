@@ -262,7 +262,7 @@
 	  in this specification.</t>	-->
 
 	  <t>This section defines four new object identifiers (OIDs), for RSASSA-PSS and ECDSA with each 
-	  of SHAKE-128 and SHAKE-256. The same algorithm identifiers can be  
+	  of SHAKE128 and SHAKE256. The same algorithm identifiers can be  
 	  used for identifying a public key in RSASSA-PSS.</t>
 	  
 	  <t>The new identifiers for RSASSA-PSS signatures using SHAKEs are below.</t>
@@ -723,7 +723,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
                                         csor(3) nistAlgorithm(4)
                                         hashAlgs(2) 11 }
 
-    -- SHAKE-256
+    -- SHAKE256
     mda-shake256 DIGEST-ALGORITHM ::= {
       IDENTIFIER id-shake256  -- with output length 64 bytes.
     }
