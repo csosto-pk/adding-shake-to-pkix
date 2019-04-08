@@ -42,7 +42,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-cms-shakes-08" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-lamps-cms-shakes-09" ipr="trust200902" updates="RFC3370">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -86,6 +86,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-09:
+		  <list> 
+		  <t>Fixed minor text nit.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-08:
 		  <list> 
 		  <t>id-shake128-len and id-shake256-len were replaced with id-sha128 with 32 bytes output length and id-shake256 with 64 bytes output length.</t>
@@ -344,7 +348,7 @@ Note: x and y will be specified by NIST.
 		  
 	      <t>The mask generation function takes an octet string of variable length 
           and a desired output length as input, and outputs an octet string of 
-          the desired length. In RSASSA-PSS with SHAKES, the SHAKEs MUST be 
+          the desired length. In RSASSA-PSS with SHAKEs, the SHAKEs MUST be 
           used natively as the MGF function, instead of the MGF1 algorithm that 
           uses the hash function in multiple iterations as specified in 
           Section B.2.1 of [RFC8017].  In other words, the MGF is defined as 

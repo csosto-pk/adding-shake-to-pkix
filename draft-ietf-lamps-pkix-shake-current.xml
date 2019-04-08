@@ -44,7 +44,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-pkix-shake-08" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-lamps-pkix-shake-09" ipr="trust200902" updates="RFC3279">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -142,6 +142,11 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-09:
+		  <list> 
+		  <t>Fixed minor text nits.</t>
+		  <t>Added text name allocation for SHAKEs in IANA considerations.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-pkix-shake-08:
 		  <list> 
 		  <t>Small nits from Russ while in WGLC.</t>
@@ -364,7 +369,7 @@
 		  64 bytes respectively. </t>
 		  <t>The mask generation function takes an octet string of variable length and
 		  a desired output length as input, and outputs an octet 
-		  string of the desired length. In RSASSA-PSS with SHAKES, the SHAKEs MUST be 
+		  string of the desired length. In RSASSA-PSS with SHAKEs, the SHAKEs MUST be 
 		  used natively as the MGF function, instead of the MGF1 algorithm that uses 
 		  the hash function in multiple iterations as specified in Section B.2.1 of 
 		  <xref target="RFC8017"/>. In other words, the MGF is defined as 
@@ -496,12 +501,27 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     <section anchor="IANA" title="IANA Considerations">
 	  <t>One object identifier for the ASN.1 module in <xref target="asn"/> 
 	  was assigned in the SMI Security for PKIX Module Identifiers 
-	  (1.3.6.1.5.5.7.0) registry:
-</t>
+	  (1.3.6.1.5.5.7.0) registry: </t>
       <t><figure><artwork><![CDATA[
    PKIXAlgsForSHAKE-2019 { iso(1) identified-organization(3) dod(6)
       internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
       id-mod-pkix1-shakes-2019(TBD) }   ]]></artwork></figure></t>
+	
+	  <t>IANA is also requested to update the 
+	  Hash Function Textual Names Registry <xref target="Hash-Texts"/>
+      with two additional entries for SHAKE128
+      and SHAKE256: </t>
+	  <texttable>
+        <ttcol align='center'>Hash Function Name</ttcol>
+        <ttcol align='center'>OID</ttcol>
+        <ttcol align='center'>Reference</ttcol>
+        <c>shake128</c>
+        <c>2.16.840.1.101.3.4.2.11</c>
+        <c>[ THIS RFC ]</c>
+        <c>shake256</c>
+        <c>2.16.840.1.101.3.4.2.12</c>
+        <c>[ THIS RFC ]</c>
+      </texttable>
     </section>
 
     <section anchor="Security" title="Security Considerations">  
@@ -636,6 +656,15 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
             <organization>National Institute of Standards and Technology (NIST)</organization>
           </author>
           <date month="May" year="2014" />
+        </front>
+      </reference>
+      <reference anchor="Hash-Texts" target="https://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xhtml">
+        <front>
+          <title>Hash Function Textual Names</title>
+          <author>
+            <organization>IANA</organization>
+          </author>
+          <date month="July" year="2017" />
         </front>
       </reference>
       <reference anchor="SP800-107" target="https://csrc.nist.gov/csrc/media/publications/sp/800-107/rev-1/final/documents/draft_revised_sp800-107.pdf">
