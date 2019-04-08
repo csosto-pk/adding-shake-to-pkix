@@ -273,13 +273,13 @@
 	  <t>The new identifiers for RSASSA-PSS signatures using SHAKEs are below.</t>
 	  
 	  <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
+  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD1 }
 ]]></artwork></figure></t>
 
 	        <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
    
-  [ EDNOTE: "TBD" will be specified by NIST later. ]
+  [ EDNOTE: "TBD1", "TBD2" will be specified by NIST later. ]
 ]]></artwork></figure></t>
 		           
  	  <t>The new algorithm identifiers of ECDSA signatures using SHAKEs are below.</t> 
@@ -288,15 +288,15 @@
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
             country(16) us(840) organization(1) gov(101) 
             csor(3) algorithms(4) id-ecdsa-with-shake(3) 
-            TBD }
+            TBD3 }
 ]]></artwork></figure></t>
         <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
             country(16) us(840) organization(1) gov(101) 
             csor(3) algorithms(4) id-ecdsa-with-shake(3) 
-            TBD }
+            TBD4 }
 
-  [ EDNOTE: "TBD" will be specified by NIST later. ]
+  [ EDNOTE: "TBD3", "TBD4" will be specified by NIST later. ]
 ]]></artwork></figure></t>
 	  </list></t> 
 	  
@@ -839,7 +839,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE128 }
       SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE128 }
     }
-    id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
+    id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD1 }
 
     -- RSASSA-PSS with SHAKE256
     sa-rsassapssWithSHAKE256 SIGNATURE-ALGORITHM ::= {
@@ -855,7 +855,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
      PUBLIC-KEYS { pk-rsa | pk-rsaSSA-PSS-SHAKE256 }
      SMIME-CAPS { IDENTIFIED BY id-RSASSA-PSS-SHAKE256 }
     }
-    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
 
     -- Determinstic ECDSA with SHAKE128
     sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
@@ -869,7 +869,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     id-ecdsa-with-shake128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
                                  country(16) us(840) organization(1) 
                                  gov(101) csor(3) nistAlgorithm(4)
-                                 sigAlgs(3) TBD }
+                                 sigAlgs(3) TBD3 }
 
     -- Determinstic ECDSA with SHAKE256
     sa-ecdsaWithSHAKE256 SIGNATURE-ALGORITHM ::= {
@@ -883,7 +883,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     id-ecdsa-with-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
                                  country(16) us(840) organization(1) 
                                  gov(101) csor(3) nistAlgorithm(4)
-                                 sigAlgs(3) TBD }
+                                 sigAlgs(3) TBD4 }
 
     END
 	]]></artwork></figure>

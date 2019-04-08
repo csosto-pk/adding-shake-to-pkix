@@ -233,13 +233,13 @@
 	 
 	 <t>We define two new identifiers for RSASSA-PSS signatures using SHAKEs.</t>
 	 <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
+  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD1 }
 ]]></artwork></figure></t>
 
 	 <t><figure><artwork><![CDATA[
-  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
    
-  [ EDNOTE: "TBD" will be specified by NIST later. ]
+  [ EDNOTE: "TBD1", "TBD2" will be specified by NIST later. ]
 ]]></artwork></figure></t>
 
 	 <t>The same RSASSA-PSS algorithm identifiers can be used for identifying 
@@ -249,13 +249,13 @@
 	 <t><figure><artwork><![CDATA[
   id-ecdsa-with-SHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
       country(16) us(840) organization(1) gov(101) csor(3) 
-      nistAlgorithm(4) 3  TBD }
+      nistAlgorithm(4) 3  TBD3 }
   
   id-ecdsa-with-SHAKE256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
       country(16) us(840) organization(1) gov(101) csor(3) 
-      nistAlgorithm(4) 3  TBD } 
+      nistAlgorithm(4) 3  TBD4 } 
   
-  [ EDNOTE: "TBD" will be specified by NIST. ]
+  [ EDNOTE: "TBD3", "TBD4" will be specified by NIST. ]
 ]]></artwork></figure></t>
 
      <t>The parameters for the four RSASSA-PSS and ECDSA identifiers 
@@ -723,8 +723,8 @@ Note: x and y will be specified by NIST.
       -- for a public key, the AlgorithmIdentifier parameters
       -- field MUST contain NULL.
    --
-   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD }
-   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD }
+   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD1 }
+   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
 
       -- When the id-RSASSA-PSS-* algorithm identifiers are used
       -- for a public key or signature in CMS, the AlgorithmIdentifier
@@ -748,11 +748,11 @@ Note: x and y will be specified by NIST.
    id-ecdsa-with-shake128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
                                 country(16) us(840) organization(1) 
                                 gov(101) csor(3) nistAlgorithm(4)
-                                sigAlgs(3) TBD }
+                                sigAlgs(3) TBD3 }
    id-ecdsa-with-shake256 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
                                 country(16) us(840) organization(1) 
                                 gov(101) csor(3) nistAlgorithm(4)
-                                sigAlgs(3) TBD }
+                                sigAlgs(3) TBD4 }
       -- When the id-ecdsa-with-shake* algorithm identifiers are
       -- used in CMS, the AlgorithmIdentifier parameters field
       -- MUST be absent and the signature algorithm should be 
