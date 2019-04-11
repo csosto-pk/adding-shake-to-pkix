@@ -166,12 +166,12 @@
 		  <list> 
 		  <t>Added RFC8174 reference and text.</t>
 		  <t>Explicitly explained why RSASSA-PSS-params are omitted in section 5.1.1.</t>
-		  <t>Simplified Public Keys section by removing redundand info from RFCs.</t>
+		  <t>Simplified Public Keys section by removing redundant info from RFCs.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-pkix-shake-04:
 		  <list> 
-		    <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministric ECDSA. That should be RFC6979-bis. </t>
-		    <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministric ECDSA.</t>
+		    <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministic ECDSA. That should be RFC6979-bis. </t>
+		    <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministic ECDSA.</t>
             <t>Various ASN.1 fixes.</t>
 			<t>Text fixes.</t>
 	    </list></t>
@@ -368,7 +368,7 @@
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. <xref target="RFC4055"/>
 		  defines RSASSA-PSS-params that are used to define the algorithms and inputs 
 		  to the algorithm. This specification does not use parameters because the 
-		  hash and mask generating algorithsm and trailer and salt are embedded in 
+		  hash and mask generating algorithm and trailer and salt are embedded in 
 		  the OID definition.</t>
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash algorithm as the
@@ -455,7 +455,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		  conformance to these standards. These standards may have not specified 
 		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
 		  SHAKE256 with output length being 32 and 64 octets respectively are 
-		  subtitutions for 256 and 512-bit output hash algorithms such as SHA256 
+		  substitutions for 256 and 512-bit output hash algorithms such as SHA256 
 		  and SHA512 used in the standards.</t>
 		  
 		  <!-- <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
@@ -862,7 +862,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
     }
     id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
 
-    -- Determinstic ECDSA with SHAKE128
+    -- Deterministic ECDSA with SHAKE128
     sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-ecdsa-with-shake128
       VALUE ECDSA-Sig-Value
@@ -876,7 +876,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
                                  gov(101) csor(3) nistAlgorithm(4)
                                  sigAlgs(3) TBD3 }
 
-    -- Determinstic ECDSA with SHAKE256
+    -- Deterministic ECDSA with SHAKE256
     sa-ecdsaWithSHAKE256 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-ecdsa-with-shake256
       VALUE ECDSA-Sig-Value

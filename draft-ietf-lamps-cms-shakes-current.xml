@@ -115,12 +115,12 @@
 		  <list> 
 		  <t>Added RFC8174 reference and text. </t>
 		  <t>Explicitly explained why RSASSA-PSS-params are omitted in section 4.2.1.</t>
-		  <t>Simplified Public Keys section by removing redundand info from RFCs.</t>
+		  <t>Simplified Public Keys section by removing redundant info from RFCs.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-03:
 		  <list> 
-		  <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministric ECDSA. That should be RFC6979-bis. </t>
-		  <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministric ECDSA.</t>
+		  <t>Removed paragraph suggesting KMAC to be used in generating k in Deterministic ECDSA. That should be RFC6979-bis. </t>
+		  <t>Removed paragraph from Security Considerations that talks about randomness of k because we are using deterministic ECDSA.</t>
 		  <t>Completed ASN.1 module and fixed KMAC ASN.1 based on Jim's feedback.</t>
 		  <t>Text fixes.</t>
 	    </list></t>
@@ -347,7 +347,7 @@ Note: x and y will be specified by NIST.
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. <xref target="RFC4055"/>
 		  defines RSASSA-PSS-params that are used to define the algorithms and inputs 
 		  to the algorithm. This specification does not use parameters because the 
-		  hash and mask generating algorithsm and trailer and salt are embedded in 
+		  hash and mask generating algorithm and trailer and salt are embedded in 
 		  the OID definition.</t>
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash and the hash
@@ -765,7 +765,7 @@ Note: x and y will be specified by NIST.
       -- When the id-ecdsa-with-shake* algorithm identifiers are
       -- used in CMS, the AlgorithmIdentifier parameters field
       -- MUST be absent and the signature algorithm should be 
-      -- deterministric ECDSA [RFC6979]. The message digest MUST
+      -- deterministic ECDSA [RFC6979]. The message digest MUST
       -- be SHAKE128 or SHAKE256 with a 32 or 64 byte outout
       -- length respectively. In both cases, the ECDSA public key,
       -- MUST be encoded using the id-ecPublicKey type.
