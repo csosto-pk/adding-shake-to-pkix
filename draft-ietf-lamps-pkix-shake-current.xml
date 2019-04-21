@@ -280,7 +280,7 @@
 	        <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
    
-  [ EDNOTE: "TBD1", "TBD2" will be specified by NIST later. ]
+  [ EDNOTE: "TBD1", "TBD2" to be specified by IANA. ]
 ]]></artwork></figure></t>
 		           
  	  <t>The new algorithm identifiers of ECDSA signatures using SHAKEs are below.</t> 
@@ -297,7 +297,7 @@
             csor(3) algorithms(4) id-ecdsa-with-shake(3) 
             TBD4 }
 
-  [ EDNOTE: "TBD3", "TBD4" will be specified by NIST later. ]
+  [ EDNOTE: "TBD3", "TBD4" to be specified by IANA. ]
 ]]></artwork></figure></t>
 	  </list></t> 
 	  
@@ -515,6 +515,23 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
    PKIXAlgsForSHAKE-2019 { iso(1) identified-organization(3) dod(6)
       internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
       id-mod-pkix1-shakes-2019(TBD) }   ]]></artwork></figure></t>
+	  
+	  <t>IANA is requested to assign OID identifiers </t>
+      <t><figure><artwork><![CDATA[
+  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD1 }
+
+  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
+  
+  id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
+            country(16) us(840) organization(1) gov(101) 
+            csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+            TBD3 }
+  
+  id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
+            country(16) us(840) organization(1) gov(101) 
+            csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+            TBD4 }
+]]></artwork></figure></t>
 	
 	  <t>IANA is also requested to update the 
 	  Hash Function Textual Names Registry <xref target="Hash-Texts"/>

@@ -241,7 +241,7 @@
 	 <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
    
-  [ EDNOTE: "TBD1", "TBD2" will be specified by NIST later. ]
+  [ EDNOTE: "TBD1", "TBD2" to be assigned by IANA. ]
 ]]></artwork></figure></t>
 
 	 <t>The same RSASSA-PSS algorithm identifiers can be used for identifying 
@@ -257,7 +257,7 @@
       country(16) us(840) organization(1) gov(101) csor(3) 
       nistAlgorithm(4) 3  TBD4 } 
   
-  [ EDNOTE: "TBD3", "TBD4" will be specified by NIST. ]
+  [ EDNOTE: "TBD3", "TBD4" to be assigned by IANA. ]
 ]]></artwork></figure></t>
 
      <t>The parameters for the four RSASSA-PSS and ECDSA identifiers 
@@ -275,7 +275,7 @@
 Note: x and y will be specified by NIST.
 ]]></artwork> </figure> -->
 
-	 <t>Two new object identifiers for KMACs using SHAKE128 and SHAKE256 are defined below.</t>
+	 <t>Two object identifiers for KMACs using SHAKE128 and SHAKE256 are defined below.</t>
 	 <t><figure><artwork><![CDATA[
    id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
@@ -475,6 +475,24 @@ Note: x and y will be specified by NIST.
    CMSAlgsForSHAKE-2019 { iso(1) member-body(2) us(840)
         rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) modules(0)
         id-mod-cms-shakes-2019(TBD) }   ]]></artwork></figure></t>
+		
+	  <t>IANA is requested to assign OID identifiers </t>
+      <t><figure><artwork><![CDATA[
+  id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { TBD1 }
+
+  id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { TBD2 }
+  
+  id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
+            country(16) us(840) organization(1) gov(101) 
+            csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+            TBD3 }
+  
+  id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { joint-iso-itu-t(2) 
+            country(16) us(840) organization(1) gov(101) 
+            csor(3) algorithms(4) id-ecdsa-with-shake(3) 
+            TBD4 }
+]]></artwork></figure></t>
+		
     </section>
       
 	<section title="Security Considerations">
