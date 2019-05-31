@@ -1,3 +1,10 @@
+This document lists the external cryptographical libraries which has been vetted and approved for general use. It also lists the external libraries with approved certificate handling implementation that have been vetted and approved for general use. 
+
+The approved versions of each listed library are all the supported versions of the specific library, unless explicitly stated in the listed library table. For example OpenSSL version 1.0.2 is scheduled to EoL 2019; hence applications need to migrate to an OpenSSL version that will receive security fixes by the end of 2019. 
+
+To find changes since the previous version of these lists refer to the Change Log. 
+
+
 Implemenation Name,Implementation Type,Vendor,Version,Approval Status,Notes
 OpenSSL,Cryptographical Library,OpenSSL,1.1.1(7.1) ,Approved,Library version 1.0.2 is scheduled to lose support after 2019; hence we'll need for applications to migrate to an OpenSSL version that will receive security fixes
 GoLang Crypto,Cryptographical Library,Google,1.12,Approved,"Is not FIPS approved; Google has publicly announced that they have no intention on obtaining FIPS approval; if approval is important, see SpaceMonkey"
