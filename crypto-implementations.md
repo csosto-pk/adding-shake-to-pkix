@@ -28,7 +28,7 @@ Evaluated but not Approved Libraries
 --------------------
 * BouncyCastle by the	Legion of the Bouncy Castle 
 
-This library includes the Dual-EC random number generator - including that library (even if unused) is not acceptable. BouncyCastle includes cryptographical algorithms with potental IPR claims (OCB); potential legal risk. This library is also known to have poor side channel resistance; this may be a concern for some uses. Use of CiscoJ as an alternative is recommended
+This library includes the Dual-EC random number generator - including that library (even if unused) is not acceptable. BouncyCastle includes cryptographical algorithms with potental IPR claims (OCB); potential legal risk. This library is also known to have poor side channel resistance; this may be a concern for some uses. Use of [CiscoJ](https://apps.na.collabserv.com/communities/service/html/communitystart?communityUuid=d15ca1a1-4805-4df7-a433-46f0d74eee2d) as an alternative is recommended
 
 
 
