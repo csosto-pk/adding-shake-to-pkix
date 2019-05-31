@@ -1,10 +1,10 @@
 Version 00 
 
-This document lists the external [cryptographical libraries](#approved-crypto-libraries) which have been vetted and approved for general use. It also lists the external [libraries](#approved-certificate-handling-libraries) with approved certificate handling implementations that have been vetted and approved for general use. 
+This document lists the external [Approved Cryptographical Libraries](#approved-crypto-libraries) which have been vetted and approved for general use. It also lists the external [Approved Certificate Handling Libraries](#approved-certificate-handling-libraries) with approved certificate handling implementations that have been vetted and approved for general use. 
 
 The approved versions of each listed library are all the supported versions of the specific library, unless explicitly stated in the listed library table. 
 
-To find changes since the previous version of these lists refer to the [libraries](#change-log). 
+To find changes since the previous version of these lists refer to the [Change Log](#change-log). 
 
 **Note**: If a library doesn't appear on the list that you think should be included, then email ask-src-crypto@cisco.com. We won't review libraries unless people ask for them. 
 
