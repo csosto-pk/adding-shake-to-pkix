@@ -1,6 +1,6 @@
 Version 00 
 
-This document lists the external [cryptographical libraries](#approved-crypto-libraries) which have been vetted and approved for general use. It also lists the external [libraries](#approved-certificate-handling-ibraries) with approved certificate handling implementations that have been vetted and approved for general use. 
+This document lists the external [cryptographical libraries](#approved-crypto-libraries) which have been vetted and approved for general use. It also lists the external [libraries](#approved-certificate-handling-libraries) with approved certificate handling implementations that have been vetted and approved for general use. 
 
 The approved versions of each listed library are all the supported versions of the specific library, unless explicitly stated in the listed library table. 
 
