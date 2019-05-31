@@ -4,7 +4,7 @@ This document lists the external [cryptographical libraries](#approved-crypto-li
 
 The approved versions of each listed library are all the supported versions of the specific library, unless explicitly stated in the listed library table. 
 
-To find changes since the previous version of these lists refer to the Change Log. 
+To find changes since the previous version of these lists refer to the [libraries](#change-log). 
 
 **Note**: If a library doesn't appear on the list that you think should be included, then email ask-src-crypto@cisco.com. We won't review libraries unless people ask for them. 
 
@@ -28,12 +28,11 @@ Evaluated but not Approved Libraries
 --------------------
 * BouncyCastle by the	Legion of the Bouncy Castle 
 
-This library includes the Dual-EC random number generator - including that library (even if unused) is not acceptable. BouncyCastle includes cryptographical algorithms with potental IPR claims (OCB); potential legal risk. This library is also known to have poor side channel resistance; this may be a concern for some uses. Use of [CiscoJ](https://apps.na.collabserv.com/communities/service/html/communitystart?communityUuid=d15ca1a1-4805-4df7-a433-46f0d74eee2d) as an alternative is recommended
+This library includes the Dual-EC random number generator - including that library (even if unused) is not acceptable. BouncyCastle includes cryptographical algorithms with potental IPR claims (OCB); potential legal risk. This library is also known to have poor side channel resistance; this may be a concern for some uses. Use of CiscoJ from the Cisco [C3M modules](https://apps.na.collabserv.com/communities/service/html/communitystart?communityUuid=d15ca1a1-4805-4df7-a433-46f0d74eee2d) as an alternative is recommended
 
 
 
 Change Log
 --------------------
-
-* v00 5/29/2019
+* v00 5/31/2019
   First initial version of the approved libraries
