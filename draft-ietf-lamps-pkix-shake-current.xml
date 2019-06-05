@@ -44,7 +44,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-pkix-shake-10" ipr="trust200902" updates="RFC3279">
+<rfc category="std" docName="draft-ietf-lamps-pkix-shake-11" ipr="trust200902" updates="3279">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -142,6 +142,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-pkix-shake-11:
+		  <list> 
+		  <t>Nits identified by Roman in AD Review.</t>
+	    </list></t>	  
 	    <t>draft-ietf-lamps-pkix-shake-10:
 		  <list> 
 		  <t>Updated IANA considerations section to request for OID assignments. </t>
@@ -225,7 +229,7 @@
 	  are min(d/2,256) and min(d,256) bits respectively.</t>
 	  
 	  <t>A SHAKE can be used as the message digest function (to hash the message to be signed) 
-	  in RSASSA-PSS and ECDSA and as the hash in the mask generating function in RSASSA-PSS. 
+	  in RSASSA-PSS and ECDSA and as the hash in the mask generation function (MGF) in RSASSA-PSS. 
 	  This specification describes the identifiers for SHAKEs to be used in X.509 and their 
 	  meaning.</t>
     </section>
@@ -328,7 +332,7 @@
 	    <t>Signatures are used in a number of different ASN.1 structures.
         In an X.509 certificate a signature is encoded with an 
 		algorithm identifier in the signatureAlgorithm attribute and 
-		a signatureValue that contains the actual signature.  
+		a signatureValue attribute that contains the actual signature.  
 		 </t>
         <t><figure><artwork><![CDATA[
    Certificate  ::=  SEQUENCE  {
@@ -371,7 +375,7 @@
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. <xref target="RFC4055"/>
 		  defines RSASSA-PSS-params that are used to define the algorithms and inputs 
 		  to the algorithm. This specification does not use parameters because the 
-		  hash and mask generating algorithm and trailer and salt are embedded in 
+		  hash, mask generation algorithm, trailer and salt are embedded in 
 		  the OID definition.</t>
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash algorithm as the

@@ -43,7 +43,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-cms-shakes-10" ipr="trust200902" updates="RFC3370">
+<rfc category="std" docName="draft-ietf-lamps-cms-shakes-11" ipr="trust200902" updates="3370">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -87,6 +87,11 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-10:
+		  <list> 
+		  <t>Minor nits.</t>
+		  <t>Nits identified by Roman in AD Review.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-10:
 		  <list> 
 		  <t>Updated IANA considerations section to request for OID assignments. </t>
@@ -172,7 +177,7 @@
 
 	<t>A SHAKE can be used in CMS as the message digest function (to hash the 
     message to be signed) in RSASSA-PSS and ECDSA, message 
-    authentication code and as the mask generating function in RSASSA-PSS. 
+    authentication code and as the mask generation function (MGF) in RSASSA-PSS. 
 	This specification describes the identifiers for SHAKEs to be used in 
 	CMS and their meaning. </t>
     
@@ -215,8 +220,8 @@
      SHAKE as this hash, this parameter MUST be id-shake128-len or id-
      shake256-len as specified in <xref target="mdmgf" /> above. </t>    -->
 
-     <t>This section defines six new object identifiers (OIDs) for using SHAKE128 and SHAKE256 in CMS. </t>
-	 <t>EDNOTE: If PKIX draft is standardized first maybe we should not say the 
+     <t>This section defines four new object identifiers (OIDs) for using SHAKE128 and SHAKE256 in CMS. </t>
+	 <t>EDNOTE: If the PKIX draft is standardized first maybe we should not say the 
 	 identifiers are new for the RSASSA-PSS and ECDSA. </t>
 	 
 	 <t>Two object identifiers for SHAKE128 and SHAKE256 hash functions are defined 
@@ -281,7 +286,8 @@
 Note: x and y will be specified by NIST.
 ]]></artwork> </figure> -->
 
-	 <t>Two object identifiers for KMACs using SHAKE128 and SHAKE256 are defined below.</t>
+	 <t>Two object identifiers for KMACs using SHAKE128 and SHAKE256 as defined in 
+	 by the National Institute of Standards and Technology (NIST) are </t>
 	 <t><figure><artwork><![CDATA[
    id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
@@ -353,7 +359,7 @@ Note: x and y will be specified by NIST.
 		  id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256. <xref target="RFC4055"/>
 		  defines RSASSA-PSS-params that are used to define the algorithms and inputs 
 		  to the algorithm. This specification does not use parameters because the 
-		  hash and mask generating algorithm and trailer and salt are embedded in 
+		  hash, mask generation algorithm, trailer and salt are embedded in 
 		  the OID definition.</t>
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash and the hash
@@ -485,10 +491,14 @@ Note: x and y will be specified by NIST.
         <c>CMSAlgsForSHAKE-2019</c>
         <c>[EDNOTE: THIS RFC]</c>
       </texttable>
-		
+
+	  <t>EDNOTE: If the PKIX draft is standardized first maybe we should not 
+	  keep these OIDS as they are not new. </t>	
+	
 	  <t>IANA has assigned four OID identifiers in the 
 	  SMI Security for PKIX Algorithms <xref target="SMI-PKIX"/> 
 	  (1.3.6.1.5.5.7.6) registry </t>
+	 	  
       <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
@@ -786,7 +796,7 @@ Note: x and y will be specified by NIST.
       -- for a public key or signature in CMS, the AlgorithmIdentifier
       -- parameters field MUST be absent. The message digest algorithm
       -- used in RSASSA-PSS MUST be SHAKE128 or SHAKE256 with a 32 or
-      -- 64 byte outout length respectively. The mask generating
+      -- 64 byte outout length respectively. The mask generation 
       -- function MUST be SHAKE128 or SHAKE256 with an output length
       -- of (n - 264) or (n - 520) bits respectively, where n
       -- is the RSA modulus in bits. The RSASSA-PSS saltLength MUST
