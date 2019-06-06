@@ -224,12 +224,14 @@
 	  SHA3-384, and SHA3-512 are also defined but are out of scope for this document. 
 	  A SHAKE is a variable length hash function defined as SHAKE(M, d) where the 
 	  output is a d-bits long digest of message M. The corresponding collision and second 
-	  preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits respectively. 
+	  preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) 
+	  bits respectively (Appendix A.1 <xref target="SHA3"/>). 
 	  And, the corresponding collision and second preimage resistance strengths for SHAKE256 
 	  are min(d/2,256) and min(d,256) bits respectively.</t>
 	  
 	  <t>A SHAKE can be used as the message digest function (to hash the message to be signed) 
-	  in RSASSA-PSS and ECDSA and as the hash in the mask generation function (MGF) in RSASSA-PSS. 
+	  in RSASSA-PSS <xref target="RFC8017"/> and ECDSA <xref target="X9.62"/> 
+      and as the hash in the mask generation function (MGF) in RSASSA-PSS. 
 	  This specification describes the identifiers for SHAKEs to be used in X.509 and their 
 	  meaning.</t>
     </section>
@@ -330,7 +332,8 @@
 	  <section title="Signatures" anchor="sigs">
 	  
 	    <t>Signatures are used in a number of different ASN.1 structures.
-        In an X.509 certificate a signature is encoded with an 
+        As shown in the ASN.1 representation from <xref target="RFC5280"/> 
+		below, an X.509 certificate a signature is encoded with an 
 		algorithm identifier in the signatureAlgorithm attribute and 
 		a signatureValue attribute that contains the actual signature.  
 		 </t>
@@ -459,10 +462,10 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		  They MAY also generate such signatures 
 		  in accordance with all other recommendations in <xref target="X9.62"/> or 
 		  <xref target="SEC1"/> if they have a stated policy that requires 
-		  conformance to these standards. These standards may have not specified 
+		  conformance to these standards. These standards have not specified  
 		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
-		  SHAKE256 with output length being 32 and 64 octets respectively are 
-		  substitutions for 256 and 512-bit output hash algorithms such as SHA256 
+		  SHAKE256 with output length being 32 and 64 octets respectively can  
+		  be used instead of 256 and 512-bit output hash algorithms such as SHA256 
 		  and SHA512 used in the standards.</t>
 		  
 		  <!-- <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
@@ -508,7 +511,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
 		SHAKE public keys when processing certificates and CRLs MUST recognize 
 		the corresponding OIDs. </t>
 		
-		<t>The identifier parameters, as explained in section <xref target="oids"/>, 
+		<t>The identifier parameters, as explained in <xref target="oids"/>, 
 		MUST be absent.</t>
 	  </section>
 	  
