@@ -172,7 +172,8 @@
 	A SHAKE is a variable length hash function defined as SHAKE(M, d) where the 
 	output is a d-bits long digest of message M. The corresponding collision and second 
 	preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits 
-	respectively. And, the corresponding collision and second preimage resistance 
+	respectively (Appendix A.1 <xref target="SHA3"/>). And, the 
+	corresponding collision and second preimage resistance 
 	strengths for SHAKE256 are min(d/2,256) and min(d,256) bits respectively.</t>
 
 	<t>A SHAKE can be used in CMS as the message digest function (to hash the 
@@ -415,7 +416,11 @@ Note: x and y will be specified by NIST.
 		  They MAY also generate such signatures 
 		  in accordance with all other recommendations in <xref target="X9.62"/> or 
 		  <xref target="SEC1"/> if they have a stated policy that requires 
-		  conformance to these standards. </t>
+		  conformance to these standards. These standards have not specified  
+		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
+		  SHAKE256 with output length being 32 and 64 octets respectively can  
+		  be used instead of 256 and 512-bit output hash algorithms such as SHA256 
+		  and SHA512 used in the standards.</t>
 
 		  <!-- <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
 		  the deterministic k. Conforming implementations that generate deterministic 
