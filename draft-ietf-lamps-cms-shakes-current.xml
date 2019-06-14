@@ -14,7 +14,7 @@
 <!ENTITY RFC6979 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6979.xml">
 <!ENTITY RFC8017 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8017.xml">
 <!ENTITY RFC8174 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
-<!-- <!ENTITY I-D.draft-ietf-lamps-pkix-shake SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"> -->
+<!ENTITY I-D.ietf-lamps-pkix-shake SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-lamps-pkix-shake.xml">
 <!ENTITY I-D.draft-housley-lamps-cms-sha3-hash SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml">
 ]>
 
@@ -87,7 +87,7 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
-	    <t>draft-ietf-lamps-cms-shake-10:
+	    <t>draft-ietf-lamps-cms-shake-11:
 		  <list> 
 		  <t>Minor nits.</t>
 		  <t>Nits identified by Roman in AD Review.</t>
@@ -222,8 +222,6 @@
      shake256-len as specified in <xref target="mdmgf" /> above. </t>    -->
 
      <t>This section defines four new object identifiers (OIDs) for using SHAKE128 and SHAKE256 in CMS. </t>
-	 <t>EDNOTE: If the PKIX draft is standardized first maybe we should not say the 
-	 identifiers are new for the RSASSA-PSS and ECDSA. </t>
 	 
 	 <t>Two object identifiers for SHAKE128 and SHAKE256 hash functions are defined 
 	 in <xref target="shake-nist-oids"/> and we include them here for convenience.</t>
@@ -237,13 +235,16 @@
        nistAlgorithm(4) 2 12 }
 ]]></artwork></figure></t>
  
-     <t>In this specification, when using the id-shake128 or id-shake256 algorithm identifiers, the parameters 
-	  MUST be absent. That is, the identifier SHALL be a SEQUENCE of one component, the OID. 
+     <t>In this specification, when using the id-shake128 or id-shake256 algorithm identifiers, the parameters MUST be absent. That is, the identifier SHALL be a SEQUENCE of one component, the OID. 
 	  <!-- present, and they MUST employ the ShakeOutputLen -->
 	  <!-- "MUST employ syntax borrowed from RFC4055 -->
 	  <!-- syntax that contains an encoded positive integer value of 32 or 64 respectively.--></t>
 	 
-	 <t>We define two identifiers for RSASSA-PSS signatures using SHAKEs.</t>
+	 
+	 <t><xref target="I-D.ietf-lamps-pkix-shake"/> 
+	 [ EDNOTE: Update reference with the RFC when it is ready ] 
+	 defines two identifiers for RSASSA-PSS signatures using SHAKEs which we include here for 
+	 convenience.</t>
 	 <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
@@ -259,7 +260,11 @@
 	 <t>The same RSASSA-PSS algorithm identifiers can be used for identifying 
 	 public keys and signatures.</t> 
 
- 	 <t>We define two algorithm identifiers of ECDSA signatures using SHAKEs.</t> 
+ 	 <t><xref target="I-D.ietf-lamps-pkix-shake"/> 
+	 [ EDNOTE: Update reference with the RFC when it is ready ] 
+	 also defines two algorithm 
+	 identifiers of ECDSA signatures using SHAKEs which we include here for 
+	 convenience.</t> 
 	 <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
@@ -287,8 +292,10 @@
 Note: x and y will be specified by NIST.
 ]]></artwork> </figure> -->
 
-	 <t>Two object identifiers for KMACs using SHAKE128 and SHAKE256 as defined in 
-	 by the National Institute of Standards and Technology (NIST) are </t>
+	 <t>Two object identifiers for KMACs using SHAKE128 and SHAKE256 as 
+	 defined in by the National Institute of Standards and Technology (NIST) 
+	 in <xref target="shake-nist-oids"/> and we include them here for 
+	 convenience.</t>
 	 <t><figure><artwork><![CDATA[
    id-KmacWithSHAKE128 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) 
        country(16) us(840) organization(1) gov(101) csor(3) 
@@ -337,8 +344,8 @@ Note: x and y will be specified by NIST.
 	  <section title="Signatures" anchor="sigs">      	  
         <t>In CMS, signature algorithm identifiers are located in the SignerInfo 
         signatureAlgorithm field of SignedData content type and countersignature attribute. 
-        Signature values are located in the SignerInfo signature field of SignedData and 
-        countersignature.</t>
+        Signature values are located in the SignerInfo signature field of 
+		SignedData content type and countersignature attribute.</t>
 		
 		<t>Conforming implementations that process RSASSA-PSS and 
 		ECDSA with SHAKE signatures when processing CMS data MUST recognize the 
@@ -363,7 +370,7 @@ Note: x and y will be specified by NIST.
 		  hash, mask generation algorithm, trailer and salt are embedded in 
 		  the OID definition.</t>
 		  
-		  <t>The hash algorithm to hash a message being signed and the hash and the hash
+		  <t>The hash algorithm to hash a message being signed and the hash 
           algorithm as the mask generation function used in RSASSA-PSS MUST be
           the same, SHAKE128 or SHAKE256 respectively.  The output-length of
           the hash algorithm which hashes the message SHALL be 32 or 64 bytes
@@ -497,7 +504,7 @@ Note: x and y will be specified by NIST.
         <c>[EDNOTE: THIS RFC]</c>
       </texttable>
 
-	  <t>EDNOTE: If the PKIX draft is standardized first maybe we should not 
+	  <!-- <t>EDNOTE: If the PKIX draft is standardized first maybe we should not 
 	  keep these OIDS as they are not new. </t>	
 	
 	  <t>IANA has assigned four OID identifiers in the 
@@ -521,7 +528,7 @@ Note: x and y will be specified by NIST.
             identified-organization(3) dod(6) internet(1) 
             security(5) mechanisms(5) pkix(7) algorithms(6)
             TBD4 }
-]]></artwork></figure></t>
+]]></artwork></figure></t> -->
 		
     </section>
       
@@ -649,7 +656,7 @@ Note: x and y will be specified by NIST.
 	  &RFC5911;
 	  &RFC6268;
 	  &RFC6979;
-	  <!-- <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-ietf-lamps-pkix-shake-00.xml"?> -->
+	  &I-D.ietf-lamps-pkix-shake;
 	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml-ids/reference.I-D.draft-housley-lamps-cms-sha3-hash-00.xml"?>
       <reference anchor="shake-nist-oids" target="https://csrc.nist.gov/Projects/Computer-Security-Objects-Register/Algorithm-Registration">
         <front>
@@ -696,7 +703,7 @@ Note: x and y will be specified by NIST.
           <date month="May" year="2009" />
         </front>
       </reference>
-      <reference anchor="SMI-PKIX" target="https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6">
+      <!-- <reference anchor="SMI-PKIX" target="https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6">
         <front>
           <title>SMI Security for PKIX Algorithms</title>
           <author>
@@ -704,7 +711,7 @@ Note: x and y will be specified by NIST.
           </author>
           <date month="March" year="2019" />
         </front>
-      </reference>
+      </reference> -->
       <!-- <reference anchor="SP800-90A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
         <front>
           <title>Recommendation for Random Number Generation Using Deterministic Random Bit Generators. NIST SP 800-90A</title>
