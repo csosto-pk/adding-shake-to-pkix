@@ -221,7 +221,8 @@
      SHAKE as this hash, this parameter MUST be id-shake128-len or id-
      shake256-len as specified in <xref target="mdmgf" /> above. </t>    -->
 
-     <t>This section defines four new object identifiers (OIDs) for using SHAKE128 and SHAKE256 in CMS. </t>
+     <t>This section identifies eight new object identifiers (OIDs) 
+	 for using SHAKE128 and SHAKE256 in CMS.</t>
 	 
 	 <t>Two object identifiers for SHAKE128 and SHAKE256 hash functions are defined 
 	 in <xref target="shake-nist-oids"/> and we include them here for convenience.</t>
