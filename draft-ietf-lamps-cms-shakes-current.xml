@@ -168,13 +168,12 @@
 
     <t>In the SHA-3 family, two extendable-output functions (SHAKEs), SHAKE128 and SHAKE256, 
 	are defined. Four other hash function instances, SHA3-224, SHA3-256, 
-	SHA3-384, and SHA3-512 are also defined but are out of scope for this document. 
+	SHA3-384, and SHA3-512, are also defined but are out of scope for this document. 
 	A SHAKE is a variable length hash function defined as SHAKE(M, d) where the 
-	output is a d-bits long digest of message M. The corresponding collision and second 
-	preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits 
-	respectively (Appendix A.1 <xref target="SHA3"/>). And, the 
-	corresponding collision and second preimage resistance 
-	strengths for SHAKE256 are min(d/2,256) and min(d,256) bits respectively.</t>
+	output is a d-bits-long digest of message M. The corresponding collision and  second-preimage-resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits, 
+	respectively (Appendix A.1 <xref target="SHA3"/>). And the 
+	corresponding collision and second-preimage-resistance 
+	strengths for SHAKE256 are min(d/2,256) and min(d,256) bits, respectively.</t>
 
 	<t>A SHAKE can be used in CMS as the message digest function (to hash the 
     message to be signed) in RSASSA-PSS and ECDSA, message 
@@ -333,7 +332,7 @@ Note: x and y will be specified by NIST.
 		SignerInfo, DigestedData,  and the AuthenticatedData digestAlgorithm fields 
 		in CMS <xref target="RFC5652"/>. The encoding MUST omit the parameters field 
 		and the output size, d, for the SHAKE128 or SHAKE256 message digest MUST be 
-		256 or 512 bits respectively.</t>
+		256 or 512 bits, respectively.</t>
 	    
 	    <t>The digest values are located in the DigestedData field and the Message 
 	    Digest authenticated attribute included in the signedAttributes of the 
@@ -373,9 +372,9 @@ Note: x and y will be specified by NIST.
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash 
           algorithm as the mask generation function used in RSASSA-PSS MUST be
-          the same, SHAKE128 or SHAKE256 respectively.  The output-length of
-          the hash algorithm which hashes the message SHALL be 32 or 64 bytes
-          respectively.</t> 
+          the same: both SHAKE128 or both SHAKE256. The output length of
+          the hash algorithm which hashes the message SHALL be 32 (for SHAKE128) 
+		  or 64 bytes (for SHAKE256). </t> 
 		  
 	      <t>The mask generation function takes an octet string of variable length 
           and a desired output length as input, and outputs an octet string of 
@@ -384,18 +383,19 @@ Note: x and y will be specified by NIST.
           uses the hash function in multiple iterations as specified in 
           Section B.2.1 of [RFC8017].  In other words, the MGF is defined as 
           the SHAKE128 or SHAKE256 output of the mgfSeed for id-RSASSA-PSS-
-          SHAKE128 and id-RSASSA-PSS-SHAKE256 respectively.  The mgfSeed is the seed 
+          SHAKE128 and id-RSASSA-PSS-SHAKE256, respectively.  The mgfSeed is the seed 
 		  from which mask is generated, an octet string <xref target="RFC8017"/>.		  
 		  As explained in Step 9 of section 9.1.1 of <xref target="RFC8017"/>, the output 
 		  length of the MGF is emLen - hLen - 1 bytes. emLen is the maximum message 
 		  length ceil((n-1)/8), where n is the RSA modulus in bits. hLen is 32 and 
-		  64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256 respectively. 
+		  64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256, respectively. 
 		  Thus when SHAKE is used as the MGF, the SHAKE output length maskLen is 
-		  (n - 264) or (n - 520) bits respectively. For example, when RSA modulus n is 2048, 
+		  (n - 264) or (n - 520) bits, respectively. For example, when RSA modulus n is 2048, 
 		  the output length of SHAKE128 or SHAKE256 as the MGF will be 1784 or 1528-bits 
-		  when id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.</t>
+		  when id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used, respectively.</t>
 		  
-		  <t>The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
+		  <t>The RSASSA-PSS saltLength MUST be 32 bytes for id-RSASSA-PSS-SHAKE128 
+		  or 64 bytes for id-RSASSA-PSS-SHAKE256. 
           Finally, the trailerField MUST be 1, which represents the trailer
           field with hexadecimal value 0xBC <xref target="RFC8017"/>.</t>
 	    </section>
@@ -412,23 +412,23 @@ Note: x and y will be specified by NIST.
 		  <t>For simplicity and compliance with the ECDSA standard specification, 
 		  the output size of the hash function must be explicitly determined. 
 		  The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 256 
-		  or 512 bits respectively. </t> 
+		  or 512 bits, respectively. </t> 
 		  
-		  <t>It is RECOMMENDED that conforming implementations that generate 
-		  ECDSA with SHAKE signatures in CMS generate such signatures with a 
-		  deterministically generated, non-random k in accordance 
-		  with all the requirements specified in <xref target="RFC6979"/>. 
+		  <t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
+		  in certificates or CRLs SHOULD generate such signatures with a 
+		  deterministically generated, non-random k in accordance with all 
+		  the requirements specified in <xref target="RFC6979"/>.  
 		  <!-- Sections 7.2 and 7.3 of 
 		  <xref target="X9.62"/> or with all the requirements specified in Section 
 		  4.1.3 of <xref target="SEC1"/>. -->
 		  They MAY also generate such signatures 
 		  in accordance with all other recommendations in <xref target="X9.62"/> or 
 		  <xref target="SEC1"/> if they have a stated policy that requires 
-		  conformance to these standards. These standards have not specified  
+		  conformance to those standards. Those standards have not specified  
 		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
-		  SHAKE256 with output length being 32 and 64 octets respectively can  
+		  SHAKE256 with output length being 32 and 64 octets, respectively can  
 		  be used instead of 256 and 512-bit output hash algorithms such as SHA256 
-		  and SHA512 used in the standards.</t>
+		  and SHA512.</t>
 
 		  <!-- <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
 		  the deterministic k. Conforming implementations that generate deterministic 
@@ -480,15 +480,15 @@ Note: x and y will be specified by NIST.
 	    <t>When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 OID  
 	    is used as the MAC algorithm identifier, the parameters field is optional 
 	    (absent or present). If absent, the SHAKE256 output length used in KMAC is 
-	    256 or 512 bits respectively and the customization string is an empty string by default.</t>
+	    256 or 512 bits, respectively, and the customization string is an empty string by default.</t>
 
 		<t>Conforming implementations that process KMACs with the SHAKEs 
 		when processing CMS data MUST recognize these identifiers.</t>
 	    
 	    <t>When calculating the KMAC output, the variable N is 0xD2B282C2, S 
 	    is an empty string, and L, the integer representing the requested output 
-	    length in bits, is 256 or 512 for KmacWithSHAKE128 or KmacWithSHAKE256 
-	    respectively in this specification.</t>
+	    length in bits, is 256 or 512 for KmacWithSHAKE128 or KmacWithSHAKE256, 
+	    respectively, in this specification.</t>
 	  </section>
 	</section> 
 	
@@ -809,11 +809,11 @@ Note: x and y will be specified by NIST.
       -- for a public key or signature in CMS, the AlgorithmIdentifier
       -- parameters field MUST be absent. The message digest algorithm
       -- used in RSASSA-PSS MUST be SHAKE128 or SHAKE256 with a 32 or
-      -- 64 byte outout length respectively. The mask generation 
+      -- 64 byte outout length, respectively. The mask generation 
       -- function MUST be SHAKE128 or SHAKE256 with an output length
-      -- of (n - 264) or (n - 520) bits respectively, where n
+      -- of (n - 264) or (n - 520) bits, respectively, where n
       -- is the RSA modulus in bits. The RSASSA-PSS saltLength MUST
-      -- be 32 or 64 bytes respectively. The trailerField MUST be 1, 
+      -- be 32 or 64 bytes, respectively. The trailerField MUST be 1, 
 	  -- which represents the trailer field with hexadecimal value 
 	  -- 0xBC. Regardless of id-RSASSA-PSS-* or rsaEncryption being 
 	  -- used as the AlgorithmIdentifier of the OriginatorPublicKey, 
@@ -838,7 +838,7 @@ Note: x and y will be specified by NIST.
       -- MUST be absent and the signature algorithm should be 
       -- deterministic ECDSA [RFC6979]. The message digest MUST
       -- be SHAKE128 or SHAKE256 with a 32 or 64 byte outout
-      -- length respectively. In both cases, the ECDSA public key,
+      -- length, respectively. In both cases, the ECDSA public key,
       -- MUST be encoded using the id-ecPublicKey type.
 
    -- From RFC5480, for reference.

@@ -215,19 +215,18 @@
 	
     <section title="Introduction">
       <t>This document describes cryptographic algorithm identifiers 
-	  for several cryptographic algorithms which use variable length output 
+	  for several cryptographic algorithms that use variable length output 
 	  SHAKE functions introduced in <xref target="SHA3"/> which can be used 
 	  with the Internet X.509 Certificate and CRL profile <xref target="RFC5280"/>. </t>
 	  
       <t>In the SHA-3 family, two extendable-output functions (SHAKEs),  
 	  SHAKE128 and SHAKE256, are defined. Four other hash function instances, SHA3-224, SHA3-256, 
-	  SHA3-384, and SHA3-512 are also defined but are out of scope for this document. 
+	  SHA3-384, and SHA3-512, are also defined but are out of scope for this document. 
 	  A SHAKE is a variable length hash function defined as SHAKE(M, d) where the 
-	  output is a d-bits long digest of message M. The corresponding collision and second 
-	  preimage resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) 
-	  bits respectively (Appendix A.1 <xref target="SHA3"/>). 
-	  And, the corresponding collision and second preimage resistance strengths for SHAKE256 
-	  are min(d/2,256) and min(d,256) bits respectively.</t>
+	  output is a d-bits-long digest of message M. The corresponding collision and  second-preimage-resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) 
+	  bits, respectively (Appendix A.1 <xref target="SHA3"/>). 
+	  And the corresponding collision and second-preimage-resistance strengths for SHAKE256 
+	  are min(d/2,256) and min(d,256) bits, respectively.</t>
 	  
 	  <t>A SHAKE can be used as the message digest function (to hash the message to be signed) 
 	  in RSASSA-PSS <xref target="RFC8017"/> and ECDSA <xref target="X9.62"/> 
@@ -324,7 +323,7 @@
 	  for each use of SHAKE128 or SHAKE256 in RSASSA-PSS and ECDSA. In summary, when hashing messages
       to be signed, output lengths of SHAKE128 and SHAKE256 are 256 and 512 bits respectively. 
 	  When the SHAKEs are used as mask generation functions RSASSA-PSS, their output length is 
-	  (n - 264) or (n - 520) bits respectively, where n is the RSA modulus size in bits.</t>
+	  (n - 264) or (n - 520) bits, respectively, where n is the RSA modulus size in bits.</t>
 	</section> 
 	
 	<section title="Use in PKIX">
@@ -355,12 +354,11 @@
 		explicitly by using the OIDs specified in <xref target="oids"/> when 
 		encoding RSASSA-PSS or ECDSA with SHAKE signatures 
 		in certificates and CRLs.
-		Conforming client implementations that process RSASSA-PSS or ECDSA 
-		with SHAKE signatures when processing certificates and CRLs 
-		MUST recognize the corresponding OIDs.
+		Conforming client implementations that process certificates and CRLs 
+		using RSASSA-PSS or ECDSA with SHAKE MUST recognize the corresponding OIDs.
 		Encoding rules for RSASSA-PSS and ECDSA 
 		signature values are specified in <xref target="RFC4055"/> and 
-		<xref target="RFC5480"/> respectively.</t>
+		<xref target="RFC5480"/>, respectively.</t>
 		
 	    <t>When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus and ECDSA 
 		curve order SHOULD be chosen in line with the SHAKE output length. 
@@ -383,9 +381,9 @@
 		  
 		  <t>The hash algorithm to hash a message being signed and the hash algorithm as the
 		  mask generation function <!-- "MGF(H, emLen - hLen - 1)" <xref target="RFC8017"/> -->
-		  used in RSASSA-PSS MUST be the same, SHAKE128 or SHAKE256 respectively. The 
-		  output-length of the hash algorithm which hashes the message SHALL be 32 or 
-		  64 bytes respectively. </t>
+		  used in RSASSA-PSS MUST be the same: both SHAKE128 or both SHAKE256. The 
+		  output length of the hash algorithm which hashes the message SHALL be 32 
+		  (for SHAKE128) or 64 bytes (for SHAKE256). </t>
 		  <t>The mask generation function takes an octet string of variable length and
 		  a desired output length as input, and outputs an octet 
 		  string of the desired length. In RSASSA-PSS with SHAKEs, the SHAKEs MUST be 
@@ -400,18 +398,19 @@
     SHAKE256(mgfSeed, maskLen)
 ]]></artwork></figure></t> --> 
           the SHAKE128 or SHAKE256 output of the mgfSeed for id-RSASSA-PSS-SHAKE128 and 
-		  id-RSASSA-PSS-SHAKE256 respectively. The mgfSeed is the seed 
+		  id-RSASSA-PSS-SHAKE256, respectively. The mgfSeed is the seed 
 		  from which mask is generated, an octet string <xref target="RFC8017"/>.		  
 		  As explained in Step 9 of section 9.1.1 of <xref target="RFC8017"/>, the output 
 		  length of the MGF is emLen - hLen - 1 bytes. emLen is the maximum message 
 		  length ceil((n-1)/8), where n is the RSA modulus in bits. hLen is 32 and 
-		  64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256 respectively. 
+		  64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256, respectively. 
 		  Thus when SHAKE is used as the MGF, the SHAKE output length maskLen is 
-		  (n - 264) or (n - 520) bits respectively. For example, when RSA modulus n is 2048, 
+		  (n - 264) or (n - 520) bits, respectively. For example, when RSA modulus n is 2048, 
 		  the output length of SHAKE128 or SHAKE256 as the MGF will be 1784 or 1528-bits 
-		  when id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively. </t>
+		  when id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used, respectively. </t>
 		      
-		  <t>The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively. 
+		  <t>The RSASSA-PSS saltLength MUST be 32 bytes for id-RSASSA-PSS-SHAKE128 
+		  or 64 bytes for id-RSASSA-PSS-SHAKE256. 
 		  Finally, the trailerField MUST be 1, which represents 
 		  the trailer field with hexadecimal value 0xBC <xref target="RFC8017"/>.</t>
 		<!-- <t><figure><artwork><![CDATA[
@@ -450,23 +449,23 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
           <t>For simplicity and compliance with the ECDSA standard specification, 
 	      the output length of the hash function must be explicitly determined. The 
 	      output length, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 256 or 512  
-		  bits respectively. </t>
+		  bits, respectively. </t>
 	  	  	
-		  <t>It is RECOMMENDED that conforming CA implementations that generate ECDSA 
-		  with SHAKE signatures in certificates or CRLs generate such signatures 
-		  with a deterministically generated, non-random k in accordance 
-		  with all the requirements specified in <xref target="RFC6979"/>. 
+		  <t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
+		  in certificates or CRLs SHOULD generate such signatures with a 
+		  deterministically generated, non-random k in accordance with all 
+		  the requirements specified in <xref target="RFC6979"/>. 
 		  <!-- Sections 7.2 and 7.3 of 
 		  <xref target="X9.62"/> or with all the requirements specified in Section 
 		  4.1.3 of <xref target="SEC1"/>. -->
 		  They MAY also generate such signatures 
 		  in accordance with all other recommendations in <xref target="X9.62"/> or 
 		  <xref target="SEC1"/> if they have a stated policy that requires 
-		  conformance to these standards. These standards have not specified  
+		  conformance to those standards. Those standards have not specified  
 		  SHAKE128 and SHAKE256 as hash algorithm options. However, SHAKE128 and 
-		  SHAKE256 with output length being 32 and 64 octets respectively can  
+		  SHAKE256 with output length being 32 and 64 octets, respectively, can  
 		  be used instead of 256 and 512-bit output hash algorithms such as SHA256 
-		  and SHA512 used in the standards.</t>
+		  and SHA512.</t>
 		  
 		  <!-- <t>In Section 3.2 "Generation of k" of <xref target="RFC6979"/>, HMAC is used to derive 
 		  the deterministic k. Conforming implementations that generate deterministic 

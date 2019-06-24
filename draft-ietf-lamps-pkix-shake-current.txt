@@ -6,7 +6,7 @@ LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Updates: 3279 (if approved)                                      Q. Dang
 Intended status: Standards Track                                    NIST
-Expires: December 11, 2019                                  June 9, 2019
+Expires: December 26, 2019                                 June 24, 2019
 
 
      Internet X.509 Public Key Infrastructure: Additional Algorithm
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 11, 2019.
+   This Internet-Draft will expire on December 26, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 1]
+Kampanakis & Dang       Expires December 26, 2019               [Page 1]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 2]
+Kampanakis & Dang       Expires December 26, 2019               [Page 2]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -165,7 +165,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 3]
+Kampanakis & Dang       Expires December 26, 2019               [Page 3]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -203,25 +203,25 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 2.  Introduction
 
    This document describes cryptographic algorithm identifiers for
-   several cryptographic algorithms which use variable length output
+   several cryptographic algorithms that use variable length output
    SHAKE functions introduced in [SHA3] which can be used with the
    Internet X.509 Certificate and CRL profile [RFC5280].
 
    In the SHA-3 family, two extendable-output functions (SHAKEs),
    SHAKE128 and SHAKE256, are defined.  Four other hash function
-   instances, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also
+   instances, SHA3-224, SHA3-256, SHA3-384, and SHA3-512, are also
    defined but are out of scope for this document.  A SHAKE is a
    variable length hash function defined as SHAKE(M, d) where the output
-   is a d-bits long digest of message M.  The corresponding collision
-   and second preimage resistance strengths for SHAKE128 are
-   min(d/2,128) and min(d,128) bits respectively (Appendix A.1 [SHA3]).
-   And, the corresponding collision and second preimage resistance
-   strengths for SHAKE256 are min(d/2,256) and min(d,256) bits
+   is a d-bits-long digest of message M.  The corresponding collision
+   and second-preimage-resistance strengths for SHAKE128 are
+   min(d/2,128) and min(d,128) bits, respectively (Appendix A.1 [SHA3]).
+   And the corresponding collision and second-preimage-resistance
+   strengths for SHAKE256 are min(d/2,256) and min(d,256) bits,
    respectively.
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 4]
+Kampanakis & Dang       Expires December 26, 2019               [Page 4]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -277,7 +277,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 5]
+Kampanakis & Dang       Expires December 26, 2019               [Page 5]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -290,7 +290,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    summary, when hashing messages to be signed, output lengths of
    SHAKE128 and SHAKE256 are 256 and 512 bits respectively.  When the
    SHAKEs are used as mask generation functions RSASSA-PSS, their output
-   length is (n - 264) or (n - 520) bits respectively, where n is the
+   length is (n - 264) or (n - 520) bits, respectively, where n is the
    RSA modulus size in bits.
 
 5.  Use in PKIX
@@ -317,11 +317,10 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    Conforming CA implementations MUST specify the algorithms explicitly
    by using the OIDs specified in Section 4 when encoding RSASSA-PSS or
    ECDSA with SHAKE signatures in certificates and CRLs.  Conforming
-   client implementations that process RSASSA-PSS or ECDSA with SHAKE
-   signatures when processing certificates and CRLs MUST recognize the
-   corresponding OIDs.  Encoding rules for RSASSA-PSS and ECDSA
-   signature values are specified in [RFC4055] and [RFC5480]
-   respectively.
+   client implementations that process certificates and CRLs using
+   RSASSA-PSS or ECDSA with SHAKE MUST recognize the corresponding OIDs.
+   Encoding rules for RSASSA-PSS and ECDSA signature values are
+   specified in [RFC4055] and [RFC5480], respectively.
 
    When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus and ECDSA
    curve order SHOULD be chosen in line with the SHAKE output length.
@@ -333,7 +332,8 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 6]
+
+Kampanakis & Dang       Expires December 26, 2019               [Page 6]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -352,9 +352,9 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
    The hash algorithm to hash a message being signed and the hash
    algorithm as the mask generation function used in RSASSA-PSS MUST be
-   the same, SHAKE128 or SHAKE256 respectively.  The output-length of
-   the hash algorithm which hashes the message SHALL be 32 or 64 bytes
-   respectively.
+   the same: both SHAKE128 or both SHAKE256.  The output length of the
+   hash algorithm which hashes the message SHALL be 32 (for SHAKE128) or
+   64 bytes (for SHAKE256).
 
    The mask generation function takes an octet string of variable length
    and a desired output length as input, and outputs an octet string of
@@ -363,21 +363,22 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    uses the hash function in multiple iterations as specified in
    Section B.2.1 of [RFC8017].  In other words, the MGF is defined as
    the SHAKE128 or SHAKE256 output of the mgfSeed for id-RSASSA-PSS-
-   SHAKE128 and id-RSASSA-PSS-SHAKE256 respectively.  The mgfSeed is the
-   seed from which mask is generated, an octet string [RFC8017].  As
+   SHAKE128 and id-RSASSA-PSS-SHAKE256, respectively.  The mgfSeed is
+   the seed from which mask is generated, an octet string [RFC8017].  As
    explained in Step 9 of section 9.1.1 of [RFC8017], the output length
    of the MGF is emLen - hLen - 1 bytes. emLen is the maximum message
    length ceil((n-1)/8), where n is the RSA modulus in bits. hLen is 32
-   and 64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256
+   and 64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256,
    respectively.  Thus when SHAKE is used as the MGF, the SHAKE output
-   length maskLen is (n - 264) or (n - 520) bits respectively.  For
+   length maskLen is (n - 264) or (n - 520) bits, respectively.  For
    example, when RSA modulus n is 2048, the output length of SHAKE128 or
    SHAKE256 as the MGF will be 1784 or 1528-bits when id-RSASSA-PSS-
-   SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.
+   SHAKE128 or id-RSASSA-PSS-SHAKE256 is used, respectively.
 
-   The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
-   Finally, the trailerField MUST be 1, which represents the trailer
-   field with hexadecimal value 0xBC [RFC8017].
+   The RSASSA-PSS saltLength MUST be 32 bytes for id-RSASSA-PSS-SHAKE128
+   or 64 bytes for id-RSASSA-PSS-SHAKE256.  Finally, the trailerField
+   MUST be 1, which represents the trailer field with hexadecimal value
+   0xBC [RFC8017].
 
 5.1.2.  ECDSA Signatures
 
@@ -385,34 +386,34 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    [X9.62].  When the id-ecdsa-with-shake128 or id-ecdsa-with-shake256
    (specified in Section 4) algorithm identifier appears, the respective
    SHAKE function (SHAKE128 or SHAKE256) is used as the hash.  The
-   encoding MUST omit the parameters field.  That is, the
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 7]
+Kampanakis & Dang       Expires December 26, 2019               [Page 7]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
+   encoding MUST omit the parameters field.  That is, the
    AlgorithmIdentifier SHALL be a SEQUENCE of one component, the OID id-
    ecdsa-with-shake128 or id-ecdsa-with-shake256.
 
    For simplicity and compliance with the ECDSA standard specification,
    the output length of the hash function must be explicitly determined.
    The output length, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be
-   256 or 512 bits respectively.
+   256 or 512 bits, respectively.
 
-   It is RECOMMENDED that conforming CA implementations that generate
-   ECDSA with SHAKE signatures in certificates or CRLs generate such
-   signatures with a deterministically generated, non-random k in
-   accordance with all the requirements specified in [RFC6979].  They
-   MAY also generate such signatures in accordance with all other
-   recommendations in [X9.62] or [SEC1] if they have a stated policy
-   that requires conformance to these standards.  These standards have
-   not specified SHAKE128 and SHAKE256 as hash algorithm options.
-   However, SHAKE128 and SHAKE256 with output length being 32 and 64
-   octets respectively can be used instead of 256 and 512-bit output
-   hash algorithms such as SHA256 and SHA512 used in the standards.
+   Conforming CA implementations that generate ECDSA with SHAKE
+   signatures in certificates or CRLs SHOULD generate such signatures
+   with a deterministically generated, non-random k in accordance with
+   all the requirements specified in [RFC6979].  They MAY also generate
+   such signatures in accordance with all other recommendations in
+   [X9.62] or [SEC1] if they have a stated policy that requires
+   conformance to those standards.  Those standards have not specified
+   SHAKE128 and SHAKE256 as hash algorithm options.  However, SHAKE128
+   and SHAKE256 with output length being 32 and 64 octets, respectively,
+   can be used instead of 256 and 512-bit output hash algorithms such as
+   SHA256 and SHA512.
 
 5.2.  Public Keys
 
@@ -440,15 +441,17 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    algorithm explicitly by using the OIDs specified in Section 4 when
    encoding ECDSA with SHAKE public keys in certificates and CRLs.
    Conforming client implementations that process ECDSA with SHAKE
-   public keys when processing certificates and CRLs MUST recognize the
-   corresponding OIDs.
 
 
 
-Kampanakis & Dang       Expires December 11, 2019               [Page 8]
+
+Kampanakis & Dang       Expires December 26, 2019               [Page 8]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
+
+   public keys when processing certificates and CRLs MUST recognize the
+   corresponding OIDs.
 
    The identifier parameters, as explained in Section 4, MUST be absent.
 
@@ -495,16 +498,16 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    NIST has defined appropriate use of the hash functions in terms of
    the algorithm strengths and expected time frames for secure use in
    Special Publications (SPs) [SP800-78-4] and [SP800-107].  These
-   documents can be used as guides to choose appropriate key sizes for
-   various security scenarios.
 
 
 
-
-Kampanakis & Dang       Expires December 11, 2019               [Page 9]
+Kampanakis & Dang       Expires December 26, 2019               [Page 9]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
+
+   documents can be used as guides to choose appropriate key sizes for
+   various security scenarios.
 
 8.  Acknowledgements
 
@@ -554,10 +557,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-
-
-
-Kampanakis & Dang       Expires December 11, 2019              [Page 10]
+Kampanakis & Dang       Expires December 26, 2019              [Page 10]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -613,7 +613,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang       Expires December 11, 2019              [Page 11]
+Kampanakis & Dang       Expires December 26, 2019              [Page 11]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -669,7 +669,7 @@ Appendix A.  ASN.1 module
 
 
 
-Kampanakis & Dang       Expires December 11, 2019              [Page 12]
+Kampanakis & Dang       Expires December 26, 2019              [Page 12]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -725,7 +725,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang       Expires December 11, 2019              [Page 13]
+Kampanakis & Dang       Expires December 26, 2019              [Page 13]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -781,7 +781,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang       Expires December 11, 2019              [Page 14]
+Kampanakis & Dang       Expires December 26, 2019              [Page 14]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -837,7 +837,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang       Expires December 11, 2019              [Page 15]
+Kampanakis & Dang       Expires December 26, 2019              [Page 15]
 
 Internet-Draft         SHAKE identifiers in X.509              June 2019
 
@@ -893,4 +893,4 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang       Expires December 11, 2019              [Page 16]
+Kampanakis & Dang       Expires December 26, 2019              [Page 16]

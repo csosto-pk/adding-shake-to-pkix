@@ -6,7 +6,7 @@ LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Updates: 3370 (if approved)                                      Q. Dang
 Intended status: Standards Track                                    NIST
-Expires: December 19, 2019                                 June 17, 2019
+Expires: December 26, 2019                                 June 24, 2019
 
 
   Use of the SHAKE One-way Hash Functions in the Cryptographic Message
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 19, 2019.
+   This Internet-Draft will expire on December 26, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 1]
+Kampanakis & Dang       Expires December 26, 2019               [Page 1]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 2]
+Kampanakis & Dang       Expires December 26, 2019               [Page 2]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -165,7 +165,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 3]
+Kampanakis & Dang       Expires December 26, 2019               [Page 3]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -209,19 +209,19 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
    In the SHA-3 family, two extendable-output functions (SHAKEs),
    SHAKE128 and SHAKE256, are defined.  Four other hash function
-   instances, SHA3-224, SHA3-256, SHA3-384, and SHA3-512 are also
+   instances, SHA3-224, SHA3-256, SHA3-384, and SHA3-512, are also
    defined but are out of scope for this document.  A SHAKE is a
    variable length hash function defined as SHAKE(M, d) where the output
-   is a d-bits long digest of message M.  The corresponding collision
-   and second preimage resistance strengths for SHAKE128 are
-   min(d/2,128) and min(d,128) bits respectively (Appendix A.1 [SHA3]).
-   And, the corresponding collision and second preimage resistance
-   strengths for SHAKE256 are min(d/2,256) and min(d,256) bits
+   is a d-bits-long digest of message M.  The corresponding collision
+   and second-preimage-resistance strengths for SHAKE128 are
+   min(d/2,128) and min(d,128) bits, respectively (Appendix A.1 [SHA3]).
+   And the corresponding collision and second-preimage-resistance
+   strengths for SHAKE256 are min(d/2,256) and min(d,256) bits,
    respectively.
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 4]
+Kampanakis & Dang       Expires December 26, 2019               [Page 4]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -242,7 +242,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 3.  Identifiers
 
-   This section defines four new object identifiers (OIDs) for using
+   This section identifies eight new object identifiers (OIDs) for using
    SHAKE128 and SHAKE256 in CMS.
 
    Two object identifiers for SHAKE128 and SHAKE256 hash functions are
@@ -277,7 +277,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 5]
+Kampanakis & Dang       Expires December 26, 2019               [Page 5]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -333,13 +333,13 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 6]
+Kampanakis & Dang       Expires December 26, 2019               [Page 6]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
 
    output size, d, for the SHAKE128 or SHAKE256 message digest MUST be
-   256 or 512 bits respectively.
+   256 or 512 bits, respectively.
 
    The digest values are located in the DigestedData field and the
    Message Digest authenticated attribute included in the
@@ -380,16 +380,16 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
    The hash algorithm to hash a message being signed and the hash
    algorithm as the mask generation function used in RSASSA-PSS MUST be
-   the same, SHAKE128 or SHAKE256 respectively.  The output-length of
-   the hash algorithm which hashes the message SHALL be 32 or 64 bytes
-   respectively.
+   the same: both SHAKE128 or both SHAKE256.  The output length of the
+   hash algorithm which hashes the message SHALL be 32 (for SHAKE128) or
+   64 bytes (for SHAKE256).
 
    The mask generation function takes an octet string of variable length
    and a desired output length as input, and outputs an octet string of
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 7]
+Kampanakis & Dang       Expires December 26, 2019               [Page 7]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -399,21 +399,22 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    uses the hash function in multiple iterations as specified in
    Section B.2.1 of [RFC8017].  In other words, the MGF is defined as
    the SHAKE128 or SHAKE256 output of the mgfSeed for id-RSASSA-PSS-
-   SHAKE128 and id-RSASSA-PSS-SHAKE256 respectively.  The mgfSeed is the
-   seed from which mask is generated, an octet string [RFC8017].  As
+   SHAKE128 and id-RSASSA-PSS-SHAKE256, respectively.  The mgfSeed is
+   the seed from which mask is generated, an octet string [RFC8017].  As
    explained in Step 9 of section 9.1.1 of [RFC8017], the output length
    of the MGF is emLen - hLen - 1 bytes. emLen is the maximum message
    length ceil((n-1)/8), where n is the RSA modulus in bits. hLen is 32
-   and 64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256
+   and 64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256,
    respectively.  Thus when SHAKE is used as the MGF, the SHAKE output
-   length maskLen is (n - 264) or (n - 520) bits respectively.  For
+   length maskLen is (n - 264) or (n - 520) bits, respectively.  For
    example, when RSA modulus n is 2048, the output length of SHAKE128 or
    SHAKE256 as the MGF will be 1784 or 1528-bits when id-RSASSA-PSS-
-   SHAKE128 or id-RSASSA-PSS-SHAKE256 is used respectively.
+   SHAKE128 or id-RSASSA-PSS-SHAKE256 is used, respectively.
 
-   The RSASSA-PSS saltLength MUST be 32 or 64 bytes respectively.
-   Finally, the trailerField MUST be 1, which represents the trailer
-   field with hexadecimal value 0xBC [RFC8017].
+   The RSASSA-PSS saltLength MUST be 32 bytes for id-RSASSA-PSS-SHAKE128
+   or 64 bytes for id-RSASSA-PSS-SHAKE256.  Finally, the trailerField
+   MUST be 1, which represents the trailer field with hexadecimal value
+   0xBC [RFC8017].
 
 4.2.2.  ECDSA Signatures
 
@@ -428,24 +429,23 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    For simplicity and compliance with the ECDSA standard specification,
    the output size of the hash function must be explicitly determined.
    The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be
-   256 or 512 bits respectively.
+   256 or 512 bits, respectively.
 
-   It is RECOMMENDED that conforming implementations that generate ECDSA
-   with SHAKE signatures in CMS generate such signatures with a
-   deterministically generated, non-random k in accordance with all the
-   requirements specified in [RFC6979].  They MAY also generate such
-   signatures in accordance with all other recommendations in [X9.62] or
-   [SEC1] if they have a stated policy that requires conformance to
-   these standards.  These standards have not specified SHAKE128 and
-   SHAKE256 as hash algorithm options.  However, SHAKE128 and SHAKE256
-   with output length being 32 and 64 octets respectively can be used
-   instead of 256 and 512-bit output hash algorithms such as SHA256 and
-   SHA512 used in the standards.
-
-
+   Conforming CA implementations that generate ECDSA with SHAKE
+   signatures in certificates or CRLs SHOULD generate such signatures
+   with a deterministically generated, non-random k in accordance with
+   all the requirements specified in [RFC6979].  They MAY also generate
+   such signatures in accordance with all other recommendations in
+   [X9.62] or [SEC1] if they have a stated policy that requires
+   conformance to those standards.  Those standards have not specified
+   SHAKE128 and SHAKE256 as hash algorithm options.  However, SHAKE128
+   and SHAKE256 with output length being 32 and 64 octets, respectively
+   can be used instead of 256 and 512-bit output hash algorithms such as
+   SHA256 and SHA512.
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 8]
+
+Kampanakis & Dang       Expires December 26, 2019               [Page 8]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -486,8 +486,8 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 OID is used as
    the MAC algorithm identifier, the parameters field is optional
    (absent or present).  If absent, the SHAKE256 output length used in
-   KMAC is 256 or 512 bits respectively and the customization string is
-   an empty string by default.
+   KMAC is 256 or 512 bits, respectively, and the customization string
+   is an empty string by default.
 
    Conforming implementations that process KMACs with the SHAKEs when
    processing CMS data MUST recognize these identifiers.
@@ -495,13 +495,13 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    When calculating the KMAC output, the variable N is 0xD2B282C2, S is
    an empty string, and L, the integer representing the requested output
    length in bits, is 256 or 512 for KmacWithSHAKE128 or
-   KmacWithSHAKE256 respectively in this specification.
+   KmacWithSHAKE256, respectively, in this specification.
 
 
 
 
 
-Kampanakis & Dang       Expires December 19, 2019               [Page 9]
+Kampanakis & Dang       Expires December 26, 2019               [Page 9]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -557,7 +557,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 10]
+Kampanakis & Dang       Expires December 26, 2019              [Page 10]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -613,7 +613,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 11]
+Kampanakis & Dang       Expires December 26, 2019              [Page 11]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -669,7 +669,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 12]
+Kampanakis & Dang       Expires December 26, 2019              [Page 12]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -725,7 +725,7 @@ Appendix A.  ASN.1 Module
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 13]
+Kampanakis & Dang       Expires December 26, 2019              [Page 13]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -781,7 +781,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 14]
+Kampanakis & Dang       Expires December 26, 2019              [Page 14]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -796,11 +796,11 @@ Internet-Draft                SHAKEs in CMS                    June 2019
       -- for a public key or signature in CMS, the AlgorithmIdentifier
       -- parameters field MUST be absent. The message digest algorithm
       -- used in RSASSA-PSS MUST be SHAKE128 or SHAKE256 with a 32 or
-      -- 64 byte outout length respectively. The mask generation
+      -- 64 byte outout length, respectively. The mask generation
       -- function MUST be SHAKE128 or SHAKE256 with an output length
-      -- of (n - 264) or (n - 520) bits respectively, where n
+      -- of (n - 264) or (n - 520) bits, respectively, where n
       -- is the RSA modulus in bits. The RSASSA-PSS saltLength MUST
-      -- be 32 or 64 bytes respectively. The trailerField MUST be 1,
+      -- be 32 or 64 bytes, respectively. The trailerField MUST be 1,
           -- which represents the trailer field with hexadecimal value
           -- 0xBC. Regardless of id-RSASSA-PSS-* or rsaEncryption being
           -- used as the AlgorithmIdentifier of the OriginatorPublicKey,
@@ -825,7 +825,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
       -- MUST be absent and the signature algorithm should be
       -- deterministic ECDSA [RFC6979]. The message digest MUST
       -- be SHAKE128 or SHAKE256 with a 32 or 64 byte outout
-      -- length respectively. In both cases, the ECDSA public key,
+      -- length, respectively. In both cases, the ECDSA public key,
       -- MUST be encoded using the id-ecPublicKey type.
 
    -- From RFC5480, for reference.
@@ -837,7 +837,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 15]
+Kampanakis & Dang       Expires December 26, 2019              [Page 15]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -893,7 +893,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 16]
+Kampanakis & Dang       Expires December 26, 2019              [Page 16]
 
 Internet-Draft                SHAKEs in CMS                    June 2019
 
@@ -949,4 +949,4 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang       Expires December 19, 2019              [Page 17]
+Kampanakis & Dang       Expires December 26, 2019              [Page 17]
