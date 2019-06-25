@@ -128,7 +128,7 @@
 
     <abstract>
       <t>Digital signatures are used to sign messages, X.509 
-	  certificates and CRLs (Certificate Revocation Lists). This 
+	  certificates and CRLs. This 
 	  document describes the conventions for using the SHAKE function 
 	  family in Internet X.509 certificates and CRLs as one-way hash 
 	  functions with the RSA Probabilistic signature and 
@@ -142,6 +142,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-pkix-shake-12:
+		  <list> 
+		  <t>Nits identified by Roman, Eric V. Ben K., Barry L. in ballot position review.</t>
+	    </list></t>	  
 	    <t>draft-ietf-lamps-pkix-shake-11:
 		  <list> 
 		  <t>Nits identified by Roman in AD Review.</t>
@@ -217,7 +221,7 @@
       <t>This document describes cryptographic algorithm identifiers 
 	  for several cryptographic algorithms that use variable length output 
 	  SHAKE functions introduced in <xref target="SHA3"/> which can be used 
-	  with the Internet X.509 Certificate and CRL profile <xref target="RFC5280"/>. </t>
+	  with the Internet X.509 Certificate and Certificate Revocation Lists (CRL) profile <xref target="RFC5280"/>. </t>
 	  
       <t>In the SHA-3 family, two extendable-output functions (SHAKEs),  
 	  SHAKE128 and SHAKE256, are defined. Four other hash function instances, SHA3-224, SHA3-256, 
