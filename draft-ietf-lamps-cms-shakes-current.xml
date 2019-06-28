@@ -74,7 +74,7 @@
       <workgroup>LAMPS WG</workgroup>
 	  
 	  <abstract>
-	    <t>This document describes the conventions for using the SHAKE family of 
+	    <t>This document updates <xref target="RFC3370"/> and describes the conventions for using the SHAKE family of 
 		hash functions with the Cryptographic Message Syntax (CMS) as one-way hash 
 	    functions with the RSA Probabilistic signature and ECDSA signature algorithms, 
 	    as message digests and message authentication codes. The conventions for the 
@@ -87,6 +87,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-12:
+		  <list> 
+		  <t>Nits identified by Roman, Barry L. in ballot position review.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-11:
 		  <list> 
 		  <t>Minor nits.</t>
@@ -390,7 +394,7 @@ Note: x and y will be specified by NIST.
 		  length ceil((n-1)/8), where n is the RSA modulus in bits. hLen is 32 and 
 		  64-bytes for id-RSASSA-PSS-SHAKE128 and id-RSASSA-PSS-SHAKE256, respectively. 
 		  Thus when SHAKE is used as the MGF, the SHAKE output length maskLen is 
-		  (n - 264) or (n - 520) bits, respectively. For example, when RSA modulus n is 2048, 
+		  (8*emLen - 264) or (8*emLen - 520) bits, respectively. For example, when RSA modulus n is 2048, 
 		  the output length of SHAKE128 or SHAKE256 as the MGF will be 1784 or 1528-bits 
 		  when id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used, respectively.</t>
 		  
@@ -811,14 +815,14 @@ Note: x and y will be specified by NIST.
       -- used in RSASSA-PSS MUST be SHAKE128 or SHAKE256 with a 32 or
       -- 64 byte outout length, respectively. The mask generation 
       -- function MUST be SHAKE128 or SHAKE256 with an output length
-      -- of (n - 264) or (n - 520) bits, respectively, where n
-      -- is the RSA modulus in bits. The RSASSA-PSS saltLength MUST
-      -- be 32 or 64 bytes, respectively. The trailerField MUST be 1, 
-	  -- which represents the trailer field with hexadecimal value 
-	  -- 0xBC. Regardless of id-RSASSA-PSS-* or rsaEncryption being 
-	  -- used as the AlgorithmIdentifier of the OriginatorPublicKey, 
-	  -- the RSA public key MUST be encoded using the RSAPublicKey 
-	  -- type.
+      -- of (8*ceil((n-1)/8) - 264) or (8*ceil((n-1)/8) - 520) bits, 
+      -- respectively, where n is the RSA modulus in bits. 
+      -- The RSASSA-PSS saltLength MUST be 32 or 64 bytes, respectively. 
+      -- The trailerField MUST be 1, which represents the trailer 
+      -- field with hexadecimal value 0xBC. Regardless of 
+      -- id-RSASSA-PSS-* or rsaEncryption being used as the 
+      -- AlgorithmIdentifier of the OriginatorPublicKey, the RSA 
+      -- public key MUST be encoded using the RSAPublicKey type.
 
    -- From RFC4055, for reference.
    -- RSAPublicKey ::= SEQUENCE {
