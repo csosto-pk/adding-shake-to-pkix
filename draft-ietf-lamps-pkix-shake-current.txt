@@ -6,12 +6,12 @@ LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Updates: 3279 (if approved)                                      Q. Dang
 Intended status: Standards Track                                    NIST
-Expires: January 1, 2020                                   June 30, 2019
+Expires: January 6, 2020                                    July 5, 2019
 
 
      Internet X.509 Public Key Infrastructure: Additional Algorithm
            Identifiers for RSASSA-PSS and ECDSA using SHAKEs
-                     draft-ietf-lamps-pkix-shake-12
+                     draft-ietf-lamps-pkix-shake-13
 
 Abstract
 
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 1, 2020.
+   This Internet-Draft will expire on January 6, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kampanakis & Dang        Expires January 1, 2020                [Page 1]
+Kampanakis & Dang        Expires January 6, 2020                [Page 1]
 
-Internet-Draft         SHAKE identifiers in X.509              June 2019
+Internet-Draft         SHAKE identifiers in X.509              July 2019
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -86,6 +86,11 @@ Table of Contents
 
    [ EDNOTE: Remove this section before publication. ]
 
+   o  draft-ietf-lamps-pkix-shake-13:
+
+      *  Addressing one applicable comment from Dan M. about sec levels
+         while in secdir review of draft-ietf-lamps-cms-shakes.
+
    o  draft-ietf-lamps-pkix-shake-12:
 
       *  Nits identified by Roman, Eric V.  Ben K., Barry L. in ballot
@@ -102,17 +107,16 @@ Table of Contents
 
    o  draft-ietf-lamps-pkix-shake-09:
 
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 2]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
       *  Fixed minor text nits.
 
       *  Added text name allocation for SHAKEs in IANA considerations.
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 2]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
 
       *  Updates in Sec Considerations section.
 
@@ -158,17 +162,17 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
       *  Updates based on suggestions and clarifications by Jim.
 
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 3]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
       *  Added ASN.1.
 
    o  draft-ietf-lamps-pkix-shake-02:
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 3]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
 
       *  Significant reorganization of the sections to simplify the
          introduction, the new OIDs and their use in PKIX.
@@ -214,18 +218,18 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    In the SHA-3 family, two extendable-output functions (SHAKEs),
    SHAKE128 and SHAKE256, are defined.  Four other hash function
    instances, SHA3-224, SHA3-256, SHA3-384, and SHA3-512, are also
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 4]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
    defined but are out of scope for this document.  A SHAKE is a
    variable length hash function defined as SHAKE(M, d) where the output
    is a d-bits-long digest of message M.  The corresponding collision
    and second-preimage-resistance strengths for SHAKE128 are
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 4]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
    min(d/2,128) and min(d,128) bits, respectively (Appendix A.1 [SHA3]).
    And the corresponding collision and second-preimage-resistance
    strengths for SHAKE256 are min(d/2,256) and min(d,256) bits,
@@ -273,13 +277,9 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 5]
+Kampanakis & Dang        Expires January 6, 2020                [Page 5]
 
-Internet-Draft         SHAKE identifiers in X.509              June 2019
+Internet-Draft         SHAKE identifiers in X.509              July 2019
 
 
      id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { iso(1)
@@ -333,9 +333,9 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
 
 
-Kampanakis & Dang        Expires January 1, 2020                [Page 6]
+Kampanakis & Dang        Expires January 6, 2020                [Page 6]
 
-Internet-Draft         SHAKE identifiers in X.509              June 2019
+Internet-Draft         SHAKE identifiers in X.509              July 2019
 
 
    Encoding rules for RSASSA-PSS and ECDSA signature values are
@@ -343,10 +343,7 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
 
    When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus and ECDSA
    curve order SHOULD be chosen in line with the SHAKE output length.
-   In the context of this document SHAKE128 OIDs are RECOMMENDED for
-   2048 or 3072-bit RSA modulus or curves with group order of 256-bits.
-   SHAKE256 OIDs are RECOMMENDED for 4096-bit RSA modulus and higher or
-   curves with group order of 384-bits and higher.
+   Refer to Section 7 for more details.
 
 5.1.1.  RSASSA-PSS Signatures
 
@@ -386,16 +383,17 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    when id-RSASSA-PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256 is used,
    respectively.
 
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 7]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
    The RSASSA-PSS saltLength MUST be 32 bytes for id-RSASSA-PSS-SHAKE128
    or 64 bytes for id-RSASSA-PSS-SHAKE256.  Finally, the trailerField
+
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 7]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
    MUST be 1, which represents the trailer field with hexadecimal value
    0xBC [RFC8017].
 
@@ -442,16 +440,16 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    owner does not wish to limit the use of the public key exclusively to
    RSASSA-PSS with SHAKEs.  When the RSA private key owner wishes to
    limit the use of the public key exclusively to RSASSA-PSS with
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 8]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
    SHAKEs, the AlgorithmIdentifiers for RSASSA-PSS defined in Section 4
    SHOULD be used as the algorithm field in the SubjectPublicKeyInfo
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 8]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
    sequence [RFC5280].  Conforming client implementations that process
    RSASSA-PSS with SHAKE public keys when processing certificates and
    CRLs MUST recognize the corresponding OIDs.
@@ -493,25 +491,20 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
    Registry [Hash-Texts] with two additional entries for SHAKE128 and
    SHAKE256:
 
-
-
-
-
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 9]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
    +--------------------+-------------------------+--------------------+
    | Hash Function Name |           OID           |     Reference      |
    +--------------------+-------------------------+--------------------+
    |      shake128      | 2.16.840.1.101.3.4.2.11 | [EDNOTE: THIS RFC] |
    |      shake256      | 2.16.840.1.101.3.4.2.12 | [EDNOTE: THIS RFC] |
    +--------------------+-------------------------+--------------------+
+
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 9]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
 
 7.  Security Considerations
 
@@ -554,19 +547,20 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
               DOI 10.17487/RFC4055, June 2005,
               <https://www.rfc-editor.org/info/rfc4055>.
 
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 10]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
+
+
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 10]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
 
    [RFC5480]  Turner, S., Brown, D., Yiu, K., Housley, R., and T. Polk,
               "Elliptic Curve Cryptography Subject Public Key
@@ -609,19 +603,20 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
               Elliptic Curve Cryptography", May 2009,
               <http://www.secg.org/sec1-v2.pdf>.
 
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 11]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
    [SMI-PKIX]
               IANA, "SMI Security for PKIX Algorithms", March 2019,
               <https://www.iana.org/assignments/smi-numbers/
               smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6>.
+
+
+
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 11]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
 
    [SP800-107]
               National Institute of Standards and Technology (NIST),
@@ -667,17 +662,18 @@ Appendix A.  ASN.1 module
         mechanisms(5) pkix(7) id-mod(0)
         id-mod-algorithmInformation-02(58) }
 
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 12]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
     -- FROM [RFC5912]
 
     RSAPublicKey, rsaEncryption, pk-rsa, pk-ec,
     CURVE, id-ecPublicKey, ECPoint, ECParameters, ECDSA-Sig-Value
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 12]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
     FROM PKIXAlgs-2009 { iso(1) identified-organization(3) dod(6)
          internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
          id-mod-pkix1-algorithms2008-02(56) }
@@ -722,18 +718,18 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
       -- This expands PublicKeys from [RFC5912]
       pk-rsaSSA-PSS-SHAKE128 |
       pk-rsaSSA-PSS-SHAKE256,
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 13]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
       ...
     }
 
     -- The hashAlgorithm is mda-shake128
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 13]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
     -- The maskGenAlgorithm is id-shake128
     -- Mask Gen Algorithm is SHAKE128 with output length
     -- (8*ceil((n-1)/8) - 264) bits, where n is the RSA
@@ -778,18 +774,18 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
     --
     -- SMIME Capabilities (sa-)
     --
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 14]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
     SMimeCaps SMIME-CAPS ::= {
       -- The expands SMimeCaps from [RFC5912]
       sa-rsassapssWithSHAKE128.&smimeCaps |
       sa-rsassapssWithSHAKE256.&smimeCaps |
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 14]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
       sa-ecdsaWithSHAKE128.&smimeCaps |
       sa-ecdsaWithSHAKE256.&smimeCaps,
       ...
@@ -834,18 +830,18 @@ Internet-Draft         SHAKE identifiers in X.509              June 2019
             TBD2 }
 
     -- ECDSA with SHAKE128
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 15]
-
-Internet-Draft         SHAKE identifiers in X.509              June 2019
-
-
     sa-ecdsaWithSHAKE128 SIGNATURE-ALGORITHM ::= {
       IDENTIFIER id-ecdsa-with-shake128
       VALUE ECDSA-Sig-Value
       PARAMS ARE absent
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 15]
+
+Internet-Draft         SHAKE identifiers in X.509              July 2019
+
+
       HASHES { mda-shake128 }
       PUBLIC-KEYS { pk-ec }
       SMIME-CAPS { IDENTIFIED BY id-ecdsa-with-shake128 }
@@ -893,4 +889,8 @@ Authors' Addresses
 
 
 
-Kampanakis & Dang        Expires January 1, 2020               [Page 16]
+
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 16]

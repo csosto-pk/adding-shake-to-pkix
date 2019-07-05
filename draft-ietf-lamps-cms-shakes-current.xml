@@ -43,7 +43,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-cms-shakes-12" ipr="trust200902" updates="3370">
+<rfc category="std" docName="draft-ietf-lamps-cms-shakes-13" ipr="trust200902" updates="3370">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -87,6 +87,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-13:
+		  <list> 
+		  <t>Addressing comments from Dan M.'s secdir review .</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-12:
 		  <list> 
 		  <t>Nits identified by Roman, Barry L. in ballot position review.</t>
@@ -177,7 +181,8 @@
 	output is a d-bits-long digest of message M. The corresponding collision and  second-preimage-resistance strengths for SHAKE128 are min(d/2,128) and min(d,128) bits, 
 	respectively (Appendix A.1 <xref target="SHA3"/>). And the 
 	corresponding collision and second-preimage-resistance 
-	strengths for SHAKE256 are min(d/2,256) and min(d,256) bits, respectively.</t>
+	strengths for SHAKE256 are min(d/2,256) and min(d,256) bits, respectively. 
+	In this specification we use d=256 (for SHAKE128) and d=512 (for SHAKE256).</t>
 
 	<t>A SHAKE can be used in CMS as the message digest function (to hash the 
     message to be signed) in RSASSA-PSS and ECDSA, message 
@@ -334,9 +339,7 @@ Note: x and y will be specified by NIST.
 	    <t>The id-shake128 and id-shake256 OIDs (<xref target="oids"/>) can 
 		be used as the digest algorithm identifiers located in the SignedData, 
 		SignerInfo, DigestedData,  and the AuthenticatedData digestAlgorithm fields 
-		in CMS <xref target="RFC5652"/>. The encoding MUST omit the parameters field 
-		and the output size, d, for the SHAKE128 or SHAKE256 message digest MUST be 
-		256 or 512 bits, respectively.</t>
+		in CMS <xref target="RFC5652"/>. The OID encoding MUST omit the parameters field and the output length of SHA256 or SHAKE256 as the message digest MUST be 256 or 512 bits, respectively.</t>
 	    
 	    <t>The digest values are located in the DigestedData field and the Message 
 	    Digest authenticated attribute included in the signedAttributes of the 
@@ -355,13 +358,8 @@ Note: x and y will be specified by NIST.
 		ECDSA with SHAKE signatures when processing CMS data MUST recognize the 
 		corresponding OIDs specified in <xref target="oids"/>.</t>
 		
-	    <t>When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus and ECDSA 
-		curve order SHOULD be chosen in line with the SHAKE output length. 
-		In the context of this document 
-	    SHAKE128 OIDs are RECOMMENDED for 2048 or 3072-bit RSA modulus or 
-		curves with group order of 256-bits. SHAKE256 OIDs are RECOMMENDED for 
-		4096-bit RSA modulus and higher or curves with group order of 384-bits 
-		and higher.</t>
+	    <t>When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus or ECDSA 
+		curve order SHOULD be chosen in line with the SHAKE output length. Refer to <xref target="sec_cons"/> for more details.</t>
 		     	    
 	    <section title="RSASSA-PSS Signatures" anchor="rsa-sigs"> 
 	      <t>The RSASSA-PSS algorithm is defined in <xref target="RFC8017"/>.
@@ -414,8 +412,8 @@ Note: x and y will be specified by NIST.
 		  id-ecdsa-with-shake256.</t> 
 		  
 		  <t>For simplicity and compliance with the ECDSA standard specification, 
-		  the output size of the hash function must be explicitly determined. 
-		  The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be 256 
+		  the output length of the hash function must be explicitly determined. 
+		  The output length for SHAKE128 or SHAKE256 used in ECDSA MUST be 256 
 		  or 512 bits, respectively. </t> 
 		  
 		  <t>Conforming CA implementations that generate ECDSA with SHAKE signatures 
@@ -537,7 +535,7 @@ Note: x and y will be specified by NIST.
 		
     </section>
       
-	<section title="Security Considerations">
+	<section title="Security Considerations" anchor="sec_cons">
       
 	  <t>This document updates <xref target="RFC3370"/>. The security considerations
       section of that document applies to this specification as well.</t>
@@ -560,6 +558,8 @@ Note: x and y will be specified by NIST.
       <xref target="SP800-78-4"/> and <xref target="SP800-107"/>. 
       These documents can be used as guides to choose appropriate key sizes 
       for various security scenarios. </t>
+	  
+	  <t>SHAKE128 with output length of 256-bits offers 128-bits of collision and 256-bits of preimage resistance. Thus, SHAKE128 OIDs in this specification are RECOMMENDED with 2048 (112-bit security) or 3072-bit (128-bit security) RSA modulus or curves with group order of 256-bits (128-bit security). SHAKE256 with 512-bits output length offers 256-bits of collision and 512-bits of preimage resistance. Thus, the SHAKE256 OIDs in this specification are RECOMMENDED with 4096-bit RSA modulus or higher or curves with group order of 384-bits (256-bit security) or higher. Note that we recommended 4096-bit RSA because we would need 15360-bit modulus for 256-bits of security which is impractical for today's technology.</t>
 	  
 	  <t>When more than two parties share the same message-authentication key,
       data origin authentication is not provided. Any party that knows the

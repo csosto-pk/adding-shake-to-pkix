@@ -6,12 +6,12 @@ LAMPS WG                                                   P. Kampanakis
 Internet-Draft                                             Cisco Systems
 Updates: 3370 (if approved)                                      Q. Dang
 Intended status: Standards Track                                    NIST
-Expires: January 1, 2020                                   June 30, 2019
+Expires: January 6, 2020                                    July 5, 2019
 
 
   Use of the SHAKE One-way Hash Functions in the Cryptographic Message
                               Syntax (CMS)
-                     draft-ietf-lamps-cms-shakes-12
+                     draft-ietf-lamps-cms-shakes-13
 
 Abstract
 
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 1, 2020.
+   This Internet-Draft will expire on January 6, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kampanakis & Dang        Expires January 1, 2020                [Page 1]
+Kampanakis & Dang        Expires January 6, 2020                [Page 1]
 
-Internet-Draft                SHAKEs in CMS                    June 2019
+Internet-Draft                SHAKEs in CMS                    July 2019
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -77,7 +77,7 @@ Table of Contents
      4.4.  Message Authentication Codes  . . . . . . . . . . . . . .   9
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  12
@@ -87,6 +87,10 @@ Table of Contents
 1.  Change Log
 
    [ EDNOTE: Remove this section before publication. ]
+
+   o  draft-ietf-lamps-cms-shake-13:
+
+      *  Addressing comments from Dan M.'s secdir review .
 
    o  draft-ietf-lamps-cms-shake-12:
 
@@ -103,16 +107,16 @@ Table of Contents
       *  Updated IANA considerations section to request for OID
          assignments.
 
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 2]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    o  draft-ietf-lamps-cms-shake-09:
 
       *  Fixed minor text nit.
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 2]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
 
       *  Updates in Sec Considerations section.
 
@@ -159,16 +163,15 @@ Internet-Draft                SHAKEs in CMS                    June 2019
       *  Removed paragraph from Security Considerations that talks about
          randomness of k because we are using deterministic ECDSA.
 
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 3]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
       *  Completed ASN.1 module and fixed KMAC ASN.1 based on Jim's
          feedback.
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 3]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
 
       *  Text fixes.
 
@@ -215,21 +218,22 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    SHAKE128 and SHAKE256, are defined.  Four other hash function
    instances, SHA3-224, SHA3-256, SHA3-384, and SHA3-512, are also
    defined but are out of scope for this document.  A SHAKE is a
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 4]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    variable length hash function defined as SHAKE(M, d) where the output
    is a d-bits-long digest of message M.  The corresponding collision
    and second-preimage-resistance strengths for SHAKE128 are
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 4]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
    min(d/2,128) and min(d,128) bits, respectively (Appendix A.1 [SHA3]).
    And the corresponding collision and second-preimage-resistance
    strengths for SHAKE256 are min(d/2,256) and min(d,256) bits,
-   respectively.
+   respectively.  In this specification we use d=256 (for SHAKE128) and
+   d=512 (for SHAKE256).
 
    A SHAKE can be used in CMS as the message digest function (to hash
    the message to be signed) in RSASSA-PSS and ECDSA, message
@@ -273,13 +277,9 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 5]
+Kampanakis & Dang        Expires January 6, 2020                [Page 5]
 
-Internet-Draft                SHAKEs in CMS                    June 2019
+Internet-Draft                SHAKEs in CMS                    July 2019
 
 
      id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { iso(1)
@@ -333,9 +333,9 @@ Internet-Draft                SHAKEs in CMS                    June 2019
 
 
 
-Kampanakis & Dang        Expires January 1, 2020                [Page 6]
+Kampanakis & Dang        Expires January 6, 2020                [Page 6]
 
-Internet-Draft                SHAKEs in CMS                    June 2019
+Internet-Draft                SHAKEs in CMS                    July 2019
 
 
    Section 4.1, Section 4.2.1, Section 4.2.2 and Section 4.4 specify the
@@ -349,9 +349,9 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    The id-shake128 and id-shake256 OIDs (Section 3) can be used as the
    digest algorithm identifiers located in the SignedData, SignerInfo,
    DigestedData, and the AuthenticatedData digestAlgorithm fields in CMS
-   [RFC5652].  The encoding MUST omit the parameters field and the
-   output size, d, for the SHAKE128 or SHAKE256 message digest MUST be
-   256 or 512 bits, respectively.
+   [RFC5652].  The OID encoding MUST omit the parameters field and the
+   output length of SHA256 or SHAKE256 as the message digest MUST be 256
+   or 512 bits, respectively.
 
    The digest values are located in the DigestedData field and the
    Message Digest authenticated attribute included in the
@@ -371,12 +371,9 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    SHAKE signatures when processing CMS data MUST recognize the
    corresponding OIDs specified in Section 3.
 
-   When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus and ECDSA
+   When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus or ECDSA
    curve order SHOULD be chosen in line with the SHAKE output length.
-   In the context of this document SHAKE128 OIDs are RECOMMENDED for
-   2048 or 3072-bit RSA modulus or curves with group order of 256-bits.
-   SHAKE256 OIDs are RECOMMENDED for 4096-bit RSA modulus and higher or
-   curves with group order of 384-bits and higher.
+   Refer to Section 6 for more details.
 
 4.2.1.  RSASSA-PSS Signatures
 
@@ -386,17 +383,16 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    AlgorithmIdentifier SHALL be a SEQUENCE of one component, id-RSASSA-
    PSS-SHAKE128 or id-RSASSA-PSS-SHAKE256.  [RFC4055] defines RSASSA-
    PSS-params that are used to define the algorithms and inputs to the
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 7]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
    algorithm.  This specification does not use parameters because the
    hash, mask generation algorithm, trailer and salt are embedded in the
    OID definition.
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 7]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
 
    The hash algorithm to hash a message being signed and the hash
    algorithm as the mask generation function used in RSASSA-PSS MUST be
@@ -440,21 +436,20 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    ecdsa-with-shake256.
 
    For simplicity and compliance with the ECDSA standard specification,
-   the output size of the hash function must be explicitly determined.
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 8]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
-   The output size, d, for SHAKE128 or SHAKE256 used in ECDSA MUST be
-   256 or 512 bits, respectively.
+   the output length of the hash function must be explicitly determined.
+   The output length for SHAKE128 or SHAKE256 used in ECDSA MUST be 256
+   or 512 bits, respectively.
 
    Conforming CA implementations that generate ECDSA with SHAKE
    signatures in certificates or CRLs SHOULD generate such signatures
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 8]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    with a deterministically generated, non-random k in accordance with
    all the requirements specified in [RFC6979].  They MAY also generate
    such signatures in accordance with all other recommendations in
@@ -498,19 +493,18 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    AuthenticatedData macAlgorithm field.  The KMAC values are located in
    the AuthenticatedData mac field.
 
-
-
-
-Kampanakis & Dang        Expires January 1, 2020                [Page 9]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
    When the id-KmacWithSHAKE128 or id-KmacWithSHAKE256 OID is used as
    the MAC algorithm identifier, the parameters field is optional
    (absent or present).  If absent, the SHAKE256 output length used in
    KMAC is 256 or 512 bits, respectively, and the customization string
    is an empty string by default.
+
+
+
+Kampanakis & Dang        Expires January 6, 2020                [Page 9]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
 
    Conforming implementations that process KMACs with the SHAKEs when
    processing CMS data MUST recognize these identifiers.
@@ -543,24 +537,36 @@ Internet-Draft                SHAKEs in CMS                    June 2019
    documents can be used as guides to choose appropriate key sizes for
    various security scenarios.
 
+   SHAKE128 with output length of 256-bits offers 128-bits of collision
+   and 256-bits of preimage resistance.  Thus, SHAKE128 OIDs in this
+   specification are RECOMMENDED with 2048 (112-bit security) or
+   3072-bit (128-bit security) RSA modulus or curves with group order of
+   256-bits (128-bit security).  SHAKE256 with 512-bits output length
+   offers 256-bits of collision and 512-bits of preimage resistance.
+   Thus, the SHAKE256 OIDs in this specification are RECOMMENDED with
+   4096-bit RSA modulus or higher or curves with group order of 384-bits
+   (256-bit security) or higher.  Note that we recommended 4096-bit RSA
+   because we would need 15360-bit modulus for 256-bits of security
+   which is impractical for today's technology.
+
    When more than two parties share the same message-authentication key,
    data origin authentication is not provided.  Any party that knows the
    message-authentication key can compute a valid MAC, therefore the
    content could originate from any one of the parties.
+
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 10]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
 
 7.  Acknowledgements
 
    This document is based on Russ Housley's draft
    [I-D.housley-lamps-cms-sha3-hash].  It replaces SHA3 hash functions
    by SHAKE128 and SHAKE256 as the LAMPS WG agreed.
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 10]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
 
    The authors would like to thank Russ Housley for his guidance and
    very valuable contributions with the ASN.1 module.  Valuable feedback
@@ -604,19 +610,18 @@ Internet-Draft                SHAKEs in CMS                    June 2019
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 11]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    [SHA3]     National Institute of Standards and Technology, U.S.
               Department of Commerce, "SHA-3 Standard - Permutation-
               Based Hash and Extendable-Output Functions", FIPS PUB 202,
               August 2015.
-
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 11]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
 
    [SP800-185]
               National Institute of Standards and Technology, "SHA-3
@@ -636,7 +641,7 @@ Internet-Draft                SHAKEs in CMS                    June 2019
               Kampanakis, P. and Q. Dang, "Internet X.509 Public Key
               Infrastructure: Additional Algorithm Identifiers for
               RSASSA-PSS and ECDSA using SHAKEs", draft-ietf-lamps-pkix-
-              shake-11 (work in progress), June 2019.
+              shake-12 (work in progress), June 2019.
 
    [RFC3279]  Bassham, L., Polk, W., and R. Housley, "Algorithms and
               Identifiers for the Internet X.509 Public Key
@@ -660,19 +665,19 @@ Internet-Draft                SHAKEs in CMS                    June 2019
               DOI 10.17487/RFC6268, July 2011,
               <https://www.rfc-editor.org/info/rfc6268>.
 
+
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 12]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    [RFC6979]  Pornin, T., "Deterministic Usage of the Digital Signature
               Algorithm (DSA) and Elliptic Curve Digital Signature
               Algorithm (ECDSA)", RFC 6979, DOI 10.17487/RFC6979, August
               2013, <https://www.rfc-editor.org/info/rfc6979>.
-
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 12]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
 
    [SEC1]     Standards for Efficient Cryptography Group, "SEC 1:
               Elliptic Curve Cryptography", May 2009,
@@ -718,18 +723,17 @@ Appendix A.  ASN.1 Module
 
    -- EXPORTS ALL;
 
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 13]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    IMPORTS
 
    DIGEST-ALGORITHM, MAC-ALGORITHM, SMIME-CAPS
    FROM AlgorithmInformation-2009
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 13]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
      { iso(1) identified-organization(3) dod(6) internet(1) security(5)
        mechanisms(5) pkix(7) id-mod(0)
        id-mod-algorithmInformation-02(58) }
@@ -774,18 +778,18 @@ Internet-Draft                SHAKEs in CMS                    June 2019
                                        hashAlgs(2) 12 }
 
    --
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 14]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    -- Public key algorithm identifiers located in the
    -- OriginatorPublicKey's algorithm attribute in CMS.
    -- And Signature identifiers used in SignerInfo
    -- signatureAlgorithm field of SignedData content
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 14]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
    -- type and countersignature attribute in CMS.
    --
    -- From RFC5280, for reference.
@@ -830,18 +834,18 @@ Internet-Draft                SHAKEs in CMS                    June 2019
             identified-organization(3) dod(6) internet(1)
             security(5) mechanisms(5) pkix(7) algorithms(6)
             TBD4 }
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 15]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
       -- When the id-ecdsa-with-shake* algorithm identifiers are
       -- used in CMS, the AlgorithmIdentifier parameters field
       -- MUST be absent and the signature algorithm should be
       -- deterministic ECDSA [RFC6979]. The message digest MUST
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 15]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
       -- be SHAKE128 or SHAKE256 with a 32 or 64 byte outout
       -- length, respectively. In both cases, the ECDSA public key,
       -- MUST be encoded using the id-ecPublicKey type.
@@ -886,18 +890,18 @@ Internet-Draft                SHAKEs in CMS                    June 2019
          IS-KEYED-MAC TRUE
          SMIME-CAPS {IDENTIFIED BY id-KMACWithSHAKE128}
    }
+
+
+
+Kampanakis & Dang        Expires January 6, 2020               [Page 16]
+
+Internet-Draft                SHAKEs in CMS                    July 2019
+
+
    id-KMACWithSHAKE128 OBJECT IDENTIFIER ::=  { joint-iso-itu-t(2)
                                 country(16) us(840) organization(1)
                                 gov(101) csor(3) nistAlgorithm(4)
                                 hashAlgs(2) 19 }
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 16]
-
-Internet-Draft                SHAKEs in CMS                    June 2019
-
-
    KMACwithSHAKE128-params ::= SEQUENCE {
      kMACOutputLength     INTEGER DEFAULT 256, -- Output length in bits
      customizationString  OCTET STRING DEFAULT ''H
@@ -945,8 +949,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Kampanakis & Dang        Expires January 1, 2020               [Page 17]
+Kampanakis & Dang        Expires January 6, 2020               [Page 17]

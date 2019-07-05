@@ -44,7 +44,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-pkix-shake-12" ipr="trust200902" updates="3279">
+<rfc category="std" docName="draft-ietf-lamps-pkix-shake-13" ipr="trust200902" updates="3279">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -143,6 +143,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-pkix-shake-13:
+		  <list> 
+		  <t>Addressing one applicable comment from Dan M. about sec levels while in secdir review of draft-ietf-lamps-cms-shakes.</t>
+	    </list></t>	  
 	    <t>draft-ietf-lamps-pkix-shake-12:
 		  <list> 
 		  <t>Nits identified by Roman, Eric V. Ben K., Barry L. in ballot position review.</t>
@@ -367,11 +371,7 @@
 		
 	    <t>When using RSASSA-PSS or ECDSA with SHAKEs, the RSA modulus and ECDSA 
 		curve order SHOULD be chosen in line with the SHAKE output length. 
-		In the context of this document 
-	    SHAKE128 OIDs are RECOMMENDED for 2048 or 3072-bit RSA modulus or 
-		curves with group order of 256-bits. SHAKE256 OIDs are RECOMMENDED for 
-		4096-bit RSA modulus and higher or curves with group order of 384-bits 
-		and higher.</t>
+		Refer to <xref target="Security"/> for more details.</t>
 		
 		<section title="RSASSA-PSS Signatures" anchor="rsa-sigs">		  
 		  <t>The RSASSA-PSS algorithm is defined in <xref target="RFC8017"/>. 
