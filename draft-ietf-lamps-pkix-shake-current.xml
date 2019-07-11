@@ -128,12 +128,14 @@
 
     <abstract>
       <t>Digital signatures are used to sign messages, X.509 
-	  certificates and CRLs. This 
-	  document updates <xref target="RFC3279"/> 
+	  certificates and CRLs. This document updates the 
+	  "Algorithms and Identifiers for the Internet 
+	  X.509 Public Key Infrastructure Certificate and 
+	  Certificate Revocation List Profile" (RFC3279)
 	  and describes the conventions for using the SHAKE function 
-	  family in Internet X.509 certificates and CRLs as one-way hash 
-	  functions with the RSA Probabilistic signature and 
-	  ECDSA signature algorithms. The conventions for the 
+	  family in Internet X.509 certificates and revocation lists 
+	  as one-way hash functions with the RSA Probabilistic signature 
+	  and ECDSA signature algorithms. The conventions for the 
 	  associated subject public keys are also described.</t>
     </abstract>
   </front>
@@ -146,6 +148,7 @@
 	    <t>draft-ietf-lamps-pkix-shake-13:
 		  <list> 
 		  <t>Addressing one applicable comment from Dan M. about sec levels while in secdir review of draft-ietf-lamps-cms-shakes.</t>
+		  <t>Addressing comment from Scott B.'s opsdir review about references in the abstract.</t>
 	    </list></t>	  
 	    <t>draft-ietf-lamps-pkix-shake-12:
 		  <list> 
@@ -223,10 +226,12 @@
     </section>
 	
     <section title="Introduction">
-      <t>This document defines cryptographic algorithm identifiers 
-	  for several cryptographic algorithms that use variable length output 
-	  SHAKE functions introduced in <xref target="SHA3"/> which can be used 
-	  with the Internet X.509 Certificate and Certificate Revocation List (CRL) profile <xref target="RFC5280"/>. </t>
+      <t><xref target="RFC3279"/> defines cryptographic algorithm 
+	  identifiers for the Internet X.509 Certificate and Certificate Revocation 
+	  Lists (CRL) profile <xref target="RFC5280"/>. This document updates RFC3279 
+	  and defines identifiers for several cryptographic algorithms that use 
+	  variable length output SHAKE functions introduced in <xref target="SHA3"/> 
+	  which can be used with . </t>
 	  
       <t>In the SHA-3 family, two extendable-output functions (SHAKEs),  
 	  SHAKE128 and SHAKE256, are defined. Four other hash function instances, SHA3-224, SHA3-256, 

@@ -74,10 +74,11 @@
       <workgroup>LAMPS WG</workgroup>
 	  
 	  <abstract>
-	    <t>This document updates <xref target="RFC3370"/> and describes the conventions for using the SHAKE family of 
-		hash functions with the Cryptographic Message Syntax (CMS) as one-way hash 
-	    functions with the RSA Probabilistic signature and ECDSA signature algorithms, 
-	    as message digests and message authentication codes. The conventions for the 
+	    <t>This document updates the “Cryptographic Message Syntax Algorithms” 
+		(RFC3370) and describes the conventions for using the SHAKE family of 
+		hash functions in the Cryptographic Message Syntax as one-way hash 
+	    functions with the RSA Probabilistic signature and ECDSA signature 
+		algorithms. The conventions for the 
 	    associated signer public keys in CMS are also described. </t>
 	  </abstract>
 	</front>
@@ -89,7 +90,8 @@
       <t><list style="symbols"> 
 	    <t>draft-ietf-lamps-cms-shake-13:
 		  <list> 
-		  <t>Addressing comments from Dan M.'s secdir review .</t>
+		  <t>Addressing comments from Dan M.'s secdir review.</t>
+		  <t>Addressing comment from Scott B.'s opsdir review about references in the abstract.</t>
 	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-12:
 		  <list> 
@@ -166,9 +168,11 @@
     </section>
 	
 	<section title="Introduction" anchor="intro">
-	<t>The Cryptographic Message Syntax (CMS) <xref target="RFC5652"/> is used to 
+	<t>The "Cryptographic Message Syntax (CMS)" <xref target="RFC5652"/> is used to 
 	digitally sign, digest, authenticate, or encrypt arbitrary message contents. 
-    This specification describes the use of the SHAKE128 and SHAKE256 
+	"Cryptographic Message Syntax (CMS) Algorithms" <xref target="RFC3370"/> 
+	defines the use of common cryptographic algorithms with CMS. This 
+	specification updates RFC3370 and describes the use of the SHAKE128 and SHAKE256 
     specified in <xref target="SHA3"/> as new hash functions in CMS. In addition, 
     it describes the use of these functions with the RSASSA-PSS signature 
 	algorithm <xref target="RFC8017"/> and the Elliptic Curve Digital Signature 
