@@ -44,7 +44,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-pkix-shake-14" ipr="trust200902" updates="3279">
+<rfc category="std" docName="draft-ietf-lamps-pkix-shake-15" ipr="trust200902" updates="3279">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -145,6 +145,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-pkix-shake-15:
+		  <list> 
+		  <t>Minor editorial nits.</t>
+	    </list></t>	
 	    <t>draft-ietf-lamps-pkix-shake-14:
 		  <list> 
 		  <t>Fixing error with incorrect preimage resistance bits for SHA128 and SHA256.</t>
@@ -621,7 +625,7 @@ id-eddsa-with-shake256 OBJECT IDENTIFIER ::= {  }
       to be readily inserted. That is, implementers should be prepared to
       regularly update the set of algorithms in their implementations.</t> -->
 	  
-	  <t>SHAKE128 with output length of 256-bits offers 128-bits of collision and preimage resistance. Thus, SHAKE128 OIDs in this specification are RECOMMENDED with 2048 (112-bit security) or 3072-bit (128-bit security) RSA modulus or curves with group order of 256-bits (128-bit security). SHAKE256 with 512-bits output length offers 256-bits of collision and preimage resistance. Thus, the SHAKE256 OIDs in this specification are RECOMMENDED with 4096-bit RSA modulus or higher or curves with group order of 521-bits (256-bit security) or higher. Note that we recommended 4096-bit RSA because we would need 15360-bit modulus for 256-bits of security which is impractical for today's technology.</t>
+	  <t>SHAKE128 with output length of 256-bits offers 128-bits of collision and preimage resistance. Thus, SHAKE128 OIDs in this specification are RECOMMENDED with 2048 (112-bit security) or 3072-bit (128-bit security) RSA modulus or curves with group order of 256-bits (128-bit security). SHAKE256 with 512-bits output length offers 256-bits of collision and preimage resistance. Thus, the SHAKE256 OIDs in this specification are RECOMMENDED with 4096-bit RSA modulus or higher or curves with group order of at least 521-bits (256-bit security). Note that we recommended 4096-bit RSA because we would need 15360-bit modulus for 256-bits of security which is impractical for today's technology.</t>
 	  
     </section>
 
