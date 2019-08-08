@@ -271,7 +271,7 @@
 	 [ EDNOTE: Update reference with the RFC when it is published. ] 
 	 defines two identifiers for RSASSA-PSS signatures using SHAKEs which we include here for 
 	 convenience.
-	 [ EDNOTE: Update the TBD1-2 reference when the RFC is published. ]</t>
+	 [ EDNOTE: Update the TBD1-2 reference when the RFC (ietf-lamps-pkix-shake) is published. ]</t>
 	 <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
@@ -292,7 +292,7 @@
 	 also defines two algorithm 
 	 identifiers of ECDSA signatures using SHAKEs which we include here for 
 	 convenience.
-	 [ EDNOTE: Update the TBD3-4 reference when the RFC is published. ]</t> 
+	 [ EDNOTE: Update the TBD3-4 reference when the RFC (ietf-lamps-pkix-shake) is published. ]</t> 
 	 <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
