@@ -775,7 +775,16 @@ Note: x and y will be specified by NIST.
    RSAPublicKey, rsaEncryption, id-ecPublicKey
    FROM PKIXAlgs-2009 { iso(1) identified-organization(3) dod(6)
         internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
-        id-mod-pkix1-algorithms2008-02(56) } ;
+        id-mod-pkix1-algorithms2008-02(56) } 
+
+   sa-rsassapssWithSHAKE128, sa-rsassapssWithSHAKE256, 
+      sa-ecdsaWithSHAKE128, sa-ecdsaWithSHAKE256 
+   FROM PKIXAlgsForSHAKE-2019 { 
+      iso(1) identified-organization(3) dod(6)
+      internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+      id-mod-pkix1-shakes-2019(TBD) }
+      [ EDNOTE: Update the ASN.1 module TBD when the 
+        PKIX-SHAKEs RFC is published ] 
 
    --
    -- Message Digest Algorithms (mda-)
@@ -879,6 +888,17 @@ Note: x and y will be specified by NIST.
    --     -- -- specifiedCurve  SpecifiedECDomain
    --  }
 
+   -- Signature Algorithms Imported from [I-D.ietf-lamps-pkix-shake]
+      [ EDNOTE: Update with the RFC when the PKIX-SHAKEs is published. ] 
+   -- SignatureAlgs SIGNATURE-ALGORITHM ::= {
+   --   -- This expands SignatureAlgorithms from [RFC5912]
+   --   sa-rsassapssWithSHAKE128 |
+   --   sa-rsassapssWithSHAKE256 |
+   --   sa-ecdsaWithSHAKE128 |
+   --   sa-ecdsaWithSHAKE256,
+   --   ...
+   -- }
+
    --
    -- Message Authentication (maca-) Algorithms
    -- used in AuthenticatedData macAlgorithm in CMS
@@ -891,7 +911,14 @@ Note: x and y will be specified by NIST.
    }
 
    SMimeCaps SMIME-CAPS ::= {
-       -- The expands SMimeCaps from [RFC5911]
+      -- The expands SMimeCaps from [RFC5911]
+      -- sa- SHAKEs imported from [I-D.ietf-lamps-pkix-shake]
+      [ EDNOTE: Update reference with the PKIX-SHAKEs RFC 
+        when it is published. ] 
+      -- sa-rsassapssWithSHAKE128.&smimeCaps |
+      -- sa-rsassapssWithSHAKE256.&smimeCaps |
+      -- sa-ecdsaWithSHAKE128.&smimeCaps |
+      -- sa-ecdsaWithSHAKE256.&smimeCaps,
       maca-KMACwithSHAKE128.&smimeCaps   |
       maca-KMACwithSHAKE256.&smimeCaps,
       ...
