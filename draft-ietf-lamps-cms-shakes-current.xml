@@ -778,7 +778,9 @@ Note: x and y will be specified by NIST.
         id-mod-pkix1-algorithms2008-02(56) } 
 
    sa-rsassapssWithSHAKE128, sa-rsassapssWithSHAKE256, 
-      sa-ecdsaWithSHAKE128, sa-ecdsaWithSHAKE256 
+      sa-ecdsaWithSHAKE128, sa-ecdsaWithSHAKE256, 
+      id-RSASSA-PSS-SHAKE128, id-RSASSA-PSS-SHAKE256, 
+      id-ecdsa-with-shake128, id-ecdsa-with-shake256
    FROM PKIXAlgsForSHAKE-2019 { 
       iso(1) identified-organization(3) dod(6)
       internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
@@ -786,19 +788,21 @@ Note: x and y will be specified by NIST.
       [ EDNOTE: Update the ASN.1 module TBD when the 
         PKIX-SHAKEs RFC is published ] 
 
+   -- Message Digest Algorithms Imported from [ietf-lamps-pkix-shake]
+      [ EDNOTE: Update with the RFC when the PKIX-SHAKEs is published. ] 
    --
    -- Message Digest Algorithms (mda-)
    -- used in SignedData, SignerInfo, DigestedData,
    -- and the AuthenticatedData digestAlgorithm
    -- fields in CMS
    --
-   MessageDigestAlgs DIGEST-ALGORITHM ::= {
-    -- This expands MessageAuthAlgs from [RFC5652]
-    -- and MessageDigestAlgs in [RFC5753]
-    mda-shake128   |
-    mda-shake256,
-    ...
-   }
+   -- MessageDigestAlgs DIGEST-ALGORITHM ::= {
+   --  -- This expands MessageAuthAlgs from [RFC5652]
+   --  -- and MessageDigestAlgs in [RFC5753]
+   --  mda-shake128   |
+   --  mda-shake256,
+   --  ...
+   -- }
 
    --
    -- One-Way Hash Functions
