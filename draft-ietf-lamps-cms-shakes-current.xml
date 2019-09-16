@@ -778,9 +778,7 @@ Note: x and y will be specified by NIST.
         id-mod-pkix1-algorithms2008-02(56) } 
 
    sa-rsassapssWithSHAKE128, sa-rsassapssWithSHAKE256, 
-      sa-ecdsaWithSHAKE128, sa-ecdsaWithSHAKE256, 
-      id-RSASSA-PSS-SHAKE128, id-RSASSA-PSS-SHAKE256, 
-      id-ecdsa-with-shake128, id-ecdsa-with-shake256
+      sa-ecdsaWithSHAKE128, sa-ecdsaWithSHAKE256
    FROM PKIXAlgsForSHAKE-2019 { 
       iso(1) identified-organization(3) dod(6)
       internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
