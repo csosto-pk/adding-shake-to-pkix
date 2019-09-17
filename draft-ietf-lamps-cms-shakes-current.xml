@@ -43,7 +43,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-lamps-cms-shakes-17" ipr="trust200902" updates="3370">
+<rfc category="std" docName="draft-ietf-lamps-cms-shakes-18" ipr="trust200902" updates="3370">
   <!-- category values: std, bcp, info, exp, and historic
      ipr="full3978" (probably old)
      ipr values: full3667, noModification3667, noDerivatives3667
@@ -88,6 +88,10 @@
     <section title="Change Log">
 	  <t>[ EDNOTE: Remove this section before publication. ]</t>
       <t><list style="symbols"> 
+	    <t>draft-ietf-lamps-cms-shake-18:
+		  <list> 
+		  <t>Minor ASN.1 changes.</t>
+	    </list></t>
 	    <t>draft-ietf-lamps-cms-shake-17:
 		  <list> 
 		  <t>Minor updates for EDNOTE accuracy.</t>
@@ -270,22 +274,19 @@
 	  <!-- "MUST employ syntax borrowed from RFC4055 -->
 	  <!-- syntax that contains an encoded positive integer value of 32 or 64 respectively.--></t>
 	 
-	 
 	 <t><xref target="I-D.ietf-lamps-pkix-shake"/> 
 	 [ EDNOTE: Update reference with the RFC when it is published. ] 
 	 defines two identifiers for RSASSA-PSS signatures using SHAKEs which we include here for 
 	 convenience.
-	 [ EDNOTE: Update the TBD1-2 reference when the RFC (ietf-lamps-pkix-shake) is published. ]</t>
+	 </t>
 	 <t><figure><artwork><![CDATA[
   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD1 }
+            security(5) mechanisms(5) pkix(7) algorithms(6) 30 }
 
   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD2 }
+            security(5) mechanisms(5) pkix(7) algorithms(6) 31 }
 ]]></artwork></figure></t>
 
 	 <t>The same RSASSA-PSS algorithm identifiers can be used for identifying 
@@ -296,17 +297,15 @@
 	 also defines two algorithm 
 	 identifiers of ECDSA signatures using SHAKEs which we include here for 
 	 convenience.
-	 [ EDNOTE: Update the TBD3-4 reference when the RFC (ietf-lamps-pkix-shake) is published. ]</t> 
+	 </t> 
 	 <t><figure><artwork><![CDATA[
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD3 }            
+            security(5) mechanisms(5) pkix(7) algorithms(6) 32 }            
 
   id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD4 }
+            security(5) mechanisms(5) pkix(7) algorithms(6) 33 }
 ]]></artwork></figure></t>
 
      <t>The parameters for the four RSASSA-PSS and ECDSA identifiers 
@@ -525,7 +524,7 @@ Note: x and y will be specified by NIST.
         <ttcol align='center'>Decimal</ttcol>
         <ttcol align='center'>Description</ttcol>
         <ttcol align='center'>References</ttcol>
-        <c>TBD</c>
+        <c>70</c>
         <c>CMSAlgsForSHAKE-2019</c>
         <c>[EDNOTE: THIS RFC]</c>
       </texttable>
@@ -541,19 +540,19 @@ Note: x and y will be specified by NIST.
   id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
             security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD1 }
+            30 }
   id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
             security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD2 }
+            31 }
   id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
             security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD3 }
+            32 }
   id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
             security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD4 }
+            33 }
 ]]></artwork></figure></t> -->
 		
     </section>
@@ -756,7 +755,7 @@ Note: x and y will be specified by NIST.
     <t><figure><artwork><![CDATA[ 
    CMSAlgsForSHAKE-2019 { iso(1) member-body(2) us(840)
         rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) modules(0)
-        id-mod-cms-shakes-2019(TBD) }
+        id-mod-cms-shakes-2019(70) }
 
    DEFINITIONS EXPLICIT TAGS ::=
 
@@ -778,25 +777,21 @@ Note: x and y will be specified by NIST.
         id-mod-pkix1-algorithms2008-02(56) } 
 
    sa-rsassapssWithSHAKE128, sa-rsassapssWithSHAKE256, 
-      sa-ecdsaWithSHAKE128, sa-ecdsaWithSHAKE256
+   sa-ecdsaWithSHAKE128, sa-ecdsaWithSHAKE256
    FROM PKIXAlgsForSHAKE-2019 { 
       iso(1) identified-organization(3) dod(6)
       internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
-      id-mod-pkix1-shakes-2019(TBD) } ;
-      [ EDNOTE: Update the ASN.1 module TBD when the 
-        PKIX-SHAKEs RFC is published ] 
+      id-mod-pkix1-shakes-2019(94) } ;
 
-   -- Message Digest Algorithms Imported from [ietf-lamps-pkix-shake]
-      [ EDNOTE: Update with the RFC when the PKIX-SHAKEs is published. ] 
-   --
    -- Message Digest Algorithms (mda-)
    -- used in SignedData, SignerInfo, DigestedData,
    -- and the AuthenticatedData digestAlgorithm
    -- fields in CMS
    --
+   --  This expands MessageAuthAlgs from [RFC5652] and
+   --  MessageDigestAlgs in [RFC5753]
+   --
    -- MessageDigestAlgs DIGEST-ALGORITHM ::= {
-   --  -- This expands MessageAuthAlgs from [RFC5652]
-   --  -- and MessageDigestAlgs in [RFC5753]
    --  mda-shake128   |
    --  mda-shake256,
    --  ...
@@ -837,12 +832,12 @@ Note: x and y will be specified by NIST.
    --
    id-RSASSA-PSS-SHAKE128  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD1 }
+            security(5) mechanisms(5) pkix(7) algorithms(6) 30 }
+
    id-RSASSA-PSS-SHAKE256  OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD2 }
+            security(5) mechanisms(5) pkix(7) algorithms(6) 31 } 
+
       -- When the id-RSASSA-PSS-* algorithm identifiers are used
       -- for a public key or signature in CMS, the AlgorithmIdentifier
       -- parameters field MUST be absent. The message digest algorithm
@@ -865,12 +860,12 @@ Note: x and y will be specified by NIST.
 
    id-ecdsa-with-shake128 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD3 } 
+            security(5) mechanisms(5) pkix(7) algorithms(6) 32 } 
+
    id-ecdsa-with-shake256 OBJECT IDENTIFIER  ::=  { iso(1) 
             identified-organization(3) dod(6) internet(1) 
-            security(5) mechanisms(5) pkix(7) algorithms(6)
-            TBD4 }
+            security(5) mechanisms(5) pkix(7) algorithms(6) 33 }
+
       -- When the id-ecdsa-with-shake* algorithm identifiers are
       -- used in CMS, the AlgorithmIdentifier parameters field
       -- MUST be absent and the signature algorithm should be 
@@ -890,10 +885,9 @@ Note: x and y will be specified by NIST.
    --     -- -- specifiedCurve  SpecifiedECDomain
    --  }
 
-   -- Signature Algorithms Imported from [I-D.ietf-lamps-pkix-shake]
-      [ EDNOTE: Update with the RFC when the PKIX-SHAKEs is published. ] 
+   -- This expands SignatureAlgorithms from [RFC5912]
+   --   
    -- SignatureAlgs SIGNATURE-ALGORITHM ::= {
-   --   -- This expands SignatureAlgorithms from [RFC5912]
    --   sa-rsassapssWithSHAKE128 |
    --   sa-rsassapssWithSHAKE256 |
    --   sa-ecdsaWithSHAKE128 |
@@ -901,22 +895,20 @@ Note: x and y will be specified by NIST.
    --   ...
    -- }
 
+   -- This expands MessageAuthAlgs from [RFC5652] and [RFC6268]
    --
    -- Message Authentication (maca-) Algorithms
    -- used in AuthenticatedData macAlgorithm in CMS
    --
    MessageAuthAlgs MAC-ALGORITHM ::= {
-       -- This expands MessageAuthAlgs from [RFC5652] and [RFC6268]
        maca-KMACwithSHAKE128   |
        maca-KMACwithSHAKE256,
        ...
    }
 
-   SMimeCaps SMIME-CAPS ::= {
-      -- The expands SMimeCaps from [RFC5911]
-      -- sa- SHAKEs imported from [I-D.ietf-lamps-pkix-shake]
-      [ EDNOTE: Update reference with the PKIX-SHAKEs RFC 
-        when it is published. ] 
+   -- This expands SMimeCaps from [RFC5911]
+   --
+   SMimeCaps SMIME-CAPS ::= { 
       -- sa-rsassapssWithSHAKE128.&smimeCaps |
       -- sa-rsassapssWithSHAKE256.&smimeCaps |
       -- sa-ecdsaWithSHAKE128.&smimeCaps |
